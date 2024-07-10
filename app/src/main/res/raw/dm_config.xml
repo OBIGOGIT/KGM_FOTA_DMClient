@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+
+	<group name="Account1">
+		<AccountName value="tsDM"/>
+		<ServerUrl value="https://kgmota-dev.obigo.com/core/syncml/ts.dm"/>
+		<ServerPort value="443"/>
+<!--		<ServerUrl value="https://60.196.127.138:8123/fotax/syncml/ts.dm"/>
+		<ServerPort value="8123"/>-->
+		<ServerId value="kgmfota"/>
+		<ServerPwd value="kgmfotax"/>
+		<ClientId value=""/>
+		<ClientPwd value=""/>
+		<ClientAuthType value="1"/>
+		<ServerAuthType value="1"/>
+		<ServerNonce value="MTIzNDU="/>
+		<ClientNonce value="MTIzNDU="/>
+		<ServerNonceFormat value="1"/>
+		<ClientNonceFormat value="1"/>
+		<NetConnName value="internet"/>
+		<ConRefActive value="0"/>
+		<NapBearer value="11"/>
+		<NapAddrType value="5"/>
+		<NapAddr value=""/>
+		<NapLoginId value=""/>
+		<NapLoginPwd value=""/>
+		<ProxyAddr value="0.0.0.0"/>
+		<ProxyPort value="80"/>
+		<ProxyAddrType value="0"/>
+		<ProxyEnable value="0"/>
+		<StaticIpEnable value="0"/>
+		<StaticIp value=""/>
+		<StaticDnsEnable value="0"/>
+		<DnsAddr1 value="0"/>
+		<DnsAddr2 value="0"/>
+		<AppId value="w7"/>
+		<ClientAuthLevel value="CLCRED"/>
+		<ServerAuthLevel value="SRVCRED"/>
+		<AppAddrX value="AppAddrX"/>
+		<PortX value="PortX"/>
+		<ServerAppAuthX value="ServerSide"/>
+		<ClientAppAuthX value="ClientSide"/>
+		<ToConRefX value="Connectivity Reference Name"/>
+	</group>
+
+	<group name="Account2">
+		<AccountName value="tsDM_dev"/>
+		<ServerUrl value="https://kgmota-dev.obigo.com/core/syncml/ts.dm"/>
+		<ServerPort value="443"/>
+		<!--		<ServerUrl value="https://60.196.127.138:8123/fotax/syncml/ts.dm"/>
+                <ServerPort value="8123"/>-->
+		<ServerId value="kgmfota"/>
+		<ServerPwd value="kgmfotax"/>
+		<ClientId value=""/>
+		<ClientPwd value=""/>
+		<ClientAuthType value="1"/>
+		<ServerAuthType value="1"/>
+		<ServerNonce value="MTIzNDU="/>
+		<ClientNonce value="MTIzNDU="/>
+		<ServerNonceFormat value="1"/>
+		<ClientNonceFormat value="1"/>
+		<NetConnName value="internet"/>
+		<ConRefActive value="0"/>
+		<NapBearer value="11"/>
+		<NapAddrType value="5"/>
+		<NapAddr value=""/>
+		<NapLoginId value=""/>
+		<NapLoginPwd value=""/>
+		<ProxyAddr value="0.0.0.0"/>
+		<ProxyPort value="80"/>
+		<ProxyAddrType value="0"/>
+		<ProxyEnable value="0"/>
+		<StaticIpEnable value="0"/>
+		<StaticIp value=""/>
+		<StaticDnsEnable value="0"/>
+		<DnsAddr1 value="0"/>
+		<DnsAddr2 value="0"/>
+		<AppId value="w7"/>
+		<ClientAuthLevel value="CLCRED"/>
+		<ServerAuthLevel value="SRVCRED"/>
+		<AppAddrX value="AppAddrX"/>
+		<PortX value="PortX"/>
+		<ServerAppAuthX value="ServerSide"/>
+		<ClientAppAuthX value="ClientSide"/>
+		<ToConRefX value="Connectivity Reference Name"/>
+	</group>
+
+	<group name="Account3">
+		<AccountName value="tsDM_local"/>
+		<ServerUrl value="https://kgmota-dev.obigo.com/core/syncml/ts.dm"/>
+		<ServerPort value="443"/>
+		<!--		<ServerUrl value="https://60.196.127.138:8123/fotax/syncml/ts.dm"/>
+                <ServerPort value="8123"/>-->
+		<ServerId value="kgmfota"/>
+		<ServerPwd value="kgmfotax"/>
+		<ClientId value=""/>
+		<ClientPwd value=""/>
+		<ClientAuthType value="1"/>
+		<ServerAuthType value="1"/>
+		<ServerNonce value="MTIzNDU="/>
+		<ClientNonce value="MTIzNDU="/>
+		<ServerNonceFormat value="1"/>
+		<ClientNonceFormat value="1"/>
+		<NetConnName value="internet"/>
+		<ConRefActive value="0"/>
+		<NapBearer value="11"/>
+		<NapAddrType value="5"/>
+		<NapAddr value=""/>
+		<NapLoginId value=""/>
+		<NapLoginPwd value=""/>
+		<ProxyAddr value="0.0.0.0"/>
+		<ProxyPort value="80"/>
+		<ProxyAddrType value="0"/>
+		<ProxyEnable value="0"/>
+		<StaticIpEnable value="0"/>
+		<StaticIp value=""/>
+		<StaticDnsEnable value="0"/>
+		<DnsAddr1 value="0"/>
+		<DnsAddr2 value="0"/>
+		<AppId value="w7"/>
+		<ClientAuthLevel value="CLCRED"/>
+		<ServerAuthLevel value="SRVCRED"/>
+		<AppAddrX value="AppAddrX"/>
+		<PortX value="PortX"/>
+		<ServerAppAuthX value="ServerSide"/>
+		<ClientAppAuthX value="ClientSide"/>
+		<ToConRefX value="Connectivity Reference Name"/>
+	</group>
+
+	<group name="Setting">
+		<Dm12Root value="./DMAcc"/>
+		<ConnectionTimeOut value="60"/>
+		<NumOfRetryConnect value="3"/>
+	</group>
+</config>
