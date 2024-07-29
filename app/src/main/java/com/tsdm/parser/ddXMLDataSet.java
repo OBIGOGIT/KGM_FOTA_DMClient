@@ -7,6 +7,7 @@ public class ddXMLDataSet
 
 	public String	crc;
 	public String	logUploadURI;
+	public String	rVersion;
 	public String	DDVersion;
 	public String	objectURI;
 	public String	type;
@@ -24,6 +25,7 @@ public class ddXMLDataSet
 		size = "";
 		crc = "";
 		logUploadURI = "";
+		rVersion = "";
 		DDVersion = "";
 		objectURI = "";
 		type = "";

@@ -7,6 +7,7 @@ public interface ddInterface
 	String	szType			= "type";
 	String	szCrc			= "crc";
 	String	szLogUploadURI 	= "logUploadURI";
+	String	szRVersion 	    = "rVersion";
 	String	szDescription	= "description";
 	String	szObjectURI		= "objectURI";
 	String	szSize			= "size";

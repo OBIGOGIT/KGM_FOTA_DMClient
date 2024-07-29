@@ -1052,6 +1052,12 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 			return TP_RET_RECEIVE_FAIL;
 		}
 
+		if (pHttpObj[appId].nHttpReturnStatusValue == 503)
+		{
+			netTimerReceive.endTimer();
+			return TP_RET_HTTP_CONNECTION_POOL;
+		}
+
 		if (pHttpObj[appId].nHttpReturnStatusValue < 200 || pHttpObj[appId].nHttpReturnStatusValue > 300)
 		{
 			netTimerReceive.endTimer();
@@ -1901,7 +1907,6 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 				}
 			}
 		}
-		header.append("\r\n");
 
 		pHttpObj[appId].nHeaderLength = header.length();
 		if (header.length() < 1024)

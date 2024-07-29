@@ -97,11 +97,17 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 	
 	public static String dlAgentGetReportStatus(int nStatus)
 	{
+		String ret = null;
 		if (nStatus >= OMA_DL_STAUS_SUCCESS && nStatus < OMA_DL_STATUS_NONE)
 		{
-			tsLib.debugPrint(DEBUG_DL, "pReportStatusValue = [" + pReportStatus[nStatus] + "]");
+			if(nStatus==OMA_DL_STAUS_SUCCESS) {
+                ret = "900"+" "+ tsService.downloadSpeed;
+            } else {
+				ret = pReportStatus[nStatus];
+			}
+			tsLib.debugPrint(DEBUG_DL, "pReportStatusValue "+ret);
 		}
-		return pReportStatus[nStatus];
+		return ret;
 	}
 
 	public static boolean dlAgentIsStatus()

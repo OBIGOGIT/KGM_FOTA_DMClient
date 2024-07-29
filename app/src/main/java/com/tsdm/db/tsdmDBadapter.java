@@ -15,21 +15,6 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 	private static final String DEFAULT_NULL_ADDRESS = "0.0.0.0";
 	private static final String DEFAULT_PORT = "8080";
 
-	private static final String DM_GPRS_APN1 = "epc.tmobile.com";
-	private static final String DM_PROXY_ADDRESS1 = "0.0.0.0";
-	private static final int 	DM_PROXY_PORT1 = 0;
-	private static final String DM_NET_PROFILE_NAME1 = "Production";
-
-	private static final String DM_GPRS_APN2 = "devopw.t-mobile.com";
-	private static final String DM_PROXY_ADDRESS2 = "0.0.0.0";
-	private static final int 	DM_PROXY_PORT2 = 0;
-	private static final String DM_NET_PROFILE_NAME2 = "OSPS-TestBed";
-
-	private static final String DM_GPRS_APN3 = "internet2.voicestream.com";
-	private static final String DM_PROXY_ADDRESS3 = "0.0.0.0";
-	private static final int 	DM_PROXY_PORT3 = 0;
-	private static final String DM_NET_PROFILE_NAME3 = "mFormation";
-
 	private static final int 	DM_FUMO_X_NODE_COUNT_COMMON = 1;
 	private static final String DM_FUMO_X_NODE_COMMON = "/FUMO-1";
 
@@ -57,63 +42,6 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			return 1;
 
 	}
-	public static void dmDBAdpInitNetProfile(Object NVMSyncMLDMInfo, int nIndex)
-	{
-		if(!_SYNCML_TS_DM_REGISTRY_PROFILE_)
-		{
-			tsdmInfo pProfileInfo = (tsdmInfo) NVMSyncMLDMInfo;
-	
-			pProfileInfo.NetworkConnName = REAL_DM_CONNECTION_NAME;
-			pProfileInfo.ConRef.Active = DM_CON_REF_ACTIVED;
-			pProfileInfo.ConRef.NAP.nBearer = 0x11;
-			pProfileInfo.ConRef.NAP.nAddrType = 0x05;
-			pProfileInfo.ConRef.tAdvSetting.bStaticIpUse = false;
-			pProfileInfo.ConRef.tAdvSetting.bStaticDnsUse = false;
-	
-			if (nIndex == 0)
-			{
-				pProfileInfo.ConRef.NAP.Addr = DM_GPRS_APN1;
-				pProfileInfo.ConRef.PX.nPortNbr = DM_PROXY_PORT1; /* GPRS Proxy Port Number */
-				pProfileInfo.ConRef.PX.nAddrType = 0x01;
-				pProfileInfo.ConRef.PX.Addr = DM_PROXY_ADDRESS1;
-				pProfileInfo.ConRef.nService = 5; /* Service Type */
-				pProfileInfo.ConRef.bProxyUse = true;
-				pProfileInfo.ConRef.NAP.NetworkProfileName = DM_NET_PROFILE_NAME1;
-	
-			}
-			else if (nIndex == 1) /* Lab */
-			{
-				pProfileInfo.ConRef.NAP.Addr = DM_GPRS_APN2;
-	
-				pProfileInfo.ConRef.PX.nPortNbr = DM_PROXY_PORT2; /* GPRS Proxy Port Number */
-				pProfileInfo.ConRef.PX.nAddrType = 0x01;
-				pProfileInfo.ConRef.PX.Addr = DM_PROXY_ADDRESS2;
-				pProfileInfo.ConRef.nService = 5; /* Service Type */
-				pProfileInfo.ConRef.bProxyUse = true;
-				pProfileInfo.ConRef.NAP.NetworkProfileName = DM_NET_PROFILE_NAME2;
-	
-			}
-			else if (nIndex == 2) /* mFormation */
-			{
-	
-				pProfileInfo.ConRef.NAP.Addr = DM_GPRS_APN3;
-				pProfileInfo.ConRef.PX.nPortNbr = DM_PROXY_PORT3; /* GPRS Proxy Port Number */
-				pProfileInfo.ConRef.PX.nAddrType = 0x01;
-				pProfileInfo.ConRef.PX.Addr = DM_PROXY_ADDRESS3;
-				pProfileInfo.ConRef.nService = 5; /* Service Type */
-				pProfileInfo.ConRef.bProxyUse = true;
-				pProfileInfo.ConRef.NAP.NetworkProfileName = DM_NET_PROFILE_NAME3;
-			}
-	
-			if (_SYNCML_TS_NONE_PROXY_)
-			{
-				pProfileInfo.ConRef.PX.Addr = DEFAULT_NULL_ADDRESS;
-				pProfileInfo.ConRef.PX.nPortNbr = Integer.valueOf(String.valueOf(DEFAULT_PORT));
-				pProfileInfo.ConRef.bProxyUse = false;
-			}
-		}
-	}
-
 	public static int dmDBAdpGetFUMOxNodenCount(String pszXnode)
 	{
 		return DM_FUMO_X_NODE_COUNT_COMMON;

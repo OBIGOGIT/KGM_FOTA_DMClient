@@ -37,7 +37,6 @@ public class dmFotaEntity implements dmDefineDevInfo, tsDefineIdle, dmDefineUIEv
 
 		if (!tsService.isNetworkConnect()) {
 			tsLib.debugPrintException(DEBUG_EXCEPTION, "Network disable");
-			tsService.tsNetworkUnready();
 			return -1;
 		}
 

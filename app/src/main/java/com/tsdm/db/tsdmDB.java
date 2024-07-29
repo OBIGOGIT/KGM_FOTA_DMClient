@@ -1125,7 +1125,6 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		nProfileIndex = (int) (nMagicNumber - DMINFOMAGIC);
 		tsLib.debugPrint("", "nProfileIndex = " + nProfileIndex);
 		NVMSyncMLDMInfo = (tsdmInfo) getFactoryBootstrapData(NVMSyncMLDMInfo, nProfileIndex);
-		tsdmDBadapter.dmDBAdpInitNetProfile(NVMSyncMLDMInfo, nProfileIndex);
 		NVMSyncMLDMInfo.MagicNumber = nMagicNumber;
 		return NVMSyncMLDMInfo;
 	}

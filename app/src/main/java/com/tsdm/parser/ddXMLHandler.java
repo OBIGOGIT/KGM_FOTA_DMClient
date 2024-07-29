@@ -11,6 +11,7 @@ public class ddXMLHandler extends DefaultHandler implements ddInterface
 	private boolean			in_type						= false;
 	private boolean			in_crc						= false;
 	private boolean			in_logUploadURI 			= false;
+	private boolean			in_rVersion     			= false;
 	private boolean			in_description				= false;
 	private boolean			in_objecturi				= false;
 	private boolean			in_size						= false;
@@ -45,6 +46,10 @@ public class ddXMLHandler extends DefaultHandler implements ddInterface
 		else if (szLogUploadURI.equals(localName))
 		{
 			this.in_logUploadURI = true;
+		}
+		else if (szRVersion.equals(localName))
+		{
+			this.in_rVersion = true;
 		}
 		else if (szDescription.equals(localName))
 		{
@@ -107,6 +112,10 @@ public class ddXMLHandler extends DefaultHandler implements ddInterface
 		{
 			this.in_logUploadURI = false;
 		}
+		else if (szRVersion.equals(localName))
+		{
+			this.in_rVersion = false;
+		}
 		else if (szDescription.equals(localName))
 		{
 			this.in_description = false;
@@ -167,6 +176,10 @@ public class ddXMLHandler extends DefaultHandler implements ddInterface
 		else if (this.in_logUploadURI)
 		{
 			DownloadDescriptorDataSet.logUploadURI += new String(ch, start, length);
+		}
+		else if (this.in_rVersion)
+		{
+			DownloadDescriptorDataSet.rVersion += new String(ch, start, length);
 		}
 		else if (this.in_description)
 		{

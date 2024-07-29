@@ -100,6 +100,11 @@ public class dlAgentHandler extends dlAgent implements dmDefineDevInfo, dmDefine
 			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_ABORT, pAbortParam, null);
 			return nRc;
 		}
+		else if (nRc == TP_RET_HTTP_CONNECTION_POOL) {
+			tsLib.debugPrint(DEBUG_DL, "TP_RET_HTTP_CONNECTION_POOL");
+			tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAIL_RETRY_CONFIRM);
+			return nRc;
+		}
 		else if (nRc == TP_RET_FILE_ERROR)
 		{
 			// for Memory space

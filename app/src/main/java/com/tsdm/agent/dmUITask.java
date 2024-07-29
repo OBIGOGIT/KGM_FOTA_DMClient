@@ -105,6 +105,7 @@ public class dmUITask implements Runnable, dmDefineMsg, dmDefineUIEvent, dmDefin
 
 			case DM_EVENT_UI_DOWNLOAD_FAIL_RETRY_CONFIRM:
 				tsLib.debugPrint(DEBUG_UI, "DM_EVENT_UI_DOWNLOAD_FAIL_RETRY_CONFIRM");
+				tsService.tsConnectionPool();
 				break;
 			case DM_EVENT_UI_DOWNLOAD_FAILED_WIFI_DISCONNECTED:
 				tsLib.debugPrint(DEBUG_UI, "DM_EVENT_UI_DOWNLOAD_FAILED_WIFI_DISCONNECTED");
@@ -201,7 +202,7 @@ public class dmUITask implements Runnable, dmDefineMsg, dmDefineUIEvent, dmDefin
 				tsLib.debugPrint(DEBUG_UI, String.valueOf(msgItem.type));
 				break;
 			case DM_EVENT_UI_IDLE_STATE:
-				tsLib.debugPrint(DEBUG_UI, "DM_EVENT_UI_IDLE_STATE :");
+				tsLib.debugPrint(DEBUG_UI, "DM_EVENT_UI_IDLE_STATE");
 				break;
 			default:
 				break;

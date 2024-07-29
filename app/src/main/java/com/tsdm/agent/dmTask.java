@@ -170,6 +170,8 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 					}
 
 				}
+
+				tsService.dmNetProfileChangeSet(); // profile change
 				break;
 
 			case TASK_MSG_DM_SYNCML_CONNECT:
@@ -184,7 +186,7 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 					boolean rc = true;
 
 					rc = dlAgent.dlAgentIsStatus();
-					tsLib.debugPrint(DEBUG_TASK, " :" + rc);
+					tsLib.debugPrint(DEBUG_TASK, "dlAgentIsStatus =" + rc);
 
 					if (rc)
 					{
@@ -311,7 +313,7 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 				bRc = agent.tpCheckRetry();
 				if (bRc)
 				{
-					Thread.sleep(3500);
+					Thread.sleep(3000);
 					tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
 					break;
 				}
@@ -372,6 +374,12 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 
 			case TASK_MSG_DM_SYNCML_START:
 				tsLib.debugPrint(DEBUG_TASK, "TASK_MSG_DM_SYNCML_START");
+				if (!tsService.isNetworkConnect())
+				{
+					tsLib.debugPrint(DEBUG_TASK, " Network Status is not ready. DM Not Initialized");
+					tsService.tsNetworkUnready();
+					break;
+				}
 				dmAgent.dmAgentSetSyncMode(DM_SYNC_RUN); // DM Workspace Active
 				agent.agenthandler.dmAgntHdlrContinueSession(TASK_MSG_DM_SYNCML_START, null);
 				break;
@@ -649,6 +657,8 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 					nRetryFailCnt++;
 					tsLib.debugPrintException(DEBUG_EXCEPTION, "TASK_MSG_DL_SYNCML_CONNECTFAIL nRetryFailCnt=" + nRetryFailCnt);
 					dlAgent.dltpSetRetryFailCount(nRetryFailCnt);
+					Thread.sleep(3000);
+					tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONNECT, null, null);
 				}
 				else
 				{

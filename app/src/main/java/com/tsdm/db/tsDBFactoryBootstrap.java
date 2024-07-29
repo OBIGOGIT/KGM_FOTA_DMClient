@@ -18,14 +18,10 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 	public static final int 	DM_FACTORYBOOTSTRAP_CLIENTPWD = 2;
 	private static final long	serialVersionUID				= 1L;
 
-	public static String  ServerID[]	= {"kgmfota", "kgmfota", "kgmfota"};
-	public static String  ProfileName[] = {"tsDM","tsDM_dev","tsDM_local"};
-	public static String  ServerUrl[]	= {
-												"https://kgmota-dev.obigo.com/core/syncml/ts.dm",
-												"https://kgmota-dev.obigo.com/core/syncml/ts.dm",
-												"https://kgmota-dev.obigo.com/core/syncml/ts.dm"
-										  	  };
-	public static String ServerPort[]	= {"443", "443", "443"};
+/*	public static String  ServerID[]	= {"", "", ""};
+	public static String  ProfileName[] = {"", "", ""};
+	public static String  ServerUrl[]	= {"", "", ""};
+	public static String ServerPort[]	= {"", "", ""};*/
 
 	public static Object getFactoryBootstrapData(Object pNVMSyncMLDMInfo, int nIdex)
 	{
@@ -51,7 +47,7 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 		}
 		else
 		{
-			pProfileInfo.ProfileName = ProfileName[nIdex];
+/*			pProfileInfo.ProfileName = ProfileName[nIdex];
 			pProfileInfo.ServerID = ServerID[nIdex];
 			pProfileInfo.ServerUrl = ServerUrl[nIdex];
 			pProfileInfo.ServerPort = Integer.parseInt(ServerPort[nIdex]);
@@ -62,7 +58,7 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 				pProfileInfo.AppID = "w7";
 				pProfileInfo.AuthLevel = "CLCRED";
 				pProfileInfo.ServerAuthLevel = "SRVCRED";
-			}
+			}*/
 		}
 
 		String port = new String(Integer.toString(pProfileInfo.ServerPort));
@@ -133,7 +129,7 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 		return pProfileInfo;
 	}
 
-	public static String getFactoryBootstrapServerID(int nIdex)
+/*	public static String getFactoryBootstrapServerID(int nIdex)
 	{
 		return ServerID[nIdex];
 	}
@@ -141,7 +137,7 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 	public static String getFactoryBootstrapServerPort(int nIdex)
 	{
 		return ServerPort[nIdex];
-	}
+	}*/
 
 	public static String fBGenerateFactoryNonce()
 	{

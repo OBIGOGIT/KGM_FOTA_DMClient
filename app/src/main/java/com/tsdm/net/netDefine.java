@@ -61,6 +61,7 @@ public interface netDefine
 	int 	TP_RET_INVALID_PARAM 					= -5;
 	int 	TP_RET_HTTP_RES_FAIL 					= -6;
 	int 	TP_RET_FILE_ERROR 						= -7;
+	int 	TP_RET_HTTP_CONNECTION_POOL				= -8;
 
 
 	int 	TP_HTTP_STATUS_INITD 					= 1;

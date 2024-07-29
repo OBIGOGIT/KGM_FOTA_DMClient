@@ -149,35 +149,39 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR");
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_YES_NO);
+			//tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		}
 		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING)
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING");
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_FAILED_REPORTING);
 			//tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
+			//tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		}
 		else if (nStatus == DM_FUMO_STATE_USER_CANCEL_REPORTING)
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_USER_CANCEL_REPORTING");
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_USER_CANCEL_REPORTING);
 			//tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
+			//tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		}
 		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_FAILED)
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_FAILED");
 			//tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
+			tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		}
 		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_IN_CANCEL");
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_IN_CANCEL);
 			//tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
+			//tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		}
 		else if (nStatus == DM_FUMO_STATE_READY_TO_UPDATE)
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_READY_TO_UPDATE");
 			tsService.tsDownloadComplete();
-			tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_IN_COMPLETE);
 		}
 		else
 		{

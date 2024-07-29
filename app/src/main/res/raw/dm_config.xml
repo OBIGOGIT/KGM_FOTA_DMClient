@@ -2,11 +2,9 @@
 <config>
 
 	<group name="Account1">
-		<AccountName value="tsDM"/>
-		<ServerUrl value="https://kgmota-dev.obigo.com/core/syncml/ts.dm"/>
+		<AccountName value="tsDM_Prod"/>
+		<ServerUrl value="https://ota-core.kginfoconn.com/syncml/ts.dm"/>
 		<ServerPort value="443"/>
-<!--		<ServerUrl value="https://60.196.127.138:8123/fotax/syncml/ts.dm"/>
-		<ServerPort value="8123"/>-->
 		<ServerId value="kgmfota"/>
 		<ServerPwd value="kgmfotax"/>
 		<ClientId value=""/>
@@ -44,11 +42,9 @@
 	</group>
 
 	<group name="Account2">
-		<AccountName value="tsDM_dev"/>
-		<ServerUrl value="https://kgmota-dev.obigo.com/core/syncml/ts.dm"/>
-		<ServerPort value="443"/>
-		<!--		<ServerUrl value="https://60.196.127.138:8123/fotax/syncml/ts.dm"/>
-                <ServerPort value="8123"/>-->
+		<AccountName value="tsDM_Sta"/>
+		<ServerUrl value="https://dev-ota-core.kginfoconn.com/syncml/ts.dm"/>
+        <ServerPort value="443"/>
 		<ServerId value="kgmfota"/>
 		<ServerPwd value="kgmfotax"/>
 		<ClientId value=""/>
@@ -86,11 +82,9 @@
 	</group>
 
 	<group name="Account3">
-		<AccountName value="tsDM_local"/>
+		<AccountName value="tsDM_Dev"/>
 		<ServerUrl value="https://kgmota-dev.obigo.com/core/syncml/ts.dm"/>
 		<ServerPort value="443"/>
-		<!--		<ServerUrl value="https://60.196.127.138:8123/fotax/syncml/ts.dm"/>
-                <ServerPort value="8123"/>-->
 		<ServerId value="kgmfota"/>
 		<ServerPwd value="kgmfotax"/>
 		<ClientId value=""/>

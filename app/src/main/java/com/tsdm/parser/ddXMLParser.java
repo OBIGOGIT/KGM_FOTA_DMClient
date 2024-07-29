@@ -46,11 +46,13 @@ public class ddXMLParser implements dmDefineDevInfo
 		tsLib.debugPrint(DEBUG_PARSER, "name "+parsedDataSet.name);
 		tsLib.debugPrint(DEBUG_PARSER, "crc "+parsedDataSet.crc);
 		tsLib.debugPrint(DEBUG_PARSER, "logUploadURI  "+parsedDataSet.logUploadURI);
-		tsLib.debugPrint(DEBUG_PARSER, "description "+parsedDataSet.description);
 		tsLib.debugPrint(DEBUG_PARSER, "size "+parsedDataSet.size);
 		tsLib.debugPrint(DEBUG_PARSER, "installNotifyURI "+parsedDataSet.installNotifyURI);
+		tsLib.debugPrint(DEBUG_PARSER, "rVersion  "+parsedDataSet.rVersion);
+		//tsLib.debugPrint(DEBUG_PARSER, "description "+parsedDataSet.description);
 
-		tsService.setDownFileInfo(workId, parsedDataSet.logUploadURI, parsedDataSet.description,parsedDataSet.name,parsedDataSet.crc,parsedDataSet.size);
+		tsService.setDownFileInfo(workId, parsedDataSet.logUploadURI, parsedDataSet.description,
+				                 parsedDataSet.name,parsedDataSet.crc,parsedDataSet.size,parsedDataSet.rVersion);
 
 		tsLib.debugPrint(DEBUG_PARSER, "total " + parsedDataSet.toString());
 		}catch(NullPointerException ex) {

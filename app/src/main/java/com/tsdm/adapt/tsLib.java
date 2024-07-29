@@ -220,6 +220,11 @@ public class tsLib implements dmDefineDevInfo
 
 			if(tsService.logOnOff){
 
+				if (content.toLowerCase().contains("intent")){
+					dmCommonEntity.logFileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, tsService.DM_CLIENT_LOG_FILE, "\r\n".getBytes());
+					dmCommonEntity.logFileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, tsService.DM_CLIENT_LOG_FILE, "#############################################################################################################\r\n".getBytes());
+				}
+
 				Long curTime = System.currentTimeMillis();
 				Date date = new Date(curTime);
 				SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS");
