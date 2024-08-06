@@ -105,7 +105,8 @@ public class tsDmMsg implements dmDefineDevInfo
 					}
 					catch (InterruptedException e)
 					{
-						e.printStackTrace();
+						tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+						Thread.currentThread().interrupt();
 					}
 					
 					if(dmTask.DM_TaskHandler != null)

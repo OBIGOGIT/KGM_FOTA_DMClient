@@ -16,7 +16,7 @@ public class netTimerSend implements netDefine, dmDefineMsg, tsDefineIdle, dmDef
 	private static httpSendTimerTask tpsendtimer		= null;
 	private static int					sendcount		= 0;
 	private static int					AppId			= 0;
-	private final int					SendingTimer	= 60;
+	private final int					SendingTimer	= 180;
 
 	public netTimerSend(int appId)
 	{

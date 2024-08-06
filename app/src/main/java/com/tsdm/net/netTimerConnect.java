@@ -16,7 +16,7 @@ public class netTimerConnect implements netDefine, dmDefineMsg, tsDefineIdle, dm
 	private static httpConnectTimerTask tprconnecttimer	= null;
 	private static int					connectcount	= 0;
 	private static int					AppId			= 0;
-	private final int					AttatchTimer	= 60;
+	private final int					AttatchTimer	= 180;
 
 	public netTimerConnect(boolean status, int appId)
 	{

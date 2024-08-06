@@ -1,5 +1,7 @@
 package com.tsdm.agent;
 
+import static com.tsdm.tsService.DM_ALERT;
+
 import com.tsdm.adapt.tsLib;
 import com.tsdm.tsService;
 import com.tsdm.db.tsDefineDB;
@@ -14,7 +16,7 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 	public static int dmInitAdpCheckNetworkReady(int nAppId)
 	{
 		int nNetworkStatus = NETWORK_SERVICE_NONE;
-		boolean bResult = false;
+		//boolean bResult = false;
 		int nAgentStatus;
 
 		nAgentStatus = tsdmDB.dmdbGetFUMOStatus();
@@ -54,14 +56,16 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 		switch (nAppId)
 		{
 			case SYNCMLDM:
-			case SYNCMLDL:
+				tsLib.debugPrint(DEBUG_DM, "nAppId SYNCMLDM");
 				break;
-
+			case SYNCMLDL:
+				tsLib.debugPrint(DEBUG_DM, "nAppId  SYNCMLDL");
+				break;
 			default:
 				break;
 		}
 
-		if (bResult)
+/*		if (bResult)
 		{
 			tsLib.debugPrint(DEBUG_DM, "OTHER APPLICATION USE NETWORK");
 			return NETWORK_STATE_APPLICATION_USE;
@@ -69,7 +73,8 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 		else
 		{
 		return NETWORK_STATE_NOT_USE;
-		}
+		}*/
+		return NETWORK_STATE_NOT_USE;
 	}
 
 	public static void dmInitAdpCheckDownloadResume()
@@ -145,7 +150,13 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 			tsLib.debugPrint(DEBUG_DM, "FUMO_STATE_DOWNLOAD_IN_PROGRESS");
 			dmInitAdpCheckDownloadResume();
 		}
-		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR || nStatus == DM_FUMO_STATE_SUSPEND)
+		else if ( nStatus == DM_FUMO_STATE_SUSPEND)
+		{
+			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_SUSPEND");
+			tsService.setDMState(DM_ALERT);
+			dmFotaEntity.downloadFileFail();
+		}
+		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR )
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR");
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_YES_NO);

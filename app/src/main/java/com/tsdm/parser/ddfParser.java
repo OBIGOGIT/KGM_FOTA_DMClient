@@ -1819,11 +1819,12 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 	{
 		String pXMLBuf = "";
 
-		if (!dmDDFTNDSCheckMem(pXMLBuf))
-		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
-			return false;
-		}
+		dmDDFTNDSCheckMem(pXMLBuf);
+		//if (!dmDDFTNDSCheckMem(pXMLBuf))
+		//{
+		//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
+		//	return false;
+		//}
 
 		dmDDFTNDSSetXMLData(pXMLBuf);
 
@@ -2062,11 +2063,12 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 	{
 		String pOpenTagName = "";
 
-		if (!dmDDFTNDSCheckMem(pOpenTagName))
-		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, " Alloc Error !!! ###");
-			return null;
-		}
+		dmDDFTNDSCheckMem(pOpenTagName);
+		//if (!dmDDFTNDSCheckMem(pOpenTagName))
+		//{
+		//	tsLib.debugPrintException(DEBUG_EXCEPTION, " Alloc Error !!! ###");
+		//	return null;
+		//}
 
 		pOpenTagName = "<";
 		pOpenTagName = pOpenTagName.concat(dmDDFTNDSGetTagString(eTokenIndex));
@@ -2211,10 +2213,10 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		// XML Buf Process (copy to xml buf)
 		nTagLen = szTypeBuf.length();
-		if (szTagString != null)
-		{
-			pXmlData = pXmlData.concat(szTagString);
-		}
+		//if (szTagString != null)
+		//{
+		//	pXmlData = pXmlData.concat(szTagString);
+		//}
 		dmDDFTNDSSetXMLSize(nXmlSize + nTagLen);
 		dmDDFTNDSSetXMLData(pXmlData);
 
@@ -2386,11 +2388,12 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		int eCloseTokenIndex = 0;
 		String pCloseTagName = "";
 
-		if (!dmDDFTNDSCheckMem(pCloseTagName))
-		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
-			return null;
-		}
+		dmDDFTNDSCheckMem(pCloseTagName);
+		//if (!dmDDFTNDSCheckMem(pCloseTagName))
+		//{
+		//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
+		//	return null;
+		//}
 
 		eCloseTokenIndex = dmDDFTNDSManagePopTag();
 
@@ -2543,11 +2546,12 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		String pWbxmlBuf = null;
 
 		pWbxmlBuf = "";
-		if (!dmDDFTNDSCheckMem(pWbxmlBuf))
-		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
-			return false;
-		}
+		dmDDFTNDSCheckMem(pWbxmlBuf);
+		//if (!dmDDFTNDSCheckMem(pWbxmlBuf))
+		//{
+		//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
+		//	return false;
+		//}
 
 		dmDDFTNDSSetWbxmlData(pWbxmlBuf);
 		dmDDFTNDSSetWbxmlDataStart(pWbxmlBuf);
@@ -2905,7 +2909,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 			pXmlData = pXmlData.substring(2); // pass "/>"
 			nXmlSize -= 2;
 		}
-		else if (nChar != DM_XML_OPEN_TAG)
+		else //if (nChar != DM_XML_OPEN_TAG)
 		{ // chr
 			while (nChar != DM_XML_OPEN_TAG)
 			{
@@ -2916,10 +2920,10 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 				nChar = pXmlData.charAt(0);
 			}
 		}
-		else
+		//else
 		// <chr></chr>
-		{
-		}
+		//{
+		//}
 
 		nChar = 0x00;
 		nChar = (char) dmDDFConvertString2WbxmlHex(szString);

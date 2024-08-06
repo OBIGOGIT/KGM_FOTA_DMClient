@@ -16,7 +16,7 @@ public class netTimerReceive implements netDefine, dmDefineMsg, tsDefineIdle, dm
 	private static httpRecvTimerTask tprecvtimer		= null;
 	private static int					recvcount		= 0;
 	private static int					AppId			= 0;
-	private final int					ReceiveTimer	= 60;
+	private final int					ReceiveTimer	= 180;
 
 	public netTimerReceive(int appId)
 	{

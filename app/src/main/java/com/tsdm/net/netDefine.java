@@ -42,9 +42,9 @@ public interface netDefine
 	int 	HTTP_CHUNKED 							= 1;
 
 	int 	TP_RETRY_COUNT_NONE 					= 0;
-	int 	TP_RETRY_COUNT_MAX 						= 3;
-	int 	TP_DL_RETRY_COUNT_MAX 					= 3;
-	int 	TP_DL_RETRY_FAIL_COUNT_MAX 				= 3;
+	int 	TP_RETRY_COUNT_MAX 						= 10;
+	int 	TP_DL_RETRY_COUNT_MAX 					= 10;
+	int 	TP_DL_RETRY_FAIL_COUNT_MAX 				= 10;
 
 	int 	TP_HTTP_CONNECTION_NONE 				= 0;
 	int     TP_HTTP_CONNECTION_CLOSE 				= 1;
@@ -99,5 +99,7 @@ public interface netDefine
 	String 	HTTP_CONTENT_DISPOSITION_STRING 		= "content-disposition:";
 	String  HTTP_COOKIE_STRING 						= "set-cookie:";
 	String  HTTP_COOKIE_JSESSIONID_STRING 			= "jsessionid";
+	String  HTTP_COOKIE_AWSALB_STRING 				= "awsalb";
+
 	String 	HTTP_CRLF_STRING 						= "\r\n";
 }

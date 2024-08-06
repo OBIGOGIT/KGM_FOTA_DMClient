@@ -100,7 +100,7 @@ public class dmFotaEntity implements dmDefineDevInfo, tsDefineIdle, dmDefineUIEv
 	}
 
 	public static int getDownloadPercent() {
-		int nFileId;
+	/*	int nFileId;
 		long nDownloadSize = 0;
 		int nPercentage = 0;
 		int nAgentType = SYNCML_DM_AGENT_DM;
@@ -139,6 +139,8 @@ public class dmFotaEntity implements dmDefineDevInfo, tsDefineIdle, dmDefineUIEv
 		setDownloadTime(nDownloadSize);
 		mDeltaDownloadSize = nDownloadSize;
 		return nPercentage;
+		*/
+		return 0;
 	}
 
 	private static void setDownloadTime(long nDownloadSize) {

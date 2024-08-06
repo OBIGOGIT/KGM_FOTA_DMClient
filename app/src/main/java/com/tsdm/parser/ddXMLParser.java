@@ -54,9 +54,9 @@ public class ddXMLParser implements dmDefineDevInfo
 		tsService.setDownFileInfo(workId, parsedDataSet.logUploadURI, parsedDataSet.description,
 				                 parsedDataSet.name,parsedDataSet.crc,parsedDataSet.size,parsedDataSet.rVersion);
 
-		tsLib.debugPrint(DEBUG_PARSER, "total " + parsedDataSet.toString());
+		//tsLib.debugPrint(DEBUG_PARSER, "total " + parsedDataSet.toString());
 		}catch(NullPointerException ex) {
-			ex.printStackTrace();
+				tsLib.debugPrintException(DEBUG_EXCEPTION, ex.toString());
 		}
 		tsLib.debugPrint(DEBUG_PARSER, "Parsing DownloadDescriptor is Complete");
 		return parsedDataSet;

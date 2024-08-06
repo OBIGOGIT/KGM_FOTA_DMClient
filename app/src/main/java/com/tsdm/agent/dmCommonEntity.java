@@ -80,8 +80,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 		return true;
 	}
 	
-	public static byte[] fileRead(String filePath)
-	{
+	public static byte[] fileRead(String filePath) {
 		FileInputStream fis = null;
 		File file = new File(filePath);
 
@@ -102,7 +101,15 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 
 			return bytedata;
 		} catch (IOException e) {
-			e.printStackTrace();
+			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+		}finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					tsLib.debugPrintException(DEBUG_UM, e.toString());
+				}
+			}
 		}
 
 		return null;
@@ -120,7 +127,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 		try {
 			fos = new FileOutputStream(dirPath + "/" + fileName);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
 		}
 		
 		if (fos != null)
@@ -128,7 +135,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				fos.write(byteData);
 			} catch (IOException e) {
-				e.printStackTrace();
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
 			}
 		}
 		
@@ -137,7 +144,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				fos.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
 			}
 		}
 	}
@@ -149,7 +156,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 		path = tsdmDB.DM_FS_FFS_DIRECTORY;
 		return path;
 	}
-	public static void fileMove(File file, File dir) throws IOException {
+	public static void fileMove(File file, File dir){
 		File newFile = new File(dir, file.getName());
 		FileChannel outputChannel = null;
 		FileChannel inputChannel = null;
@@ -158,10 +165,26 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			inputChannel = new FileInputStream(file).getChannel();
 			inputChannel.transferTo(0, inputChannel.size(), outputChannel);
 			inputChannel.close();
-			file.delete();
-		} finally {
-			if (inputChannel != null) inputChannel.close();
-			if (outputChannel != null) outputChannel.close();
+			if (!file.delete()) {
+				tsLib.debugPrintException(DEBUG_EXCEPTION, "file delete fail");
+			}
+		} catch (IOException e) {
+      		tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+        } finally {
+			if (inputChannel != null) {
+				try {
+					inputChannel.close();
+				} catch (IOException e) {
+					tsLib.debugPrintException(DEBUG_UM, e.toString());
+				}
+			}
+			if (outputChannel != null) {
+				try {
+					outputChannel.close();
+				} catch (IOException e) {
+					tsLib.debugPrintException(DEBUG_UM, e.toString());
+				}
+			}
 		}
 
 	}
@@ -228,7 +251,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 		try {
 			fos = new FileOutputStream(dirPath + "/" + fileName, true);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
 		}
 
 		if (fos != null)
@@ -236,7 +259,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				fos.write(byteData);
 			} catch (IOException e) {
-				e.printStackTrace();
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
 			}
 		}
 
@@ -245,7 +268,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				fos.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
 			}
 		}
 	}

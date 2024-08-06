@@ -221,13 +221,13 @@ public class tsLib implements dmDefineDevInfo
 			if(tsService.logOnOff){
 
 				if (content.toLowerCase().contains("intent")){
-					dmCommonEntity.logFileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, tsService.DM_CLIENT_LOG_FILE, "\r\n".getBytes());
-					dmCommonEntity.logFileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, tsService.DM_CLIENT_LOG_FILE, "#############################################################################################################\r\n".getBytes());
+					dmCommonEntity.logFileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, tsService.DM_CLIENT_LOG_FILE, "\n".getBytes());
+					dmCommonEntity.logFileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, tsService.DM_CLIENT_LOG_FILE, "#############################################################################################################\n".getBytes());
 				}
 
 				Long curTime = System.currentTimeMillis();
 				Date date = new Date(curTime);
-				SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS");
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 				String logTime = format.format(date);
 				String log= logTime+" "+title+" "+msg+"\n";
 				dmCommonEntity.logFileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, tsService.DM_CLIENT_LOG_FILE, log.getBytes());
@@ -268,7 +268,7 @@ public class tsLib implements dmDefineDevInfo
 
 				Long curTime = System.currentTimeMillis();
 				Date date = new Date(curTime);
-				SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS");
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 				String logTime = format.format(date);
 				String log= logTime+" "+title+" "+msg+"\n";
 				dmCommonEntity.logFileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, tsService.DM_CLIENT_LOG_FILE, log.getBytes());

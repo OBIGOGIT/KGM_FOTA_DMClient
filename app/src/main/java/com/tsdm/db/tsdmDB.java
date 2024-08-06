@@ -1339,10 +1339,10 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			if (eRet != TS_FS_OK)
 			{
 				eRet = dbAdpAppFileCreate(null, FileID, nSize, pBuffer); // think as file not exist -> create new File
-				if (eRet != TS_FS_OK)
-				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "Create FAILED");
-				}
+				//if (eRet != TS_FS_OK)
+				//{
+				//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Create FAILED");
+				//}
 			}
 			else
 			{
@@ -1564,7 +1564,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		for (nCount = 0; nCount < DM_SETTING_PROFILE_NUM; nCount++)
 		{
 			AreaCodeTemp = SyncDMNVMInfo1 + nCount;
-			if (!tsdmDBsql.existsProfileRow(nCount + 1))
+			if (!tsdmDBsql.existsProfileRow((long)nCount + 1))
 				dmdbInitFfsFile((int) AreaCodeTemp, DMINFOMAGIC + nCount);
 		}
 
@@ -1605,7 +1605,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 		if (FileID == eSyncMLDMFileParameter.FileFirmwareData.FileId())
 		{
-			handle = (FFS_OWNER_SYNCML * 10000) + FileID;
+			handle = (long)(FFS_OWNER_SYNCML * 10000) + FileID;
 			
 			if(_SYNCML_TS_DM_DELTA_INTERIOR_MEMORY_STORAGE_)
 			{
@@ -1646,7 +1646,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		else
 		{
-			handle = (FFS_OWNER_SYNCML * 10000) + FileID;
+			handle = (long)(FFS_OWNER_SYNCML * 10000) + FileID;
 			szFileName = String.format("%s/%d%s", DM_FS_FFS_DIRECTORY, handle, DM_FS_FFS_FILE_EXTENTION);
 		}
 
@@ -2902,7 +2902,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			// defect_110923
 			Object oStatus = dmdbRead(E2P_SYNCML_FUMO_UPDATE_WAIT, bUpdateWait);
 			if (oStatus != null)
-				bUpdateWait = ((Boolean) oStatus).booleanValue();
+				bUpdateWait = (Boolean) oStatus;
 		}
 		catch (Exception e)
 		{
@@ -2934,7 +2934,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			// defect_110921
 			Object oStatus = dmdbRead(E2P_SYNCML_FUMO_DOWNLOAD_MODE, nDownloadMode);
 			if (oStatus != null)
-				nDownloadMode = ((Boolean) oStatus).booleanValue();
+				nDownloadMode = (Boolean)oStatus;
 		}
 		catch (Exception e)
 		{

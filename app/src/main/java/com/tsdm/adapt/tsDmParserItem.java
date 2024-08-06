@@ -101,7 +101,7 @@ public class tsDmParserItem implements tsDefineWbxml, dmDefineDevInfo
 		tsLib.debugPrint(DEBUG_DM, " source = " + source);
 		tsLib.debugPrint(DEBUG_DM, " res  = " + res);
 
-		item = this;
+		//item = this;
 		return res;
 	}
 }

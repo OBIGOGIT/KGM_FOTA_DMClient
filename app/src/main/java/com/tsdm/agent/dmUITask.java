@@ -61,16 +61,9 @@ public class dmUITask implements Runnable, dmDefineMsg, dmDefineUIEvent, dmDefin
 			case DM_EVENT_UI_HTTP_INTERNAL_ERROR:
 			case DM_EVENT_UI_SEND_FAIL:
 			case DM_EVENT_UI_RECV_FAIL:
+			case DM_EVENT_UI_SERVER_CONNECT_FAIL:
 				tsLib.debugPrint(DEBUG_UI, String.valueOf(msgItem.type));
 				tsService.tsDownloadFail(2);
-				dlAgent.dlAgentSetClientInitFlag(DM_NONE_INIT);
-				dmAgent.dmAgentSetUserInitiatedStatus(false);
-				dmAgent.dmAgentSetServerInitiatedStatus(false);
-				break;
-
-			case DM_EVENT_UI_SERVER_CONNECT_FAIL:
-				tsLib.debugPrint(DEBUG_UI, "DM_EVENT_UI_SERVER_CONNECT_FAIL");
-				tsService.tsDownloadFail(1);
 				dlAgent.dlAgentSetClientInitFlag(DM_NONE_INIT);
 				dmAgent.dmAgentSetUserInitiatedStatus(false);
 				dmAgent.dmAgentSetServerInitiatedStatus(false);
@@ -93,7 +86,6 @@ public class dmUITask implements Runnable, dmDefineMsg, dmDefineUIEvent, dmDefin
 
 			case DL_EVENT_UI_DOWNLOAD_FAILED:
 				tsLib.debugPrint(DEBUG_UI, "DL_EVENT_UI_DOWNLOAD_FAILED");
-				tsService.tsDownloadFail(1);
 				dlAgent.dlAgentSetClientInitFlag(DM_NONE_INIT);
 				dmAgent.dmAgentSetUserInitiatedStatus(false);
 				break;

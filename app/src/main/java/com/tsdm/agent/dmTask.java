@@ -57,6 +57,7 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 				catch (InterruptedException e)
 				{
 					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+					Thread.currentThread().interrupt();
 				}
 			}
 		};
@@ -678,6 +679,7 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 						// cause HTTP response error
 						tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING);
 						tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
+						tsService.tsDownloadFail(2);
 					}
 				}
 
@@ -922,7 +924,7 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 				tsLib.debugPrint(DEBUG_TASK, "TASK_MSG_DL_DOWNLOAD_FILE_ERROR"+" "+ tsService.downloadFileFailCause);
 				tsdmDB.dmdbSetFUMOResultCode(DL_GENERIC_DOWNLOAD_FILE_ERROR+" "+ tsService.downloadFileFailCause);
 				//tsdmDB.dmdbSetFUMOResultCode(DL_GENERIC_DOWNLOAD_FILE_ERROR);
-				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING);
+				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_UPDATE_SUCCESSFUL_NODATA);
 				tsdmDB.dmdbSetDmAgentType(SYNCML_DM_AGENT_FUMO);
 				tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_START, null, null);
 				break;

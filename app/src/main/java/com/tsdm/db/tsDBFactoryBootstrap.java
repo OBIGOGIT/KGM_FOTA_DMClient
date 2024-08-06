@@ -1,6 +1,7 @@
 package com.tsdm.db;
 
 import java.io.Serializable;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
 
@@ -146,7 +147,8 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 
 		Date date = new Date();
 		long seed = date.getTime();
-		Random rnd = new Random(seed);
+		//Random rnd = new Random(seed);
+		SecureRandom rnd = new SecureRandom(); // sonacube security
 		String temp = String.valueOf(rnd.nextInt()) + "SSNextNonce";
 		buf = temp.getBytes();
 

@@ -319,6 +319,18 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		{
 			try
 			{
+				if (stream != null)
+				{
+					stream.close();
+				}
+			}
+			catch (IOException e)
+			{
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			}
+
+			try
+			{
 				if (ObjOut != null)
 				{
 					ObjOut.close();
@@ -370,6 +382,18 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		{
 			try
 			{
+				if (stream != null)
+				{
+					stream.close();
+				}
+			}
+			catch (IOException e)
+			{
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			}
+
+			try
+			{
 				if (ObjOut != null)
 				{
 					ObjOut.close();
@@ -415,6 +439,18 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		{
 			try
 			{
+				if (stream != null)
+				{
+					stream.close();
+				}
+			}
+			catch (IOException e)
+			{
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			}
+
+			try
+			{
 				if (ObjOut != null)
 				{
 					ObjOut.close();
@@ -434,8 +470,11 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		try
 		{
 			File file = new File(path);
-			if (file.exists())
-				file.delete();
+			if (file.exists()) {
+				if (!file.delete()) {
+					tsLib.debugPrintException(DEBUG_EXCEPTION, "file delete fail");
+				}
+			}
 		}
 		catch (Exception ex)
 		{
@@ -453,7 +492,9 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		try
 		{
 			File file = new File(path);
-			file.delete();
+			if (!file.delete()) {
+				tsLib.debugPrintException(DEBUG_EXCEPTION, "file delete fail");
+			}
 		}
 		catch (Exception ex)
 		{
@@ -484,7 +525,9 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 					try
 					{
 						File destFile = new File(destPath);
-						srcFile.renameTo(destFile);
+						if(!srcFile.renameTo(destFile)) {
+							tsLib.debugPrintException(DEBUG_EXCEPTION, "renameTo fail");
+						}
 					}
 					catch (Exception e)
 					{

@@ -698,10 +698,10 @@ public class tsOmVfs implements dmDefineDevInfo
 		}
 
 		ret = dmOmvfsSaveFsData(pVfs, ptNode, (int) (addr + nOffset), pBuff, nBuffSize);
-		if (ret != OMVFS_ERR_OK)
-		{
-			return OMVFS_ERR_FAILED;
-		}
+		//if (ret != OMVFS_ERR_OK)
+		//{
+		//	return OMVFS_ERR_FAILED;
+		//}
 		return nBuffSize;
 
 	}
@@ -963,10 +963,10 @@ public class tsOmVfs implements dmDefineDevInfo
 		if (ptNode.size > 0 && ptNode.vaddr >= 0)
 		{
 			ret = dmOmvfsLoadFsData(pVfs, ptNode, ptNode.vaddr, pBuff, ptNode.size);
-			if (ret != OMVFS_ERR_OK)
-			{
-				return OMVFS_ERR_FAILED;
-			}
+			//if (ret != OMVFS_ERR_OK)
+			//{
+			//	return OMVFS_ERR_FAILED;
+			//}
 			return OMVFS_ERR_OK;
 		}
 		return OMVFS_ERR_FAILED;
@@ -987,10 +987,10 @@ public class tsOmVfs implements dmDefineDevInfo
 		ptNode.size = nBuffSize;
 
 		ret = dmOmvfsSaveFsData(pVfs, ptNode, (int) addr, pBuff, nBuffSize);
-		if (ret != OMVFS_ERR_OK)
-		{
-			return OMVFS_ERR_FAILED;
-		}
+		//if (ret != OMVFS_ERR_OK)
+		//{
+		//	return OMVFS_ERR_FAILED;
+		//}
 
 		return OMVFS_ERR_OK;
 	}

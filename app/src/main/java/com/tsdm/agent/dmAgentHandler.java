@@ -371,6 +371,7 @@ public class dmAgentHandler extends dmAgent implements dmDefineMsg, dmDefineUIEv
 					catch (InterruptedException e)
 					{
 						tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+						Thread.currentThread().interrupt();
 					}
 					tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_IN_COMPLETE);
 				}

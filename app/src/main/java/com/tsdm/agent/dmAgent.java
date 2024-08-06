@@ -2,6 +2,7 @@ package com.tsdm.agent;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import com.tsdm.auth.Auth;
@@ -212,8 +213,8 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 	public static int dmAgentInit()
 	{
 		dm_ws = new tsDmWorkspace();
-		if (dm_ws == null)
-			return SDM_RET_FAILED;
+		//if (dm_ws == null)
+		//	return SDM_RET_FAILED;
 
 		g_AccName = BASE_ACCOUNT_PATH_1_1;
 
@@ -576,10 +577,12 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		int nNotiEvent = 0;
 		tsDmWorkspace ws;
 
-		if (dmAgentInit() != SDM_RET_OK)
-		{
-			return SDM_RET_FAILED;
-		}
+		tsLib.debugPrint(DEBUG_DM, "");
+		dmAgentInit();
+		//if (dmAgentInit() != SDM_RET_OK)
+		//{
+		//	return SDM_RET_FAILED;
+		//}
 
 		ws = dm_ws;
 		nNotiEvent = tsDB.dbGetNotiEvent(ws.appId);
@@ -2079,7 +2082,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		temp = new char[node.size];
 		tsOmlib.dmOmRead(om, path, 0, temp, node.size);
 
-		String tmpStr = temp.toString();
+		String tmpStr =  Arrays.toString(temp); //temp.toString();
 
 		if (size != node.size)
 		{
@@ -2311,7 +2314,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.meta.size > 0)
 				{
-					datasize = Integer.valueOf(item.meta.size);
+					datasize = item.meta.size;
 				}
 				else
 				{
@@ -3802,7 +3805,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		}
 		else
 		{
-			nFlag = TNDS_PROPERTY_ACL | TNDS_PROPERTY_ACL | TNDS_PROPERTY_TYPE | TNDS_PROPERTY_VALUE;
+			nFlag = TNDS_PROPERTY_ACL | TNDS_PROPERTY_FORMAT | TNDS_PROPERTY_TYPE | TNDS_PROPERTY_VALUE;
 			ptr = propertylist.split("-");
 			if (ptr != null)
 			{
@@ -3864,15 +3867,15 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		format = tsOmList.dmOmGetFormatString(FORMAT_XML);
 
 		tsLib.debugPrint(DEBUG_DM, "name : " + name);
-		if (data == null)
-		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "_____ TNDSResults File Read Error!");
-			results = dmBuildcmd.dmBuildCmdDetailResults(ws, get.cmdid, name, format, SYNCML_MIME_TYPE_TNDS_XML, nSize, null);
-		}
-		else
-		{
+		//if (data == null)
+		//{
+		//	tsLib.debugPrintException(DEBUG_EXCEPTION, "_____ TNDSResults File Read Error!");
+		//	results = dmBuildcmd.dmBuildCmdDetailResults(ws, get.cmdid, name, format, SYNCML_MIME_TYPE_TNDS_XML, nSize, null);
+		//}
+		//else
+		//{
 			results = dmBuildcmd.dmBuildCmdDetailResults(ws, get.cmdid, name, format, SYNCML_MIME_TYPE_TNDS_XML, nSize, data.toCharArray());
-		}
+		//}
 		tsLinkedList.listAddObjAtLast(ws.resultsList, results);
 
 		return true;
@@ -4404,10 +4407,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		int nAgentType = SYNCML_DM_AGENT_DM;
 
 		tsLib.debugPrint(DEBUG_DM, "");
-		if (dmAgentInit() != SDM_RET_OK)
-		{
-			return SDM_RET_FAILED;
-		}
+		dmAgentInit();
+		//if (dmAgentInit() != SDM_RET_OK)
+		//{
+		//	return SDM_RET_FAILED;
+		//}
 
 		nNotiEvent = tsDB.dbGetNotiEvent(dm_ws.appId);
 		if (nNotiEvent > 0)
@@ -6865,7 +6869,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				continue;
 			}
 
-			tsLib.debugPrint(DEBUG_DM, " else \n");
+			tsLib.debugPrint(DEBUG_DM, " else");
 			tsLib.debugPrint(DEBUG_DM, item.target);
 
 			if (item.meta != null)

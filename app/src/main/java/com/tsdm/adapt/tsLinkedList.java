@@ -16,12 +16,12 @@ public class tsLinkedList implements dmDefineDevInfo
 		list = new tsLinkedList();
 
 		node = listCreateNodeFromMemory();
-		if (node == null)
-		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Create node memory alloc failed");
-			list = null;
-			return null;
-		}
+		//if (node == null)
+		//{
+		//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Create node memory alloc failed");
+		//	list = null;
+		//	return null;
+		//}
 
 		node.next = node;
 		node.previous = node;

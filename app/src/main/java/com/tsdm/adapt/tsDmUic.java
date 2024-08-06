@@ -435,12 +435,12 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 		ptUicResultKeep = new tsDBUICResultKeep();
 
 		ptUicResult = tsDmUic.createUicResult();
-		if (ptUicResult == null)
-			return null;
+		//if (ptUicResult == null)
+		//	return null;
 
 		ptUicResultKeep = (tsDBUICResultKeep) tsdmDB.dmdbRead(E2P_SYNCML_DM_UIC_RESULT_KEEP, ptUicResultKeep);
 
-		pUicResultKeepFlag = ptUicResultKeep.eStatus;
+		//pUicResultKeepFlag = ptUicResultKeep.eStatus;
 
 		ptUicResult.appId = ptUicResultKeep.appId;
 		ptUicResult.UICType = ptUicResultKeep.UICType;

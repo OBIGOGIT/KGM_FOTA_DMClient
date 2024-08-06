@@ -1,6 +1,7 @@
 package com.tsdm.db;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.adapt.tsLib;
@@ -237,7 +238,7 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
 					ResultURI = tArg.toCharArray();
-					tsLib.debugPrint(DEBUG_DB, ResultURI.toString());
+					tsLib.debugPrint(DEBUG_DB,  Arrays.toString(ResultURI)); //ResultURI.toString());
 					return ResultURI;
 				}
 				else
@@ -249,7 +250,7 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
 					ResultURI = tArg.toCharArray();
-					tsLib.debugPrint(DEBUG_DB, ResultURI.toString());
+					tsLib.debugPrint(DEBUG_DB,  Arrays.toString(ResultURI)); //ResultURI.toString());
 					t = 0;
 					return ResultURI;
 				}

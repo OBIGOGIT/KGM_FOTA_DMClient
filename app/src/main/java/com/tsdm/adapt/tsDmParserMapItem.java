@@ -70,7 +70,7 @@ public class tsDmParserMapItem implements tsDefineWbxml
 			}
 		}
 
-		mapitem = this;
+		//mapitem = this;
 
 		return res;
 	}

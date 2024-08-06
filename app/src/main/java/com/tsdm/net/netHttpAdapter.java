@@ -23,6 +23,7 @@ import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 
 import javax.net.ssl.HandshakeCompletedEvent;
 import javax.net.ssl.HandshakeCompletedListener;
@@ -298,7 +299,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 	{
 		int nRet = TP_RET_OK;
 
-		tsLib.debugPrint(DEBUG_NET, "");
+		tsLib.debugPrint(DEBUG_NET, "appId: "+appId);
 
 		if (pHttpObj[appId] == null)
 		{
@@ -368,16 +369,17 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 					// here, trust managers is a single trust-all manager
 					TrustManager[] trustManagers = new TrustManager[] {new X509TrustManager()
 					{
+						@Override
 						public X509Certificate[] getAcceptedIssuers()
 						{
 							return null;
 						}
-
-						public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException
+						@Override
+						public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException // Noncompliant
 						{
 						}
-
-						public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException
+						@Override
+						public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException // Noncompliant
 						{
 						}
 					}};
@@ -669,7 +671,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 		pHttpHeaderData = pHttpHeaderData.concat(String.valueOf(conLength));
 		pHttpHeaderData = pHttpHeaderData.concat(HTTP_CRLF_STRING);
 
-		if (pHttpObj[appId].pHmacData != null && pHttpObj[appId].pHmacData.hashCode() != 0)
+		if (pHttpObj[appId].pHmacData != null &&  Arrays.hashCode(pHttpObj[appId].pHmacData) !=0) //pHttpObj[appId].pHmacData.hashCode() != 0)
 		{
 			HTTP_APPEND_HEADER(new String(pHttpObj[appId].pHmacData), "x-syncml-hmac: ");
 			pHttpObj[appId].pHmacData = null;
@@ -881,7 +883,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 
 		pHttpHeaderData = OpenMode;
 
-		if (pHttpObj[appId].nHttpOpenMode == HTTP_METHOD_CONNECT)
+		if (pHttpObj[appId].nHttpOpenMode.equals(HTTP_METHOD_CONNECT))
 		{
 			if (!tsLib.isEmpty(pHttpObj[appId].pRequestUri))
 			{
@@ -973,7 +975,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 		pHttpHeaderData = pHttpHeaderData.concat(String.valueOf(conLength));
 		pHttpHeaderData = pHttpHeaderData.concat(HTTP_CRLF_STRING);
 
-		if (pHttpObj[appId].pHmacData != null && pHttpObj[appId].pHmacData.hashCode() != 0)
+		if (pHttpObj[appId].pHmacData != null && Arrays.hashCode(pHttpObj[appId].pHmacData) !=0) //pHttpObj[appId].pHmacData.hashCode() != 0)
 		{
 			HTTP_APPEND_HEADER(new String(pHttpObj[appId].pHmacData), "x-syncml-hmac: ");
 			pHttpObj[appId].pHmacData = null;
@@ -1901,9 +1903,15 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 			pos = data.toLowerCase().indexOf(HTTP_COOKIE_STRING);
 			if (pos >= 0)
 			{
-				if((data.toLowerCase()).contains(HTTP_COOKIE_JSESSIONID_STRING))
+				if((data.toLowerCase()).contains(HTTP_COOKIE_JSESSIONID_STRING) || (data.toLowerCase()).contains(HTTP_COOKIE_AWSALB_STRING))
 				{
-					cookie = data.substring(pos + 11).trim();
+					if(!tsLib.isEmpty(cookie)) {
+						cookie=cookie+";";
+					    cookie=cookie+data.substring(pos + 11).trim();
+					}
+					else {
+						cookie=data.substring(pos + 11).trim();
+					}
 				}
 			}
 		}
