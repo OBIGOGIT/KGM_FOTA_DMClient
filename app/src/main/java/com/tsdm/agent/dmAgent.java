@@ -6615,14 +6615,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		pAccTmpBuf = dm_AccXNodeTndsInfo.Account;
 		pAccTmpBuf = pAccTmpBuf.concat(SYNCML_DMACC_EXT_PATH);
 		node = tsOmlib.dmOmLibGetNodeProp(om, pAccTmpBuf);
-		if (node != null)
+/*		if (node != null)
 		{
 			// vendor specific information
 		}
 		else
 		{
 			// vendor specific information
-		}
+		}*/
 		pAccTmpBuf = null;
 
 		{

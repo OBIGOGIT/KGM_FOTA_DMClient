@@ -1,5 +1,7 @@
 package com.tsdm.net;
 
+import android.annotation.SuppressLint;
+
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,6 +66,7 @@ public class netTimerConnect implements netDefine, dmDefineMsg, tsDefineIdle, dm
 		private boolean	isCloseTimer	= false;
 		private int		timerAppId		= SYNCMLAPPNONE;
 
+		@SuppressLint("SuspiciousIndentation")
 		public void run()
 		{
 			if (connectcount >= AttatchTimer)

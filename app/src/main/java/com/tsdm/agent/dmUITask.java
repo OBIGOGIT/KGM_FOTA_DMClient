@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.tsdm.adapt.tsLib;
+import com.tsdm.db.tsdmDB;
 import com.tsdm.tsService;
 import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsDmMsg.MsgItem;
@@ -62,11 +63,20 @@ public class dmUITask implements Runnable, dmDefineMsg, dmDefineUIEvent, dmDefin
 			case DM_EVENT_UI_SEND_FAIL:
 			case DM_EVENT_UI_RECV_FAIL:
 			case DM_EVENT_UI_SERVER_CONNECT_FAIL:
+				tsLib.debugPrint(DEBUG_UI, "network fail next power on retry");
 				tsLib.debugPrint(DEBUG_UI, String.valueOf(msgItem.type));
-				tsService.tsDownloadFail(2);
-				dlAgent.dlAgentSetClientInitFlag(DM_NONE_INIT);
-				dmAgent.dmAgentSetUserInitiatedStatus(false);
-				dmAgent.dmAgentSetServerInitiatedStatus(false);
+				int nStatus = tsdmDB.dmdbGetFUMOStatus();
+				if( nStatus != DM_FUMO_STATE_UPDATE_SUCCESSFUL_NODATA && nStatus !=DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING) {
+					if (nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS) {
+						tsService.downloadFileFailCause = "download network error";
+						dmFotaEntity.downloadFileFail();
+					} else {
+						dlAgent.dlAgentSetClientInitFlag(DM_NONE_INIT);
+						dmAgent.dmAgentSetUserInitiatedStatus(false);
+						dmAgent.dmAgentSetServerInitiatedStatus(false);
+					}
+					tsService.tsDownloadFail(2);
+				}
 				break;
 
 			case DL_EVENT_UI_DOWNLOAD_YES_NO:
@@ -99,8 +109,8 @@ public class dmUITask implements Runnable, dmDefineMsg, dmDefineUIEvent, dmDefin
 				tsLib.debugPrint(DEBUG_UI, "DM_EVENT_UI_DOWNLOAD_FAIL_RETRY_CONFIRM");
 				tsService.tsConnectionPool();
 				break;
-			case DM_EVENT_UI_DOWNLOAD_FAILED_WIFI_DISCONNECTED:
-				tsLib.debugPrint(DEBUG_UI, "DM_EVENT_UI_DOWNLOAD_FAILED_WIFI_DISCONNECTED");
+			case DM_EVENT_UI_DOWNLOAD_FAILED_NETWORK_DISCONNECTED:
+				tsLib.debugPrint(DEBUG_UI, "DM_EVENT_UI_DOWNLOAD_FAILED_NETWORK_DISCONNECTED");
 				break;
 			case EVENT_UI_SYNC_START:
 				tsLib.debugPrint(DEBUG_UI, "EVENT_UI_SYNC_START");

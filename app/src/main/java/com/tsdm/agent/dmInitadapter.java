@@ -1,7 +1,5 @@
 package com.tsdm.agent;
 
-import static com.tsdm.tsService.DM_ALERT;
-
 import com.tsdm.adapt.tsLib;
 import com.tsdm.tsService;
 import com.tsdm.db.tsDefineDB;
@@ -140,7 +138,7 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 			|| nStatus == DM_FUMO_STATE_UPDATE_FAILED_NODATA
 			|| nStatus == DM_FUMO_STATE_UPDATE_FAILED_HAVEDATA)
 		{
-			tsLib.debugPrint(DEBUG_DM, "dmdbGetFUMOResultCode" +tsdmDB.dmdbGetFUMOResultCode());
+			tsLib.debugPrint(DEBUG_DM, "dmdbGetFUMOResultCode " +tsdmDB.dmdbGetFUMOResultCode());
 			tsdmDB.dmdbSetDmAgentType(SYNCML_DM_AGENT_FUMO);
 			tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_START, null, null);
 			//dmInitAdpUpdateResultReport();
@@ -153,28 +151,35 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 		else if ( nStatus == DM_FUMO_STATE_SUSPEND)
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_SUSPEND");
-			tsService.setDMState(DM_ALERT);
+			tsService.downloadFileFailCause = "download suspend error";
 			dmFotaEntity.downloadFileFail();
 		}
 		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR )
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR");
+			int descriptResume=tsService.descriptResume();
+			if(descriptResume == 1){
+				tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
+				dmFotaEntity.checkDownloadMemory();
+			}else if(descriptResume == 2){
+				dmFotaEntity.cancelDownload();
+			}else{
+				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
+			}
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_YES_NO);
-			//tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		}
 		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING)
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING");
-			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_FAILED_REPORTING);
-			//tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
-			//tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
+			tsService.downloadFileFailCause = "download network error";
+			dmFotaEntity.downloadFileFail();
 		}
 		else if (nStatus == DM_FUMO_STATE_USER_CANCEL_REPORTING)
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_USER_CANCEL_REPORTING");
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_USER_CANCEL_REPORTING);
 			//tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
-			//tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
+			tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		}
 		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_FAILED)
 		{
@@ -187,7 +192,7 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_IN_CANCEL");
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_IN_CANCEL);
 			//tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
-			//tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
+			tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		}
 		else if (nStatus == DM_FUMO_STATE_READY_TO_UPDATE)
 		{

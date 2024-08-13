@@ -1305,6 +1305,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 	{
 		boolean bExists = false;
 
+/*
 		switch (SqlID)
 		{
 			case dmSqlDbIdLawmoInfo:
@@ -1316,6 +1317,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 			default:
 				break;
 		}
+*/
 
 		return bExists;
 	}

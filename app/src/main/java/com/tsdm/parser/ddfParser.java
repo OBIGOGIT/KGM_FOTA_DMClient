@@ -1666,7 +1666,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		cData = pStartStr.substring(0, cDataLen);
 
-		nSize = cData.length();
+		//nSize = cData.length();
 
 		return cData;
 	}

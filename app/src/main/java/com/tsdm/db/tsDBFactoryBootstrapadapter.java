@@ -2,6 +2,7 @@ package com.tsdm.db;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.agent.dmDevinfoAdapter;
@@ -245,7 +246,7 @@ public class tsDBFactoryBootstrapadapter implements dmDefineDevInfo
 			{
 				if (save.length - pNptr.length() >= 2 && tsLib.libToupper(save[-1]) == 'X' && save[-2] == '0')
 				{
-					pEndPtr = save.toString().substring(-1); // save[-1];
+					pEndPtr = Arrays.toString(save).substring(-1);   //save.toString().substring(-1); // save[-1];
 				}
 				else
 				{
@@ -323,7 +324,7 @@ public class tsDBFactoryBootstrapadapter implements dmDefineDevInfo
 			{
 				if (save.length - pNptr.length() >= 2 && tsLib.libToupper(save[-1]) == 'X' && save[-2] == '0')
 				{
-					pEndPtr = save.toString().substring(-1);
+					pEndPtr = Arrays.toString(save).substring(-1);   //save.toString().substring(-1); // save[-1];
 				}
 				else
 				{
@@ -336,7 +337,8 @@ public class tsDBFactoryBootstrapadapter implements dmDefineDevInfo
 
 		if (pEndPtr.length() > 0)
 		{
-			pEndPtr = s.toString().substring(si, s.length);
+			pEndPtr = Arrays.toString(s).substring(si, s.length);//s.toString().substring(si, s.length);
+
 		}
 
 		return negative ? -i : i;

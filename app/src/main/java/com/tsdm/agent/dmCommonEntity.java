@@ -161,8 +161,16 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 		FileChannel outputChannel = null;
 		FileChannel inputChannel = null;
 		try {
-			outputChannel = new FileOutputStream(newFile).getChannel();
-			inputChannel = new FileInputStream(file).getChannel();
+			try {
+				outputChannel = new FileOutputStream(newFile).getChannel();
+			} catch (FileNotFoundException e) {
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			}
+			try {
+				inputChannel = new FileInputStream(file).getChannel();
+			} catch (FileNotFoundException e) {
+				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			}
 			inputChannel.transferTo(0, inputChannel.size(), outputChannel);
 			inputChannel.close();
 			if (!file.delete()) {

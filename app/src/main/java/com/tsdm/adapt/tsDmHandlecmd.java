@@ -220,17 +220,17 @@ public class tsDmHandlecmd implements dmDefineDevInfo
 		if (ws.inAtomicCmd || ws.inSequenceCmd)
 		{
 			dmHdlCmdLocateSelectedAgent(locateagent, ws.list);
-			//if (locateagent != null)
-			//{
+			if (locateagent != null)
+			{
 				if (locateagent.inProgresscmd)
 				{
 					locateagent.inProgresscmd = false;
 				}
-			//}
-			//else
-			//{
-			//	ws.inAtomicCmd = false;
-			//}
+			}
+			else
+			{
+				ws.inAtomicCmd = false;
+			}
 		}
 	}
 
@@ -390,17 +390,17 @@ public class tsDmHandlecmd implements dmDefineDevInfo
 		if (ws.inSequenceCmd || ws.inAtomicCmd)
 		{
 			dmHdlCmdLocateSelectedAgent(locateagent, ws.list);
-			//if (locateagent != null)
-			//{
+			if (locateagent != null)
+			{
 				if (locateagent.inProgresscmd)
 				{
 					locateagent.inProgresscmd = false;
 				}
-			//}
-			//else
-			//{
-			//	ws.inSequenceCmd = false;
-			//}
+			}
+			else
+			{
+				ws.inSequenceCmd = false;
+			}
 		}
 	}
 

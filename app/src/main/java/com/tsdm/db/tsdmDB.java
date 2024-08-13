@@ -1410,7 +1410,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			}
 			catch (FileNotFoundException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrint(DEBUG_DB, e.toString());
 				return TS_FS_ERR_FILE_NOT_FOUND;
 			}
 			finally
@@ -1599,10 +1599,10 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	}
 
-	public static String fileGetNameFromCallerID(String szFileName, int FileID)
+	public static String fileGetNameFromCallerID(String szFileNameTemp, int FileID)
 	{
 		long handle = 0;
-
+		String szFileName;
 		if (FileID == eSyncMLDMFileParameter.FileFirmwareData.FileId())
 		{
 			handle = (long)(FFS_OWNER_SYNCML * 10000) + FileID;
@@ -2496,7 +2496,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		String pNetConnName = null;
 		try
 		{
-			switch (appId)
+/*			switch (appId)
 			{
 				case SYNCMLDM:
 					pNetConnName = (String) dmdbRead(E2P_SYNCML_DM_NETWORKCONNNAME, pNetConnName);
@@ -2507,7 +2507,8 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				default:
 					pNetConnName = (String) dmdbRead(E2P_SYNCML_DM_NETWORKCONNNAME, pNetConnName);
 					break;
-			}
+			}*/
+			pNetConnName = (String) dmdbRead(E2P_SYNCML_DM_NETWORKCONNNAME, pNetConnName);
 			tsLib.debugPrint(DEBUG_DB, "AppID[" + appId + "], NetConnName is " + pNetConnName);
 
 		}

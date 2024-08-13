@@ -377,10 +377,20 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 						@Override
 						public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException // Noncompliant
 						{
+							try {
+								certs[0].checkValidity();
+							} catch (Exception e) {
+								throw new CertificateException("Certificate not valid or trusted.");
+							}
 						}
 						@Override
 						public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException // Noncompliant
 						{
+							try {
+								certs[0].checkValidity();
+							} catch (Exception e) {
+								throw new CertificateException("Certificate not valid or trusted.");
+							}
 						}
 					}};
 
@@ -1254,22 +1264,6 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 				{
 					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
 					netTimerReceive.endTimer();
-
-	/*				nFumoStatus = tsdmDB.dmdbGetFUMOStatus();  //이어받기 예외사항 처리
-					if (nFumoStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS) {
-						tsLib.debugPrint(DEBUG_NET, "nHttpBodyLength =" + nHttpBodyLength);
-						int nSize = (int) dbadapter.FileGetSize(DM_FS_FFS_DIRECTORY + "/2400258.cfg");
-						tsLib.debugPrint(DEBUG_NET, "real file size =" + nSize);
-						if (nHttpBodyLength != nSize) {
-							tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_SUSPEND);
-							return TP_RET_RECEIVE_FAIL;
-						}
-					}
-					else{
-						tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_SUSPEND);
-						return TP_RET_RECEIVE_FAIL;
-					}*/
-
 					tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_SUSPEND);
 					return TP_RET_RECEIVE_FAIL;
 				}
@@ -1307,6 +1301,10 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 				int old_actual = 0;
 				while ((ContentBytesread != nHttpBodyLength) && (actual != -1))
 				{
+					if(tsService.DownloadStop) {
+						tsService.DownloadStop = false;
+						break;
+					}
 					if (nFumoStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
 					{
 						pHttpObj[appId].pReceiveBuffer = new byte[RECEIVE_BUFFER_SIZE];
@@ -1387,21 +1385,6 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 			{
 				tsLib.debugPrintException(DEBUG_NET, e.toString());
 				netTimerReceive.endTimer();
-
-/*				nFumoStatus = tsdmDB.dmdbGetFUMOStatus();  //이어받기 예외사항 처리
-				if (nFumoStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS) {
-					tsLib.debugPrint(DEBUG_NET, "nHttpBodyLength =" + nHttpBodyLength);
-					int nSize = (int) dbadapter.FileGetSize(DM_FS_FFS_DIRECTORY + "/2400258.cfg");
-					tsLib.debugPrint(DEBUG_NET, "real file size =" + nSize);
-					if (nHttpBodyLength != nSize) {
-						tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_SUSPEND);
-						return TP_RET_RECEIVE_FAIL;
-					}
-			    }
-				else{
-					tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_SUSPEND);
-					return TP_RET_RECEIVE_FAIL;
-				}*/
 				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_SUSPEND);
 				return TP_RET_RECEIVE_FAIL;
 			}
@@ -1462,7 +1445,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 
 	public void tpClose(int appId)
 	{
-		tsLib.debugPrint(DEBUG_NET, "");
+		tsLib.debugPrint(DEBUG_NET, "appId "+appId);
 /*
 		if (wakeLock != null)
 		{

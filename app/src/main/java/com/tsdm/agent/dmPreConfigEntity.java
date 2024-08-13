@@ -123,6 +123,7 @@ public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
 		try {
 			// Create object
 			SAXParserFactory factory = SAXParserFactory.newInstance();
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 			SAXParser parser = factory.newSAXParser();
 			
 			// Registration the event handler and parse the XML data

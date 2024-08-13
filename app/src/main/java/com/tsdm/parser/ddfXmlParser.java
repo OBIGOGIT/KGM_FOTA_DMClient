@@ -18,6 +18,7 @@ public class ddfXmlParser implements dmDefineDevInfo
 		try
 		{
 			SAXParserFactory factory = SAXParserFactory.newInstance();
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 			SAXParser parser = factory.newSAXParser();
 			factory.setValidating(false); // DTD Validation check
 

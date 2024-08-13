@@ -1,7 +1,5 @@
 package com.tsdm.agent;
 
-import static com.tsdm.tsService.DM_ALERT;
-
 import java.io.ByteArrayOutputStream;
 import java.net.SocketTimeoutException;
 
@@ -1297,12 +1295,11 @@ public class dlAgentHandler extends dlAgent implements dmDefineDevInfo, dmDefine
 						nDLStatus = tsdmDB.dmdbGetFUMOStatus();
 						if(nDLStatus == DM_FUMO_STATE_SUSPEND)
 						{
-							tsLib.debugPrint(DEBUG_DL, "DM_FUMO_STATE_SUSPEND"); // 네트워크 불량
+							tsLib.debugPrint(DEBUG_DL, "DM_FUMO_STATE_SUSPEND");
 							tsService.tsDownloadFail(2);
 							tsService.downloadFileFailCause = "download suspend error";
-							tsService.setDMState(DM_ALERT);
 							dmFotaEntity.downloadFileFail();
-  					   }
+  					    }
 						break;
 
 					case DM_FUMO_STATE_DOWNLOAD_COMPLETE:

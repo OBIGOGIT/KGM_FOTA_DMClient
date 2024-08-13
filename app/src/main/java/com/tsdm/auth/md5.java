@@ -10,9 +10,9 @@ public class md5
 {
 	private Object MD5Sum;
 
-	public final byte[] computeMD5Credentials(String username, String password, byte[] nonce, String serverID)
+	public final byte[] computeMD5Credentials(String username, String passwordTemp, byte[] nonce, String serverID)
 	{
-		password = generatePassword.generatePassword(username, serverID, generatePassword.GENERATE_TYPE_DEVICE_PASSWORD);
+		String password = generatePassword.generatePassword(username, serverID, generatePassword.GENERATE_TYPE_DEVICE_PASSWORD);
 
 		String digestStr;
 		String userAndPassword = username;

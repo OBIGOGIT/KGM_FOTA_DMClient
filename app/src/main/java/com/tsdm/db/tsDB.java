@@ -221,9 +221,9 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 
 			if (nPortCount == 2)
 			{
-				ResultURI = new char[BootURI.length];
-				ResultURI = BootURI;
-				return ResultURI;
+/*				ResultURI = new char[BootURI.length];
+				ResultURI = BootURI;*/
+				return BootURI;
 			}
 
 			if (nCount == 3)
@@ -237,9 +237,9 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 					String Path = String.valueOf(BootURI);
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
-					ResultURI = tArg.toCharArray();
-					tsLib.debugPrint(DEBUG_DB,  Arrays.toString(ResultURI)); //ResultURI.toString());
-					return ResultURI;
+					/*ResultURI = tArg.toCharArray();*/
+					tsLib.debugPrint(DEBUG_DB,  tArg); //ResultURI.toString());
+					return tArg.toCharArray();
 				}
 				else
 				{
@@ -249,10 +249,10 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 					String Path = String.valueOf(BootURI);
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
-					ResultURI = tArg.toCharArray();
-					tsLib.debugPrint(DEBUG_DB,  Arrays.toString(ResultURI)); //ResultURI.toString());
+					/*ResultURI = tArg.toCharArray();*/
+					tsLib.debugPrint(DEBUG_DB,  tArg);
 					t = 0;
-					return ResultURI;
+					return tArg.toCharArray();
 				}
 
 			}

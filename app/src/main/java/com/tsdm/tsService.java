@@ -82,16 +82,18 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 	public static Context	mContext;
 
 	//DM-UM State Define
+	public static Boolean 	DownloadStop					= false;
 	static int 				DMState 						= 0;
 	public static int		DM_IDLE		                    = 0; // IDLE 상태
 	public static int 		DM_PROGRESS 					= 1; // FOTA DM PROGRESS중
 	public static int 		DL_PROGRESS 					= 2; // FOTA DL PROGRESS중
 
-	public static int 		DM_ALERT 				 	    = 3; // FOTA DM ALERT PROGRESS중
-
 	//DM Use APN
 	public static boolean 		apn3Enable 					= false;
 	public static boolean 		isApnChanged 				= false;
+
+    public static String        APN1_NAME_STRING            = "m2m-sym-info1.lguplus.co.kr";
+    public static String        APN2_NAME_STRING            = "m2m-sym-info2.lguplus.co.kr";
 	public static String        APN3_NAME_STRING            = "m2m-sym-tele2.lguplus.co.kr";
 
 
@@ -391,6 +393,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2355.cfg");
 		FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400256.cfg");
 		FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400257.cfg");
+		FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400258.cfg");
 		FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "tsDmConfig.xml");
 		FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "dmClient.log");
 	}
@@ -544,7 +547,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 
 			tsLib.debugPrint(DEBUG_UM, "FUMO Status is [" + nStatus + "]. Resume");
 
-			if (nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS) {
+			if (nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS || nStatus == DM_FUMO_STATE_READY_TO_UPDATE) {
 				Intent i = new Intent();
 				i.setAction(DM2UM_INTENT_NAME);
 				i.putExtra(INTENT_MSGTYPE, INTENT_MSGTYPE_RESUME_DOWNLOAD);
@@ -553,6 +556,10 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 				setDMState(DL_PROGRESS);
 				receiveStartTime = System.currentTimeMillis();
 			}
+			if(nStatus == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR && descriptResume() ==1) {
+				receiveStartTime = System.currentTimeMillis();
+			}
+
 			tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
 		}
 	}
@@ -564,6 +571,11 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		spedit.putInt("networkProfile",setProfileIndex);
 		spedit.apply();
 
+		if (tsdmDB.dmdbGetFUMOStatus() == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS) {
+			tsLib.debugPrint(DEBUG_UM, "download  compulsion stop");
+			DownloadStop = true;
+		}
+		FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400258.cfg");
 		tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 		setDMState(DM_IDLE);
    }
@@ -578,6 +590,13 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 			tsdmDB.dmdbWrite(E2P_SYNCML_DM_PROFILE, tsdmDB.DMNvmClass.tProfileList);
 			tsdmDB.DMNvmClass.NVMSyncMLDMInfo = (tsdmInfo)tsdmDB.dmdbRead(E2P_SYNCML_DM_INFO, tsdmDB.DMNvmClass.NVMSyncMLDMInfo);
 		}
+	}
+
+	public static int descriptResume(){
+		SharedPreferences sp = mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
+		int descriptResume= sp.getInt("descriptResume",0);
+		tsLib.debugPrint(DEBUG_UM, "descriptResume = "+descriptResume);
+		return descriptResume;
 	}
 
 
@@ -649,6 +668,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					spedit.putString("pasFilePath",pasFilePath);
 					spedit.putString("workId","");
 					spedit.putString("logUploadURI","");
+					spedit.putInt("descriptResume",0);
 					spedit.apply();
 
 					if(avntVer ==null) avntVer="";
@@ -659,6 +679,8 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					dmDevinfoAdapter.devAdpSetModelName(modelName);
 					dmDevinfoAdapter.devAdpSetDeviceId(vinId);
 					dmDevinfoAdapter.devAdpSetSoftwareVersion(checkVer);
+
+					FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400258.cfg");
 
 					downloadFileFailCause="";
 					uploadFailCause="";
@@ -681,6 +703,11 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 						connectPoolRetryCount =0;
 						if( tsdmDB.dmdbGetFUMOStatus() == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR)
 						{
+							SharedPreferences sp= mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
+							SharedPreferences.Editor spedit = sp.edit();
+							spedit.putInt("descriptResume",1);
+							spedit.apply();
+
 							setDMState(DL_PROGRESS);
 							tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
 							dmFotaEntity.checkDownloadMemory();
@@ -696,6 +723,11 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 
 						if(tsdmDB.dmdbGetFUMOStatus() == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR)
 						{
+							SharedPreferences sp= mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
+							SharedPreferences.Editor spedit = sp.edit();
+							spedit.putInt("descriptResume",2);
+							spedit.apply();
+
 							setDMState(DM_IDLE);
 							tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
 							dmFotaEntity.cancelDownload();
@@ -709,7 +741,6 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 						return;
 					}
 
-					setDMState(DM_ALERT);
 					tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
 					dmFotaEntity.updateStandby();
 				}
@@ -751,7 +782,6 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					dmDevinfoAdapter.devAdpSetModelName(modelName);
 					dmDevinfoAdapter.devAdpSetDeviceId(vinId);
 
-					setDMState(DM_ALERT);
 
 					tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
 
@@ -832,6 +862,14 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					tsLib.debugPrint(DEBUG_UM, "intent usb update start");
 					tsLib.debugPrint(DEBUG_UM, "modelName = " + modelName);
 					tsLib.debugPrint(DEBUG_UM, "vinId = " + vinId);
+
+					if (tsdmDB.dmdbGetFUMOStatus() == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS) {
+						tsLib.debugPrint(DEBUG_UM, "download compulsion stop");
+						DownloadStop = true;
+					}
+					FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400258.cfg");
+					tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
+					setDMState(DM_IDLE);
 				}
 				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_USB_UPDATE_REPORT)){
 
@@ -875,6 +913,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					spedit.putString("pasFilePath",pasFilePath);
 					spedit.putString("workId","");
 					spedit.putString("logUploadURI","");
+					spedit.putInt("descriptResume",0);
 					spedit.apply();
 
 					if(avntVer ==null) avntVer="";
@@ -946,20 +985,14 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 	{
 		tsLib.debugPrint(DEBUG_UM, "type = " +failType);
 
-		if(getDMState() == DM_ALERT){
-			tsLib.debugPrint(DEBUG_UM, "fail no broad cast to UM");
-			setDMState(DM_IDLE);
-		}
-		else{
-			setDMState(DM_IDLE);
-			Intent i = new Intent();
-			i.setAction(DM2UM_INTENT_NAME);
-			i.putExtra(INTENT_MSGTYPE, INTENT_MSGTYPE_DOWNLOAD_FAIL);
-			i.putExtra(INTENT_UPDATE_FAILCASUSE, failType);
-			tsLib.debugPrint(DEBUG_UM, "intent msgType = " + i.getStringExtra(INTENT_MSGTYPE));
-			tsLib.debugPrint(DEBUG_UM, "failCause = " + i.getIntExtra(INTENT_UPDATE_FAILCASUSE, 0));
-			mContext.sendBroadcast(i);
-		}
+		setDMState(DM_IDLE);
+		Intent i = new Intent();
+		i.setAction(DM2UM_INTENT_NAME);
+		i.putExtra(INTENT_MSGTYPE, INTENT_MSGTYPE_DOWNLOAD_FAIL);
+		i.putExtra(INTENT_UPDATE_FAILCASUSE, failType);
+		tsLib.debugPrint(DEBUG_UM, "intent msgType = " + i.getStringExtra(INTENT_MSGTYPE));
+		tsLib.debugPrint(DEBUG_UM, "failCause = " + i.getIntExtra(INTENT_UPDATE_FAILCASUSE, 0));
+		mContext.sendBroadcast(i);
 	}
 
 	public static void tsUpdateExtra()   //(DM-->UM)
@@ -1043,6 +1076,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		else {
 				tsLib.debugPrint(DEBUG_UM, "downloadFileProcess Fail");
 				dmFotaEntity.downloadFileFail();
+				tsDownloadFail(1);
 		}
 		} catch (Exception e) {
 			tsLib.debugPrintException(DEBUG_UM, e.toString());
@@ -1089,11 +1123,11 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		}*/
 
 		String downloadFileName = DM_FS_FFS_DIRECTORY + File.separator+"2400258.cfg";
-
-		if(downloadFileCrc != null){
-			if(getCRC32Checksum(downloadFileName) != Long.parseLong(downloadFileCrc))
+		long crcCheck = getCRC32Checksum(downloadFileName);
+		if(downloadFileCrc != null && crcCheck != 0){
+			if(crcCheck != Long.parseLong(downloadFileCrc))
 			{
-				downloadFileFailCause="download file CRC error";
+				downloadFileFailCause="download file crc error";
 				tsLib.debugPrintException(DEBUG_UM, "download file CRC fail");
 				FileDelete(downloadFileName);
 				return false;
@@ -1163,7 +1197,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 
 		if (!FileDelete(downloadFileName)) {
 			tsLib.debugPrintException(DEBUG_UM, "download file delete fail");
-			downloadFileFailCause="download file error";
+			downloadFileFailCause="download file delete error";
 			return false;
 		}
         return true;
@@ -1327,9 +1361,9 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 	public static long getCRC32Checksum(String filePath) throws Exception {
 		// CRC
 		CRC32 checksum = new CRC32();
+		BufferedInputStream is = null;
 		try {
-			BufferedInputStream is = new BufferedInputStream(
-					new FileInputStream(filePath));
+			 is = new BufferedInputStream(	new FileInputStream(filePath));
 			byte[] bytes = new byte[1024];
 			int len = 0;
 
@@ -1340,6 +1374,9 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		}
 		catch (IOException e) {
 			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			return 0;
+		} finally {
+			is.close();
 		}
 		return checksum.getValue();
 	}
@@ -1359,14 +1396,27 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 				TrustManager[] trustManagers = new TrustManager[] {new X509TrustManager()
 				{
 					@Override
-					public X509Certificate[] getAcceptedIssuers(){return null;}
+					public X509Certificate[] getAcceptedIssuers()
+					{
+						return null;
+					}
 					@Override
 					public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException // Noncompliant
 					{
+						try {
+							certs[0].checkValidity();
+						} catch (Exception e) {
+							throw new CertificateException("Certificate not valid or trusted.");
+						}
 					}
 					@Override
 					public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException // Noncompliant
 					{
+						try {
+							certs[0].checkValidity();
+						} catch (Exception e) {
+							throw new CertificateException("Certificate not valid or trusted.");
+						}
 					}
 				}};
 

@@ -632,12 +632,12 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 					{
 						dmAgent.dmAgentSetSyncMode(DM_SYNC_NONE);
 						dlAgent.dltpSetRetryCount(TP_RETRY_COUNT_NONE);
-						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAILED_WIFI_DISCONNECTED);
+						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAILED_NETWORK_DISCONNECTED);
 					}
-					else if (dlAgent.dltpGetRetryCount() % 3 == 0 && nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
+/*					else if (dlAgent.dltpGetRetryCount() % 3 == 0 && nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
 					{
 						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAIL_RETRY_CONFIRM);
-					}
+					}*/
 					else
 					{
 						tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONNECT, null, null);
@@ -677,8 +677,10 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 						tsLib.debugPrint(DEBUG_TASK, "send generic alert for fail to download package");
 						// send generic alert for fail to download package
 						// cause HTTP response error
-						tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING);
-						tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
+/*						tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING);
+						tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);*/
+						tsService.downloadFileFailCause = "download network error";
+						dmFotaEntity.downloadFileFail();
 						tsService.tsDownloadFail(2);
 					}
 				}
@@ -702,12 +704,12 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 					{
 						dmAgent.dmAgentSetSyncMode(DM_SYNC_NONE);
 						dlAgent.dltpSetRetryCount(TP_RETRY_COUNT_NONE);
-						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAILED_WIFI_DISCONNECTED);
+						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAILED_NETWORK_DISCONNECTED);
 					}
-					else if (dlAgent.dltpGetRetryCount() % 3 == 0 && nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
+/*					else if (dlAgent.dltpGetRetryCount() % 3 == 0 && nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
 					{
 						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAIL_RETRY_CONFIRM);
-					}
+					}*/
 					else
 					{
 						tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONNECT, null, null);
@@ -733,12 +735,12 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 					{
 						dmAgent.dmAgentSetSyncMode(DM_SYNC_NONE);
 						dlAgent.dltpSetRetryCount(TP_RETRY_COUNT_NONE);
-						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAILED_WIFI_DISCONNECTED);
+						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAILED_NETWORK_DISCONNECTED);
 					}
-					else if (dlAgent.dltpGetRetryCount() % 3 == 0 && nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
+/*					else if (dlAgent.dltpGetRetryCount() % 3 == 0 && nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
 					{
 						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAIL_RETRY_CONFIRM);
-					}
+					}*/
 					else
 					{
 						tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONNECT, null, null);
@@ -766,7 +768,7 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 					{
 						dmAgent.dmAgentSetSyncMode(DM_SYNC_NONE);
 						dlAgent.dltpSetRetryCount(TP_RETRY_COUNT_NONE);
-						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAILED_WIFI_DISCONNECTED);
+						tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_DOWNLOAD_FAILED_NETWORK_DISCONNECTED);
 						return false;
 					}
 					

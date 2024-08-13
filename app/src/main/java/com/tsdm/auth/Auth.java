@@ -296,7 +296,7 @@ public class Auth implements dmDefineDevInfo
 
 	public static String authFactoryDigest(byte[] buf, byte[] digest)
 	{
-		MessageDigest md5 = null;
+/*		MessageDigest md5 = null;
 		try
 		{
 			md5 = MessageDigest.getInstance("MD5");
@@ -314,7 +314,8 @@ public class Auth implements dmDefineDevInfo
 			retStr = new String(digest);
 		}
 
-		return retStr;
+		return retStr;*/
+		return null;
 	}
 
 	public static String authMakeNonceDigest(int authType, String userName, String passWord, byte[] nonce, int nonceLength, byte[] packetBody, int bodyLength)

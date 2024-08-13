@@ -24,6 +24,7 @@ public class ddXMLParser implements dmDefineDevInfo
 	{
 		tsLib.debugPrint(DEBUG_PARSER, "");
 		SAXParserFactory spf = SAXParserFactory.newInstance();
+		spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
 		SAXParser sp = spf.newSAXParser();
 		XMLReader xr = sp.getXMLReader();
 

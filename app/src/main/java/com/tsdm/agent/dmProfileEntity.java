@@ -45,8 +45,8 @@ public class dmProfileEntity implements dmDefineDevInfo, tsDefineDB
 
 			if (nPortCount == 2)
 			{
-				ResultURI = new String(BootURI);
-				return ResultURI;
+/*				ResultURI = new String(BootURI);*/
+				return new String(BootURI);
 			}
 
 			if (nCount == 3)
@@ -60,9 +60,9 @@ public class dmProfileEntity implements dmDefineDevInfo, tsDefineDB
 					String Path = String.valueOf(BootURI);
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
-					ResultURI = tArg;
-					tsLib.debugPrint(DEBUG_DM, ResultURI);
-					return ResultURI;
+					/*ResultURI = tArg;*/
+					tsLib.debugPrint(DEBUG_DM, tArg);
+					return tArg;
 				}
 				else
 				{
@@ -72,10 +72,10 @@ public class dmProfileEntity implements dmDefineDevInfo, tsDefineDB
 					String Path = String.valueOf(BootURI);
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
-					ResultURI = tArg;
-					tsLib.debugPrint(DEBUG_DM, ResultURI);
+				    /*	ResultURI = tArg;*/
+					tsLib.debugPrint(DEBUG_DM, tArg);
 					t = 0;
-					return ResultURI;
+					return tArg;
 				}
 
 			}
