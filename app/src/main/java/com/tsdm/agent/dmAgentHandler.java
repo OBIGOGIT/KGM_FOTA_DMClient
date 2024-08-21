@@ -316,7 +316,8 @@ public class dmAgentHandler extends dmAgent implements dmDefineMsg, dmDefineUIEv
 						|| (nStatus == DM_FUMO_STATE_USER_CANCEL_REPORTING)
 						|| (nStatus == DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING))
 					{
-						tsLib.debugPrint(DEBUG_DM, "FUMO nStatus");
+						tsLib.debugPrint(DEBUG_DL, "dmdbGetFUMOResultCode " + tsdmDB.dmdbGetFUMOResultCode());
+
 						tsdmDB.dmdbSetDmAgentType(SYNCML_DM_AGENT_DM);
 						tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 						tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE);
@@ -415,7 +416,7 @@ public class dmAgentHandler extends dmAgent implements dmDefineMsg, dmDefineUIEv
 							}
 							else
 							{
-								tsLib.debugPrint(DEBUG_DM, "UIC_TYPE_CONFIRM__&&__UIC_RESULT_TIMEOUT________\n");
+								tsLib.debugPrint(DEBUG_DM, "UIC_TYPE_CONFIRM__&&__UIC_RESULT_TIMEOUT\n");
 								ws.uicFlag = SyncmlUICFlag.UIC_FALSE;
 							}
 						}
@@ -436,7 +437,7 @@ public class dmAgentHandler extends dmAgent implements dmDefineMsg, dmDefineUIEv
 					tsDmParserItem item = null;
 					tsList h = null, t = null;
 
-					tsLib.debugPrint(DEBUG_DM, "______ UIC_TYPE_INPUT _______INPUT text :" + pUicResult.text.text + " UIC Result :" + pUicResult.result);
+					tsLib.debugPrint(DEBUG_DM, " UIC_TYPE_INPUT input text :" + pUicResult.text.text + " UIC Result :" + pUicResult.result);
 
 					if (pUicResult.result == UIC_RESULT_OK)
 					{

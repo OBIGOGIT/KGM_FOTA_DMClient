@@ -100,7 +100,7 @@ public class tsDmMsg implements dmDefineDevInfo
 				{
 					try
 					{
-						tsLib.debugPrint(DEBUG_DM, "waiting for DM_TaskHandler create");
+						tsLib.debugPrint(DEBUG_DM, "Waiting for DM_TaskHandler");
 						//Thread.sleep(500);
 						syncMsgQueueObj.wait(500); // Compliant, the current monitor is released.
 					}

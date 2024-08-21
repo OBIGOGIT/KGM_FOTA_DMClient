@@ -384,6 +384,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_USER_CANCEL);
 		try
 		{
+			if(pDownloadStatus.getBytes() !=null)
 			nRc = gHttpDLAdapter.tpSendData(pDownloadStatus.getBytes(), pDownloadStatus.length(), SYNCMLDL);
 		}
 		catch (SocketTimeoutException e)
@@ -472,6 +473,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		try
 		{
+			if(pDownloadStatus.getBytes() !=null)
 			nRc = gHttpDLAdapter.tpSendData(pDownloadStatus.getBytes(), pDownloadStatus.length(), SYNCMLDL);
 		}
 		catch (SocketTimeoutException e)

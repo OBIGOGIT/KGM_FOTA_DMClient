@@ -157,14 +157,14 @@ public class dmInitadapter implements dmDefineDevInfo, tsDefineIdle, dmDefineMsg
 		else if (nStatus == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR )
 		{
 			tsLib.debugPrint(DEBUG_DM, "DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR");
-			int descriptResume=tsService.descriptResume();
-			if(descriptResume == 1){
+			int descriptResumeState=tsService.descriptResumeState();
+			if(descriptResumeState == 1){
 				tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
 				dmFotaEntity.checkDownloadMemory();
-			}else if(descriptResume == 2){
+			}else if(descriptResumeState == 2){
 				dmFotaEntity.cancelDownload();
 			}else{
-				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
+				tsService.tsDownloadRequest();
 			}
 			//tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_DOWNLOAD_YES_NO);
 		}

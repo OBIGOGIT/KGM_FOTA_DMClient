@@ -246,7 +246,7 @@ public class tsDBFactoryBootstrapadapter implements dmDefineDevInfo
 			{
 				if (save.length - pNptr.length() >= 2 && tsLib.libToupper(save[-1]) == 'X' && save[-2] == '0')
 				{
-					pEndPtr = Arrays.toString(save).substring(-1);   //save.toString().substring(-1); // save[-1];
+					pEndPtr = Arrays.toString(save);   //save.toString().substring(-1); // save[-1];
 				}
 				else
 				{
@@ -324,7 +324,7 @@ public class tsDBFactoryBootstrapadapter implements dmDefineDevInfo
 			{
 				if (save.length - pNptr.length() >= 2 && tsLib.libToupper(save[-1]) == 'X' && save[-2] == '0')
 				{
-					pEndPtr = Arrays.toString(save).substring(-1);   //save.toString().substring(-1); // save[-1];
+					pEndPtr = Arrays.toString(save);   //save.toString().substring(-1); // save[-1];
 				}
 				else
 				{

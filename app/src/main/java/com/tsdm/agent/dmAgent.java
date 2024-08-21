@@ -566,7 +566,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		second = data.get(Calendar.SECOND);
 
 		sessionid = String.format("%x%x", Integer.valueOf(nowdata), Integer.valueOf(second));
-		tsLib.debugPrint(DEBUG_DM, "sessionid =" + sessionid);
+		tsLib.debugPrint(DEBUG_DM, "sessionid = " + sessionid);
 
 		return sessionid;
 	}
@@ -1896,7 +1896,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			dbgStr = dbgStr.concat(pFUMOPackageNode);
 			tsLib.debugPrint(DEBUG_DM, dbgStr);
 			aclValue = OMACL_ADD | OMACL_GET | OMACL_REPLACE;
-			DM_SET_OM_PATH(om, pFUMOPackageNode, aclValue, SCOPE_PERMANENT); // juneyeob : permanent node for FUMO
+			DM_SET_OM_PATH(om, pFUMOPackageNode, aclValue, SCOPE_PERMANENT);
 
 			// Defects : Avoid String + operator in loops
 			pFUMONode = pFUMOPackageNode.concat(FUMO_PKGNAME_PATH);
@@ -4500,7 +4500,6 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		}
 		while (ws.procStep != PROCESS_STEP_FINISH)
 		{
-			// For Multi Sequence with UIC and DM cmd
 			if (!ws.IsSequenceProcessing)
 			{
 				list = ws.list;
@@ -4510,7 +4509,6 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			else
 			{
 				list = ws.sequenceList;
-				/* 2008.05.01 prevent reset(sequence command */
 				cmditem = (dmAgent) tsLinkedList.listGetObj(list, 0);
 				if (cmditem != null)
 				{
@@ -4520,7 +4518,6 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				{
 					ws.IsSequenceProcessing = false;
 				}
-				/* End of prevent reset(sequence command */
 
 				if (!ws.IsSequenceProcessing)
 				{
@@ -4536,8 +4533,6 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				}
 			}
 
-			// ADD : for UIC
-			// solution for no status problem at uic process .
 			if (cmditem == null)
 			{
 				if (ws.uicAlert != null)
@@ -4550,7 +4545,6 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				}
 			}
 
-			// processing...
 			while (cmditem != null)
 			{
 				if ((cmditem.cmd.compareTo("Get") == 0) 
@@ -4578,7 +4572,6 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 				res = dmAgentVerifyCmd(cmditem, isAtomic, status);
 
-				// For Multi Sequence with UIC and DM cmd
 				if (!ws.IsSequenceProcessing)
 				{
 					tmp = cmditem;
@@ -4587,8 +4580,6 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					ws.wsDmFreeAgent(tmp);
 				}
 
-				// ADD : for UIC
-				// solution for no status problem at uic process .
 				if (res == SDM_PAUSED_BECAUSE_UIC_COMMAND) // && ws->inSequenceCmd)
 				{
 					tsLib.debugPrint(DEBUG_DM, "SDM_PAUSED_BECAUSE_UIC_COMMAND");
@@ -4599,7 +4590,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					ws.atomicFlag = false;
 					ws.inAtomicCmd = false;
 					ws.inSequenceCmd = false;
-				} // For scts UIC END
+				}
 
 				if (res == SDM_RET_EXEC_ALTERNATIVE || res == SDM_RET_EXEC_REPLACE)
 				{

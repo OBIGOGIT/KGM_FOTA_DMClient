@@ -107,7 +107,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 
 	public void tpInit(int appId)
 	{
-		tsLib.debugPrint(DEBUG_NET, "tpInit");
+		tsLib.debugPrint(DEBUG_NET, "appId = "+appId);
 
 		if (pHttpObj[appId] == null)
 			pHttpObj[appId] = new netHttpObj();
@@ -1129,7 +1129,11 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 								// Defects : Close open streams in finally() blocks
 								try
 								{
-									aBuff.read(actualBuff);
+									int ret = aBuff.read(actualBuff);
+									if(ret == -1)
+									{
+										tsLib.debugPrint(DEBUG_EXCEPTION, "Buff read fail");
+									}
 								}
 								catch (IOException e)
 								{
@@ -1419,7 +1423,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 
 		if (pHttpObj[appId].pHttpConnection != null && pHttpObj[appId].pHttpConnection.equals(HTTP_CONNECTION_TYPE_CLOSE))
 		{
-			tsLib.debugPrint(DEBUG_NET, "_______HTTP_CONNECTION_TYPE_CLOSE MODE_______");
+			tsLib.debugPrint(DEBUG_NET, "HTTP_CONNECTION_TYPE_CLOSE");
 			pHttpObj[appId].nHttpConnection = TP_HTTP_CONNECTION_CLOSE;
 			tpClose(appId);
 		}
@@ -1429,7 +1433,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 		}
 		else
 		{
-			tsLib.debugPrint(DEBUG_NET, "_______HTTP_CONNECTION_TYPE_NONE MODE_______");
+			tsLib.debugPrint(DEBUG_NET, "HTTP_CONNECTION_TYPE_NONE");
 			pHttpObj[appId].nHttpConnection = TP_HTTP_CONNECTION_KEEP_ALIVE;
 			pHttpObj[appId].pHttpConnection = HTTP_CONNECTION_TYPE_KEEPALIVE;
 		}

@@ -2647,7 +2647,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				// if status is 0, no report
 			}
 		}
-		tsLib.debugPrint(DEBUG_DB, " = [" + nStatus+"]");
+		tsLib.debugPrint(DEBUG_DB, "= [" + nStatus+"]");
 		return nStatus;
 	}
 
@@ -2706,6 +2706,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	public static void dmdbSetFUMOCorrelator(String pCorrelator)
 	{
+		tsLib.debugPrint(DEBUG_DB, "pCorrelator = " + pCorrelator);
 		try
 		{
 			dmdbWrite(E2P_SYNCML_FUMO_CORRELATOR, pCorrelator);

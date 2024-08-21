@@ -743,7 +743,7 @@ public class dlAgentHandler extends dlAgent implements dmDefineDevInfo, dmDefine
 		pRecv = pReceiveBuffer.toByteArray();
 		nReceiveDataSize = pReceiveBuffer.toByteArray().length;
 		nRet = dlAgntHdlrCheckDdData(pRecv, SYNCMLDL);
-		tsLib.debugPrint(DEBUG_DL, "DD check success. nRet = [" + nRet + "]");
+		tsLib.debugPrint(DEBUG_DL, "DD check nRet = [" + nRet + "]");
 
 		if (nRet == SDL_RET_OK)
 		{
