@@ -45,6 +45,7 @@ public interface tsDefineIdle
 	String	FUMO_STATE_PATH											= "/State";
 	String	FUMO_EXT												= "/Ext";
 
+
 	String 	DL_GENERIC_SUCCESSFUL 									= "200";
 	String 	DL_GENERIC_SUCCESSFUL_UPDATE 							= "200";
 	String 	DL_GENERIC_SUCCESSFUL_DOWNLOAD 							= "200";
@@ -52,29 +53,35 @@ public interface tsDefineIdle
 	String 	DL_GENERIC_CLIENT_ERROR 								= "400";
 	String 	DL_GENERIC_USER_CANCELED_DOWNLOAD						= "401";
 	String 	DL_GENERIC_CORRUPTED_FW_UP 								= "402";
-	String	 DL_GENERIC_PACKAGE_MISMATCH							= "403";
+	String	DL_GENERIC_PACKAGE_MISMATCH								= "403";
 	String 	DL_GENERIC_FAILED_FW_UP_VALIDATION 						= "404";
-	String	 DL_GENERIC_NOT_ACCEPTABLE 								= "405";
+	String	DL_GENERIC_NOT_ACCEPTABLE 								= "405";
 	String 	DL_GENERIC_AUTHENTICATION_FAILURE 						= "406";
 	String 	DL_GENERIC_REQUEST_TIME_OUT								= "407";
 	String	DL_GENERIC_NOT_IMPLEMENTED 								= "408";
 	String 	DL_GENERIC_UNDEFINED_ERROR 								= "409";
-	String	 DL_GENERIC_UPDATE_FAILED 								= "410";
+	String	DL_GENERIC_UPDATE_FAILED 								= "410";
 	String 	DL_GENERIC_BAD_URL 										= "411";
 	String 	DL_GENERIC_SERVER_UNAVAILABLE 							= "412";
 	String 	DL_GENERIC_SERVER_ERROR 								= "500";
 	String	DL_GENERIC_DOWNLOAD_FAILED_OUT_MEMORY 					= "501";
 	String 	DL_GENERIC_UPDATE_FAILED_OUT_MEMORY 					= "502";
 	String 	DL_GENERIC_DOWNLOAD_FAILED_NETWORK 						= "503";
-
 	String 	DL_GENERIC_DOWNLOAD_FILE_ERROR 							= "952";
 	String 	DL_USER_CANCELED_DOWNLOAD 								= "902";
+
+
+
 	String 	UPDATE_USER_CANCELED 							        = "401";
+	String 	UPDATE_PARTITION 							        	= "190";
 	String 	UPDATE_START				 							= "198";
 	String 	UPDATE_START_REBOOT			 							= "199";
 	String 	UPDATE_SUCCESS				 							= "200";
 	String 	UPDATE_FAIL				 							    = "400";
 	String 	UPDATE_STANDBY				 							= "197";
+
+
+
 
 	int 	DL_MEMORY_INSUFFICIENT 									= 2;
 	int 	DL_OVER_OBJECT_SIZE 									= 1;

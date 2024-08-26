@@ -975,6 +975,14 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 				tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_START, null, null);
 				break;
 
+			case TASK_MSG_DL_FIRMWARE_UPDATE_PARTITION:
+				tsLib.debugPrint(DEBUG_TASK, "TASK_MSG_DL_FIRMWARE_UPDATE_PARTITION updateType= " +tsService.updateType);
+				tsdmDB.dmdbSetFUMOResultCode(UPDATE_PARTITION);
+				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_UPDATE_SUCCESSFUL_NODATA);
+				tsdmDB.dmdbSetDmAgentType(SYNCML_DM_AGENT_FUMO);
+				tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_START, null, null);
+				break;
+
 			case TASK_MSG_DL_FIRMWARE_UPDATE:
 				tsLib.debugPrint(DEBUG_TASK, "TASK_MSG_DL_FIRMWARE_UPDATE");
 				break;

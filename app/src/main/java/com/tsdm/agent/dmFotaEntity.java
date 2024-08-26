@@ -87,6 +87,12 @@ public class dmFotaEntity implements dmDefineDevInfo, tsDefineIdle, dmDefineUIEv
 		dmAgent.dmAgentSetUserInitiatedStatus(false);
 	}
 
+	public static void updatePartion() {
+		tsLib.debugPrint(DEBUG_UM, "updateType= "+tsService.updateType);
+		tsDmMsg.taskSendMessage(TASK_MSG_DL_FIRMWARE_UPDATE_PARTITION, null, null);
+		dmAgent.dmAgentSetUserInitiatedStatus(false);
+	}
+
 	public static void updateFail() {
 		tsLib.debugPrint(DEBUG_UM, "updateType= "+tsService.updateType+" uploadFailCause= "+tsService.uploadFailCause);
 		tsDmMsg.taskSendMessage(TASK_MSG_DL_FIRMWARE_UPDATE_FAIL, null, null);

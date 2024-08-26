@@ -913,7 +913,11 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 
 						dmFotaEntity.updateUserCancel();
 
-					}
+					}else if(updateState == 4){ //update partion
+
+						dmFotaEntity.updatePartion();
+
+			 	    }
 					else{
 						setDMState(DM_IDLE);
 					}

@@ -569,7 +569,6 @@ public class dlAgentHandler extends dlAgent implements dmDefineDevInfo, dmDefine
 						tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONNECTFAIL, null, null);
 					}
 					else
-					// SEND_FAIL
 					{
 						tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
 					}
