@@ -29,11 +29,31 @@ android {
             }
         }
     }
+    signingConfigs {
+        getByName("debug") {
+            keyAlias = "mbrelease"
+            keyPassword = "MBrelease@2019"
+            storeFile = file("MengboRelease-WT.jks")
+            storePassword = "MBrelease@2019"
+        }
+        create("release") {
+            keyAlias = "mbrelease"
+            keyPassword = "MBrelease@2019"
+            storeFile = file("MengboRelease-WT.jks")
+            storePassword = "MBrelease@2019"
+        }
+    }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
+        }
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
