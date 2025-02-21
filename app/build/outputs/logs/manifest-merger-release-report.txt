@@ -1,0 +1,435 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:2:1-50:12
+INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:2:1-50:12
+INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:2:1-50:12
+INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:2:1-50:12
+MERGED from [avnlib.aar] /Users/obigo/.gradle/caches/transforms-3/45341e96da3f6af450031e2d804dbf72/transformed/avnlib/AndroidManifest.xml:2:1-7:12
+MERGED from [EM_AidlLib.aar] /Users/obigo/.gradle/caches/transforms-3/10e32c279a03d39f213e957bbd5504e4/transformed/EM_AidlLib/AndroidManifest.xml:2:1-7:12
+MERGED from [EM_Common.aar] /Users/obigo/.gradle/caches/transforms-3/dbd86e8127037386ad7cbda83baeb867/transformed/EM_Common/AndroidManifest.xml:2:1-7:12
+MERGED from [EM_ServiceManagerLib.aar] /Users/obigo/.gradle/caches/transforms-3/b455e63f3c62ffac0592b49c160d6c00/transformed/EM_ServiceManagerLib/AndroidManifest.xml:2:1-9:12
+MERGED from [EM_ThirdPartyLib.aar] /Users/obigo/.gradle/caches/transforms-3/d674db9f4fc4786abe7c2bb78496aeae/transformed/EM_ThirdPartyLib/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.material:material:1.6.1] /Users/obigo/.gradle/caches/transforms-3/afd3852f0f2094517e97a545e961f14d/transformed/material-1.6.1/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /Users/obigo/.gradle/caches/transforms-3/cb655e35dccc2de27b026d4dc7c2ee8a/transformed/appcompat-resources-1.5.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /Users/obigo/.gradle/caches/transforms-3/3fa9d067e2efd406aa003838afdfa5e1/transformed/constraintlayout-2.0.1/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat:1.5.0] /Users/obigo/.gradle/caches/transforms-3/2d67d1a98b8acc6eaa92a74faa655de7/transformed/appcompat-1.5.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.material3:material3:1.1.1] /Users/obigo/.gradle/caches/transforms-3/86a2eb4b107ac4f4b8da33a175f6af07/transformed/material3-1.1.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/obigo/.gradle/caches/transforms-3/3677d41cbf29cf154d861a01233e768c/transformed/viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/obigo/.gradle/caches/transforms-3/9e39047d435e5c3be4f9833dff495a93/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.7.0] /Users/obigo/.gradle/caches/transforms-3/629f6326beb312e2bba35e4f9f44ed96/transformed/activity-1.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity-compose:1.7.0] /Users/obigo/.gradle/caches/transforms-3/7e6242fdc5c6036151862d1b602df1c2/transformed/activity-compose-1.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.animation:animation-core-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/d1e2dd768dd47a774d40f186df1ba00f/transformed/animation-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-core-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/bf438befee5728433ff39526e22f088f/transformed/material-icons-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-ripple-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/70e29a2fb36ed567eaeb061c87cbc8f2/transformed/material-ripple-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/db4ba2f9507541ee5be025b41f58b7d5/transformed/animation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/91330537267c91e64abeaf8fc1c47e36/transformed/foundation-layout-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/1a31edfa0f0be1a0f992c5a9e5bc39f6/transformed/foundation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-unit-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/6c7e7ff66f8e529739206a3c21a443eb/transformed/ui-unit-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-geometry-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/36f7fad5dfaab45f1ee6cc850a20e7f0/transformed/ui-geometry-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-util-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/a7120afdf5b910a038315260ba8d65b4/transformed/ui-util-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-text-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/a61f184248ee99d64a98b8a6ff5f852e/transformed/ui-text-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/ca14301d5f7ace0d0e90f50f03218345/transformed/ui-tooling-preview-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.ui:ui-graphics-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/83046bf0b8f3b4799ef868bba18e67f4/transformed/ui-graphics-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/7d090c29cb1660bdcfa84079011a2220/transformed/ui-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity-ktx:1.7.0] /Users/obigo/.gradle/caches/transforms-3/64815c0708bca321f7268f82f6d178c4/transformed/activity-ktx-1.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/obigo/.gradle/caches/transforms-3/ef51a02167096f1079b041f2678480d9/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/obigo/.gradle/caches/transforms-3/435c424a1e07dd2682b99ab01659dfe9/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/obigo/.gradle/caches/transforms-3/b1406c7e75b8214de9e604dd406ae1c5/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] /Users/obigo/.gradle/caches/transforms-3/af3716a7923a2fd9dd60af7abec03abf/transformed/emoji2-views-helper-1.4.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] /Users/obigo/.gradle/caches/transforms-3/3765695d36bc1f7b33e26b865ed24b8a/transformed/lifecycle-livedata-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] /Users/obigo/.gradle/caches/transforms-3/8a86f305393581c99478156b8a0e1ee5/transformed/lifecycle-livedata-core-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1] /Users/obigo/.gradle/caches/transforms-3/79f7229ad393dff95f538df15a8b7ec4/transformed/lifecycle-viewmodel-ktx-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/obigo/.gradle/caches/transforms-3/a926dd64a61832c0e080435003eea5c4/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/obigo/.gradle/caches/transforms-3/defc59a7018ec357078858243847daeb/transformed/savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6a70a65f6f55170eab0d0e33f0d4a164/transformed/lifecycle-viewmodel-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6b4480ade32ba4fc0ab3a0d560f11094/transformed/lifecycle-viewmodel-savedstate-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/obigo/.gradle/caches/transforms-3/de1aeb1e4e24606fd7fe0a2c16455766/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.core:core-ktx:1.10.1] /Users/obigo/.gradle/caches/transforms-3/f19c8b8457ec893c7a89ab433220250f/transformed/core-ktx-1.10.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/obigo/.gradle/caches/transforms-3/b6f5ca010b5a953ffef0690268cf12a7/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/obigo/.gradle/caches/transforms-3/555bbfcceab7ddffa2bedafe09770ba3/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.2.0] /Users/obigo/.gradle/caches/transforms-3/9a6e04ba8cacea6ab15f1a15fbf898f2/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/obigo/.gradle/caches/transforms-3/6e43343aafd433863b5b47d86da43c06/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/obigo/.gradle/caches/transforms-3/45c2b3dcdcf228cd3613407e39cb07a3/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/obigo/.gradle/caches/transforms-3/7e9e4367739d4b49682c3ccb0d20f69d/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/obigo/.gradle/caches/transforms-3/9e356296c07665ad70fd878fd63de627/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.1.0] /Users/obigo/.gradle/caches/transforms-3/40661b3bff66fe88a0ba8d279c51211e/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/obigo/.gradle/caches/transforms-3/ac11a0323ee6d89059f5dba951298995/transformed/autofill-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6ba136043c571d55716d64d818ee00dc/transformed/lifecycle-runtime-2.6.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6ed020b9196c60439fb91e658c13e3ad/transformed/lifecycle-runtime-ktx-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/8bce42ecf7dc4620794ffd31546a33b9/transformed/runtime-saveable-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/0833098dfed8c73d3fffc6508825cf06/transformed/runtime-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/obigo/.gradle/caches/transforms-3/5dc9e517aa78fe58acf1e59915fdb8cb/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/obigo/.gradle/caches/transforms-3/5342393d26a6bf89c680024ab9fab292/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/obigo/.gradle/caches/transforms-3/653ac4cc1d8be9080d1469ce1f4bcda4/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/obigo/.gradle/caches/transforms-3/a1465aadcf088d04ab900d8a854124b1/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/obigo/.gradle/caches/transforms-3/8f514fb6f7df0ed2ec077b5c76f24ad9/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/obigo/.gradle/caches/transforms-3/f4ee46acac1310e68295da8ad269edf1/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/obigo/.gradle/caches/transforms-3/5fda10b57b9e9cff5e436d32e59b2ab1/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/obigo/.gradle/caches/transforms-3/86c5a2d0b9acc62fe14791642cc76f9e/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/obigo/.gradle/caches/transforms-3/6985a629fcf6d96989d0974b535f2681/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/obigo/.gradle/caches/transforms-3/d28777e46b882da705b22e38cc37e74a/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/obigo/.gradle/caches/transforms-3/c3062c8e842a28b641556596594a0ccd/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+	package
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:4:5-23
+		INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml
+	android:sharedUserId
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:5:5-46
+	android:versionName
+		INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:2:11-69
+	android:sharedUserMaxSdkVersion
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:6:5-41
+uses-feature#android.hardware.telephony
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:8:5-10:36
+	android:required
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:10:9-33
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:9:9-50
+application
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:11:5-33:19
+INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:11:5-33:19
+MERGED from [com.google.android.material:material:1.6.1] /Users/obigo/.gradle/caches/transforms-3/afd3852f0f2094517e97a545e961f14d/transformed/material-1.6.1/AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.material:material:1.6.1] /Users/obigo/.gradle/caches/transforms-3/afd3852f0f2094517e97a545e961f14d/transformed/material-1.6.1/AndroidManifest.xml:24:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /Users/obigo/.gradle/caches/transforms-3/3fa9d067e2efd406aa003838afdfa5e1/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /Users/obigo/.gradle/caches/transforms-3/3fa9d067e2efd406aa003838afdfa5e1/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/obigo/.gradle/caches/transforms-3/a1465aadcf088d04ab900d8a854124b1/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/obigo/.gradle/caches/transforms-3/a1465aadcf088d04ab900d8a854124b1/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/obigo/.gradle/caches/transforms-3/f4ee46acac1310e68295da8ad269edf1/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/obigo/.gradle/caches/transforms-3/f4ee46acac1310e68295da8ad269edf1/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+	android:extractNativeLibs
+		INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml
+	android:requestLegacyExternalStorage
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:12:9-52
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:28:18-86
+	android:label
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:16:9-32
+	android:fullBackupContent
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:15:9-54
+	tools:ignore
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:17:17-41
+	android:allowBackup
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:13:9-35
+	android:dataExtractionRules
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:14:9-65
+service#com.tsdm.tsService
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:19:9-22:37
+	android:enabled
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:22:13-35
+	android:exported
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:21:13-36
+	android:permission
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:20:13-44
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:19:18-43
+receiver#com.tsdm.autoStartReceiver
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:24:9-31:20
+	android:enabled
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:27:13-35
+	android:exported
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:26:13-36
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:25:13-46
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:28:13-30:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:29:17-79
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:29:25-76
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:36:5-81
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:36:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:38:5-77
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:38:22-74
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:39:5-76
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:39:22-74
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:40:5-68
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:40:22-65
+uses-permission#android.permission.BROADCAST_STICKY
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:42:5-75
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:42:22-72
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:44:5-79
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:44:22-76
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:45:5-79
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:45:22-76
+uses-permission#android.permission.INTERNET
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:46:5-67
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:46:22-64
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:47:5-76
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:47:22-73
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:48:5-76
+	android:name
+		ADDED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml:48:22-73
+uses-sdk
+INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml
+INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml
+MERGED from [avnlib.aar] /Users/obigo/.gradle/caches/transforms-3/45341e96da3f6af450031e2d804dbf72/transformed/avnlib/AndroidManifest.xml:5:5-44
+MERGED from [avnlib.aar] /Users/obigo/.gradle/caches/transforms-3/45341e96da3f6af450031e2d804dbf72/transformed/avnlib/AndroidManifest.xml:5:5-44
+MERGED from [EM_AidlLib.aar] /Users/obigo/.gradle/caches/transforms-3/10e32c279a03d39f213e957bbd5504e4/transformed/EM_AidlLib/AndroidManifest.xml:5:5-44
+MERGED from [EM_AidlLib.aar] /Users/obigo/.gradle/caches/transforms-3/10e32c279a03d39f213e957bbd5504e4/transformed/EM_AidlLib/AndroidManifest.xml:5:5-44
+MERGED from [EM_Common.aar] /Users/obigo/.gradle/caches/transforms-3/dbd86e8127037386ad7cbda83baeb867/transformed/EM_Common/AndroidManifest.xml:5:5-44
+MERGED from [EM_Common.aar] /Users/obigo/.gradle/caches/transforms-3/dbd86e8127037386ad7cbda83baeb867/transformed/EM_Common/AndroidManifest.xml:5:5-44
+MERGED from [EM_ServiceManagerLib.aar] /Users/obigo/.gradle/caches/transforms-3/b455e63f3c62ffac0592b49c160d6c00/transformed/EM_ServiceManagerLib/AndroidManifest.xml:5:5-44
+MERGED from [EM_ServiceManagerLib.aar] /Users/obigo/.gradle/caches/transforms-3/b455e63f3c62ffac0592b49c160d6c00/transformed/EM_ServiceManagerLib/AndroidManifest.xml:5:5-44
+MERGED from [EM_ThirdPartyLib.aar] /Users/obigo/.gradle/caches/transforms-3/d674db9f4fc4786abe7c2bb78496aeae/transformed/EM_ThirdPartyLib/AndroidManifest.xml:5:5-44
+MERGED from [EM_ThirdPartyLib.aar] /Users/obigo/.gradle/caches/transforms-3/d674db9f4fc4786abe7c2bb78496aeae/transformed/EM_ThirdPartyLib/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.material:material:1.6.1] /Users/obigo/.gradle/caches/transforms-3/afd3852f0f2094517e97a545e961f14d/transformed/material-1.6.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.material:material:1.6.1] /Users/obigo/.gradle/caches/transforms-3/afd3852f0f2094517e97a545e961f14d/transformed/material-1.6.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /Users/obigo/.gradle/caches/transforms-3/cb655e35dccc2de27b026d4dc7c2ee8a/transformed/appcompat-resources-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.5.0] /Users/obigo/.gradle/caches/transforms-3/cb655e35dccc2de27b026d4dc7c2ee8a/transformed/appcompat-resources-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /Users/obigo/.gradle/caches/transforms-3/3fa9d067e2efd406aa003838afdfa5e1/transformed/constraintlayout-2.0.1/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /Users/obigo/.gradle/caches/transforms-3/3fa9d067e2efd406aa003838afdfa5e1/transformed/constraintlayout-2.0.1/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat:1.5.0] /Users/obigo/.gradle/caches/transforms-3/2d67d1a98b8acc6eaa92a74faa655de7/transformed/appcompat-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.5.0] /Users/obigo/.gradle/caches/transforms-3/2d67d1a98b8acc6eaa92a74faa655de7/transformed/appcompat-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material3:material3:1.1.1] /Users/obigo/.gradle/caches/transforms-3/86a2eb4b107ac4f4b8da33a175f6af07/transformed/material3-1.1.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material3:material3:1.1.1] /Users/obigo/.gradle/caches/transforms-3/86a2eb4b107ac4f4b8da33a175f6af07/transformed/material3-1.1.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/obigo/.gradle/caches/transforms-3/3677d41cbf29cf154d861a01233e768c/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/obigo/.gradle/caches/transforms-3/3677d41cbf29cf154d861a01233e768c/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/obigo/.gradle/caches/transforms-3/9e39047d435e5c3be4f9833dff495a93/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/obigo/.gradle/caches/transforms-3/9e39047d435e5c3be4f9833dff495a93/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.7.0] /Users/obigo/.gradle/caches/transforms-3/629f6326beb312e2bba35e4f9f44ed96/transformed/activity-1.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.7.0] /Users/obigo/.gradle/caches/transforms-3/629f6326beb312e2bba35e4f9f44ed96/transformed/activity-1.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-compose:1.7.0] /Users/obigo/.gradle/caches/transforms-3/7e6242fdc5c6036151862d1b602df1c2/transformed/activity-compose-1.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-compose:1.7.0] /Users/obigo/.gradle/caches/transforms-3/7e6242fdc5c6036151862d1b602df1c2/transformed/activity-compose-1.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/d1e2dd768dd47a774d40f186df1ba00f/transformed/animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/d1e2dd768dd47a774d40f186df1ba00f/transformed/animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/bf438befee5728433ff39526e22f088f/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/bf438befee5728433ff39526e22f088f/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/70e29a2fb36ed567eaeb061c87cbc8f2/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/70e29a2fb36ed567eaeb061c87cbc8f2/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/db4ba2f9507541ee5be025b41f58b7d5/transformed/animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/db4ba2f9507541ee5be025b41f58b7d5/transformed/animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/91330537267c91e64abeaf8fc1c47e36/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/91330537267c91e64abeaf8fc1c47e36/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/1a31edfa0f0be1a0f992c5a9e5bc39f6/transformed/foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/1a31edfa0f0be1a0f992c5a9e5bc39f6/transformed/foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/6c7e7ff66f8e529739206a3c21a443eb/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/6c7e7ff66f8e529739206a3c21a443eb/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/36f7fad5dfaab45f1ee6cc850a20e7f0/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/36f7fad5dfaab45f1ee6cc850a20e7f0/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/a7120afdf5b910a038315260ba8d65b4/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/a7120afdf5b910a038315260ba8d65b4/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/a61f184248ee99d64a98b8a6ff5f852e/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/a61f184248ee99d64a98b8a6ff5f852e/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/ca14301d5f7ace0d0e90f50f03218345/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/ca14301d5f7ace0d0e90f50f03218345/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/83046bf0b8f3b4799ef868bba18e67f4/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/83046bf0b8f3b4799ef868bba18e67f4/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/7d090c29cb1660bdcfa84079011a2220/transformed/ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/7d090c29cb1660bdcfa84079011a2220/transformed/ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.7.0] /Users/obigo/.gradle/caches/transforms-3/64815c0708bca321f7268f82f6d178c4/transformed/activity-ktx-1.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-ktx:1.7.0] /Users/obigo/.gradle/caches/transforms-3/64815c0708bca321f7268f82f6d178c4/transformed/activity-ktx-1.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/obigo/.gradle/caches/transforms-3/ef51a02167096f1079b041f2678480d9/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/obigo/.gradle/caches/transforms-3/ef51a02167096f1079b041f2678480d9/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/obigo/.gradle/caches/transforms-3/435c424a1e07dd2682b99ab01659dfe9/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/obigo/.gradle/caches/transforms-3/435c424a1e07dd2682b99ab01659dfe9/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/obigo/.gradle/caches/transforms-3/b1406c7e75b8214de9e604dd406ae1c5/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/obigo/.gradle/caches/transforms-3/b1406c7e75b8214de9e604dd406ae1c5/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] /Users/obigo/.gradle/caches/transforms-3/af3716a7923a2fd9dd60af7abec03abf/transformed/emoji2-views-helper-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] /Users/obigo/.gradle/caches/transforms-3/af3716a7923a2fd9dd60af7abec03abf/transformed/emoji2-views-helper-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] /Users/obigo/.gradle/caches/transforms-3/3765695d36bc1f7b33e26b865ed24b8a/transformed/lifecycle-livedata-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] /Users/obigo/.gradle/caches/transforms-3/3765695d36bc1f7b33e26b865ed24b8a/transformed/lifecycle-livedata-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] /Users/obigo/.gradle/caches/transforms-3/8a86f305393581c99478156b8a0e1ee5/transformed/lifecycle-livedata-core-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] /Users/obigo/.gradle/caches/transforms-3/8a86f305393581c99478156b8a0e1ee5/transformed/lifecycle-livedata-core-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1] /Users/obigo/.gradle/caches/transforms-3/79f7229ad393dff95f538df15a8b7ec4/transformed/lifecycle-viewmodel-ktx-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1] /Users/obigo/.gradle/caches/transforms-3/79f7229ad393dff95f538df15a8b7ec4/transformed/lifecycle-viewmodel-ktx-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/obigo/.gradle/caches/transforms-3/a926dd64a61832c0e080435003eea5c4/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/obigo/.gradle/caches/transforms-3/a926dd64a61832c0e080435003eea5c4/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/obigo/.gradle/caches/transforms-3/defc59a7018ec357078858243847daeb/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/obigo/.gradle/caches/transforms-3/defc59a7018ec357078858243847daeb/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6a70a65f6f55170eab0d0e33f0d4a164/transformed/lifecycle-viewmodel-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6a70a65f6f55170eab0d0e33f0d4a164/transformed/lifecycle-viewmodel-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6b4480ade32ba4fc0ab3a0d560f11094/transformed/lifecycle-viewmodel-savedstate-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6b4480ade32ba4fc0ab3a0d560f11094/transformed/lifecycle-viewmodel-savedstate-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/obigo/.gradle/caches/transforms-3/de1aeb1e4e24606fd7fe0a2c16455766/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/obigo/.gradle/caches/transforms-3/de1aeb1e4e24606fd7fe0a2c16455766/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.core:core-ktx:1.10.1] /Users/obigo/.gradle/caches/transforms-3/f19c8b8457ec893c7a89ab433220250f/transformed/core-ktx-1.10.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.10.1] /Users/obigo/.gradle/caches/transforms-3/f19c8b8457ec893c7a89ab433220250f/transformed/core-ktx-1.10.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/obigo/.gradle/caches/transforms-3/b6f5ca010b5a953ffef0690268cf12a7/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/obigo/.gradle/caches/transforms-3/b6f5ca010b5a953ffef0690268cf12a7/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/obigo/.gradle/caches/transforms-3/555bbfcceab7ddffa2bedafe09770ba3/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/obigo/.gradle/caches/transforms-3/555bbfcceab7ddffa2bedafe09770ba3/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/obigo/.gradle/caches/transforms-3/9a6e04ba8cacea6ab15f1a15fbf898f2/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/obigo/.gradle/caches/transforms-3/9a6e04ba8cacea6ab15f1a15fbf898f2/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/obigo/.gradle/caches/transforms-3/6e43343aafd433863b5b47d86da43c06/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/obigo/.gradle/caches/transforms-3/6e43343aafd433863b5b47d86da43c06/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/obigo/.gradle/caches/transforms-3/45c2b3dcdcf228cd3613407e39cb07a3/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/obigo/.gradle/caches/transforms-3/45c2b3dcdcf228cd3613407e39cb07a3/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/obigo/.gradle/caches/transforms-3/7e9e4367739d4b49682c3ccb0d20f69d/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/obigo/.gradle/caches/transforms-3/7e9e4367739d4b49682c3ccb0d20f69d/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/obigo/.gradle/caches/transforms-3/9e356296c07665ad70fd878fd63de627/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/obigo/.gradle/caches/transforms-3/9e356296c07665ad70fd878fd63de627/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /Users/obigo/.gradle/caches/transforms-3/40661b3bff66fe88a0ba8d279c51211e/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /Users/obigo/.gradle/caches/transforms-3/40661b3bff66fe88a0ba8d279c51211e/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/obigo/.gradle/caches/transforms-3/ac11a0323ee6d89059f5dba951298995/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/obigo/.gradle/caches/transforms-3/ac11a0323ee6d89059f5dba951298995/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6ba136043c571d55716d64d818ee00dc/transformed/lifecycle-runtime-2.6.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6ba136043c571d55716d64d818ee00dc/transformed/lifecycle-runtime-2.6.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6ed020b9196c60439fb91e658c13e3ad/transformed/lifecycle-runtime-ktx-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.6.1] /Users/obigo/.gradle/caches/transforms-3/6ed020b9196c60439fb91e658c13e3ad/transformed/lifecycle-runtime-ktx-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/8bce42ecf7dc4620794ffd31546a33b9/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/8bce42ecf7dc4620794ffd31546a33b9/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/0833098dfed8c73d3fffc6508825cf06/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.5.0] /Users/obigo/.gradle/caches/transforms-3/0833098dfed8c73d3fffc6508825cf06/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/obigo/.gradle/caches/transforms-3/5dc9e517aa78fe58acf1e59915fdb8cb/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/obigo/.gradle/caches/transforms-3/5dc9e517aa78fe58acf1e59915fdb8cb/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/obigo/.gradle/caches/transforms-3/5342393d26a6bf89c680024ab9fab292/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/obigo/.gradle/caches/transforms-3/5342393d26a6bf89c680024ab9fab292/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/obigo/.gradle/caches/transforms-3/653ac4cc1d8be9080d1469ce1f4bcda4/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/obigo/.gradle/caches/transforms-3/653ac4cc1d8be9080d1469ce1f4bcda4/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/obigo/.gradle/caches/transforms-3/a1465aadcf088d04ab900d8a854124b1/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/obigo/.gradle/caches/transforms-3/a1465aadcf088d04ab900d8a854124b1/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/obigo/.gradle/caches/transforms-3/8f514fb6f7df0ed2ec077b5c76f24ad9/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/obigo/.gradle/caches/transforms-3/8f514fb6f7df0ed2ec077b5c76f24ad9/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/obigo/.gradle/caches/transforms-3/f4ee46acac1310e68295da8ad269edf1/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/obigo/.gradle/caches/transforms-3/f4ee46acac1310e68295da8ad269edf1/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/obigo/.gradle/caches/transforms-3/5fda10b57b9e9cff5e436d32e59b2ab1/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/obigo/.gradle/caches/transforms-3/5fda10b57b9e9cff5e436d32e59b2ab1/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/obigo/.gradle/caches/transforms-3/86c5a2d0b9acc62fe14791642cc76f9e/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/obigo/.gradle/caches/transforms-3/86c5a2d0b9acc62fe14791642cc76f9e/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/obigo/.gradle/caches/transforms-3/6985a629fcf6d96989d0974b535f2681/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/obigo/.gradle/caches/transforms-3/6985a629fcf6d96989d0974b535f2681/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/obigo/.gradle/caches/transforms-3/d28777e46b882da705b22e38cc37e74a/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/obigo/.gradle/caches/transforms-3/d28777e46b882da705b22e38cc37e74a/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/obigo/.gradle/caches/transforms-3/c3062c8e842a28b641556596594a0ccd/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/obigo/.gradle/caches/transforms-3/c3062c8e842a28b641556596594a0ccd/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+	android:targetSdkVersion
+		INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/obigo/Desktop/workspace/kgm_fota/source_client/DM Client Src/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.INTERACT_ACROSS_PROFILES
+ADDED from [EM_ServiceManagerLib.aar] /Users/obigo/.gradle/caches/transforms-3/b455e63f3c62ffac0592b49c160d6c00/transformed/EM_ServiceManagerLib/AndroidManifest.xml:7:5-83
+	android:name
+		ADDED from [EM_ServiceManagerLib.aar] /Users/obigo/.gradle/caches/transforms-3/b455e63f3c62ffac0592b49c160d6c00/transformed/EM_ServiceManagerLib/AndroidManifest.xml:7:22-80
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/obigo/.gradle/caches/transforms-3/a1465aadcf088d04ab900d8a854124b1/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/obigo/.gradle/caches/transforms-3/a1465aadcf088d04ab900d8a854124b1/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/obigo/.gradle/caches/transforms-3/89f0e3bd34e334f22b86283eedc85a94/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/obigo/.gradle/caches/transforms-3/74cd9408723f784166d5c0ece6c5fb36/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+permission#com.tsdm.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+uses-permission#com.tsdm.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /Users/obigo/.gradle/caches/transforms-3/41f375566a6b35ebc98f82f192cf9593/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/obigo/.gradle/caches/transforms-3/ac6acc2bdf36bb25e0db3d4803b9ee3b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92

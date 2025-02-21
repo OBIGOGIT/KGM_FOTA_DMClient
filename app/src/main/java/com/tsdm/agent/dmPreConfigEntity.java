@@ -9,6 +9,7 @@ import org.xml.sax.helpers.*;
 import com.tsdm.db.tsDBAccXNode;
 import com.tsdm.db.tsdmInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.tsService;
 
 import javax.xml.parsers.*;
 
@@ -74,7 +75,12 @@ public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
 	public dmPreConfigEntity(String path)
 	{
 		ConfigPath = path;
-		loadConfig();
+		int ret= loadConfig();
+		if(ret == -1) {
+			tsLib.debugPrint(DEBUG_UM,"dmPreConfigEntity ReCreate");
+			tsService.configFileReCreate();
+			loadConfig();
+		}
 	}
 	
 	public static void openConfigFile()

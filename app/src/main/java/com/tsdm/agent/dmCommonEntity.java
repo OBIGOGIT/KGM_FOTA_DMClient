@@ -107,7 +107,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 				try {
 					fis.close();
 				} catch (IOException e) {
-					tsLib.debugPrintException(DEBUG_UM, e.toString());
+					tsLib.debugPrintException(DEBUG_DM, e.toString());
 				}
 			}
 		}
@@ -191,14 +191,14 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 				try {
 					inputChannel.close();
 				} catch (IOException e) {
-					tsLib.debugPrintException(DEBUG_UM, e.toString());
+					tsLib.debugPrintException(DEBUG_DM, e.toString());
 				}
 			}
 			if (outputChannel != null) {
 				try {
 					outputChannel.close();
 				} catch (IOException e) {
-					tsLib.debugPrintException(DEBUG_UM, e.toString());
+					tsLib.debugPrintException(DEBUG_DM, e.toString());
 				}
 			}
 		}
@@ -221,8 +221,10 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			while (0 < (cntRead = rawData.read(buf)))
 				fout.write(buf, 0, cntRead);
 		} catch (FileNotFoundException e1) {
+			tsLib.debugPrintException(DEBUG_EXCEPTION, "FileNotFoundException "+e1.toString());
 			return null;
 		} catch (IOException e) {
+			tsLib.debugPrintException(DEBUG_EXCEPTION, "IOException"+ e.toString());
 			return null;
 		} finally {
 			try {
@@ -250,8 +252,11 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 
 		if(dmCommonEntity.fileExists(rootPath + "/" + "tsDmConfig.xml") == false)
 		{
+			tsLib.debugPrint(DEBUG_UM,"");
 			finp = resource.openRawResource(R.raw.dm_config);
-			dmCommonEntity.rawToFileOnFfs(finp, "tsDmConfig.xml");
+			if(dmCommonEntity.rawToFileOnFfs(finp, "tsDmConfig.xml") == null) {
+				tsLib.debugPrintException(DEBUG_EXCEPTION, "createConfigXmlFromResource Fail");
+			}
 		}
 	}
 
