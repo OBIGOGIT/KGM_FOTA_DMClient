@@ -42,9 +42,9 @@ public interface netDefine
 	int 	HTTP_CHUNKED 							= 1;
 
 	int 	TP_RETRY_COUNT_NONE 					= 0;
-	int 	TP_RETRY_COUNT_MAX 						= 10;
-	int 	TP_DL_RETRY_COUNT_MAX 					= 10;
-	int 	TP_DL_RETRY_FAIL_COUNT_MAX 				= 10;
+	int 	TP_RETRY_COUNT_MAX 						= 20;
+	int 	TP_DL_RETRY_COUNT_MAX 					= 20;
+	int 	TP_DL_RETRY_FAIL_COUNT_MAX 				= 20;
 
 	int 	TP_HTTP_CONNECTION_NONE 				= 0;
 	int     TP_HTTP_CONNECTION_CLOSE 				= 1;
