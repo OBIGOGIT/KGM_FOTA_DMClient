@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ./app/libs/EM_Common.aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/dbd86e8127037386ad7cbda83baeb867/transformed/EM_Common/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/dbd86e8127037386ad7cbda83baeb867/transformed/EM_Common/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/dbd86e8127037386ad7cbda83baeb867/transformed/EM_Common/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

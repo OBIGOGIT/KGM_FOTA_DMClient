@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: ./app/libs/avnlib.aar" external-system-id="GRADLE">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/45341e96da3f6af450031e2d804dbf72/transformed/avnlib/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/45341e96da3f6af450031e2d804dbf72/transformed/avnlib/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/45341e96da3f6af450031e2d804dbf72/transformed/avnlib/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
