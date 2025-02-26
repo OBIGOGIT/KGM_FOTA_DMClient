@@ -10,133 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b9cdf3b-d6bd-4fcc-8f57-c9b2291f6bb6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDefIne.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDefIne.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDefineIdle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDefineIdle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDefineUic.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDefineUic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDefineWbxml.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDefineWbxml.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmAccXNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmAccXNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmHandlecmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmHandlecmd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmHmacData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmHmacData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmMsg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParamAbortmsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParamAbortmsg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParamConnectfailmsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParamConnectfailmsg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserAdd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserAlert.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserAlert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserAnchor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserAnchor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserAtomic.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserAtomic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserCopy.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserCopy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserCred.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserCred.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserDelete.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserDelete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserExec.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserExec.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserGet.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserGet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserMapItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserMapItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserMem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserMem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserMeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserPcdata.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserPcdata.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserPut.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserPut.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserReplace.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserReplace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserResults.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserResults.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserSequence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserSync.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserSync.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserSyncheader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmParserSyncheader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmText.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmText.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmUic.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmUic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmUicOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmUicOption.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmUicResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmUicResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmVfspace.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmVfspace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmVnode.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmVnode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmWbxmldecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmWbxmldecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmWbxmlencoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmWbxmlencoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmWorkspace.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsDmWorkspace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsLib.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsLib.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsLinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsLinkedList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsMsgEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsMsgEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmAcl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmAcl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmVfs.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmVfs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmlib.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsOmlib.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsdmParserStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/adapt/tsdmParserStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dlAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dlAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dlAgentHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dlAgentHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dlFota.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dlFota.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmAgentHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmAgentHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmAgentInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmAgentInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmBuildcmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmBuildcmd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmCommonEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmCommonEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmDefineDevInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmDefineDevInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmDefineMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmDefineMsg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmDefineUIEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmDefineUIEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmDevinfoAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmDevinfoAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmFotaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmFotaEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmInitadapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmInitadapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmPreConfigEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmPreConfigEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmProfileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmProfileEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmUITask.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/agent/dmUITask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/auth/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/auth/Auth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/auth/base64.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/auth/base64.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/auth/generatePassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/auth/generatePassword.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/auth/md5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/auth/md5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/autoStartReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/autoStartReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBAccXListNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBAccXListNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBAccXNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBAccXNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBConRefAdvanceSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBConRefAdvanceSetting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBConRefAuth.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBConRefAuth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBConRefNAP.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBConRefNAP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBConRefPX.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBConRefPX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBCrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBCrypt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBFactoryBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBFactoryBootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBFactoryBootstrapadapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBFactoryBootstrapadapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBFileParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBFileParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBFumoInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBFumoInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBNetConProfileBackup.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBNetConProfileBackup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBPostPone.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBPostPone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBResyncMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBResyncMode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBSessionSaveInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBSessionSaveInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBSimInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBSimInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBUICResultKeep.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBUICResultKeep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBURLParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBURLParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDBfile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDefineDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDefineDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDefineDBsql.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsDefineDBsql.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmDBadapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmDBadapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmDBsql.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmDBsql.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmFileParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmFileParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmInfoConRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmInfoConRef.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmNetworkProfileList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmNetworkProfileList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmNvm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmNvm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmProflieList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/db/tsdmProflieList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netDefine.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netDefine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netHttpAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netHttpAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netHttpObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netHttpObj.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netHttpUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netHttpUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netTimerConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netTimerConnect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netTimerReceive.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netTimerReceive.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netTimerSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/net/netTimerSend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddXMLDataSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddXMLDataSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddXMLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddXMLHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddXMLParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddXMLParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddfParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddfParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddfXmlParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/parser/ddfXmlParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsdm/tsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsdm/tsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/dm_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/dm_config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,33 +29,68 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="fota" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="fota" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="fota" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="fota" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2tIj9OmHly44tuMLiBlHCj8sUXs" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/obigo/Desktop/workspace/kgm_fota/source_client/fotax-client"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/obigo/Desktop/workspace/kgm_fota/source_client/fotax-client&quot;
   },
-  "keyToStringList": {
-    "kotlin-gradle-user-dirs": [
-      "/Users/obigo/.gradle"
+  &quot;keyToStringList&quot;: {
+    &quot;kotlin-gradle-user-dirs&quot;: [
+      &quot;/Users/obigo/.gradle&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="fota.app.main" />
