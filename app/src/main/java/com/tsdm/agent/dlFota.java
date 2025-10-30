@@ -107,7 +107,7 @@ public class dlFota implements dmDefineDevInfo, dmDefineMsg, dmDefineUIEvent, ts
 			tsdmDB.dmdbSetDeltaFileSaveIndex(nDeltaFileIndex);
 			if(nDeltaFileIndex == DELTA_EXTERNAL_SD_MEMORY)
 			{
-				if(!dmDevinfoAdapter.checkExternalSdMemoryAvailable())
+				if(!dmDevInfoAdapter.checkExternalSdMemoryAvailable())
 				{
 						tsDmMsg.taskSendMessage(TASK_MSG_DL_USER_CANCEL_DOWNLOAD, null, null);
 						dmAgent.dmAgentSetUserInitiatedStatus(false);
@@ -130,7 +130,7 @@ public class dlFota implements dmDefineDevInfo, dmDefineMsg, dmDefineUIEvent, ts
 		}
 		else if(_SYNCML_TS_DM_DELTA_EXTERNAL_STORAGE_)
 		{
-			if(!dmDevinfoAdapter.checkExternalMemoryAvailable())
+			if(!dmDevInfoAdapter.checkExternalMemoryAvailable())
 			{
 					tsDmMsg.taskSendMessage(TASK_MSG_DL_USER_CANCEL_DOWNLOAD, null, null);
 					dmAgent.dmAgentSetUserInitiatedStatus(false);

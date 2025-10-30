@@ -303,10 +303,10 @@ class DMTndsData
 {
 	int		nWbxmlDataSize;
 	String	pWbxmlData;
+	String	pWbxmlDataStart;
 	int		nXMLDataSize;
 	String	pXMLData;
 	String	pXMLDataStart;
-	String	pWbxmlDataStart;
 }
 
 class DMTndsTagManage implements xmlDefine
@@ -1411,9 +1411,9 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		node = tsOmlib.dmOmLibGetNodeProp(omt, path);
 
-		dmAgent.dmAgentSetSyncMode(DM_SYNC_BOOTSTARP); // test code
+		dmAgent.dmAgentSetSyncMode(DM_SYNC_BOOTSTRAP); // test code
 
-		if (node == null || dmAgent.dmAgentGetSyncMode() == DM_SYNC_BOOTSTARP)
+		if (node == null || dmAgent.dmAgentGetSyncMode() == DM_SYNC_BOOTSTRAP)
 		{
 			dmDDFSetOMTreeProperty(omt, path, pData, nLen, pMime, format);
 			dmAgent.dmAgentMakeDefaultAcl(omt, path, aclValue, scope);

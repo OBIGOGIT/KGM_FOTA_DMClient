@@ -10,7 +10,7 @@ import com.tsdm.adapt.tsLib;
 import com.tsdm.net.netDefine;
 import com.tsdm.tsService;
 
-public class dmDevinfoAdapter implements dmDefineDevInfo
+public class dmDevInfoAdapter implements dmDefineDevInfo
 {
 	static String DEVICEID = "";
 	public static void devAdpSetDeviceId(String DeviceId)

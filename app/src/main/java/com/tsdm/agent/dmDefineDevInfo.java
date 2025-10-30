@@ -106,8 +106,7 @@ public interface dmDefineDevInfo
 	int		DM_SYNC_NONE										= 0x00;
 	int		DM_SYNC_RUN											= 0x01;
 	int		DM_SYNC_COMPLETE									= 0x02;
-	int		DM_SYNC_BOOTSTARP									= 0x03;
-
+	int 	DM_SYNC_BOOTSTRAP 									= 0x03;
 
 	int		SDM_MAX_AUTH_COUNT									= 3;
 	int		SDM_HTTP_RETRY_COUNT								= 3;

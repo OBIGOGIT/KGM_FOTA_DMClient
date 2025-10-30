@@ -247,7 +247,7 @@ public class dlAgentHandler extends dlAgent implements dmDefineDevInfo, dmDefine
 						tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
 						return nRc;
 					}
-					tsService.getDownoloadSpeed();
+					tsService.getDownloadSpeed();
 					pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STAUS_SUCCESS);
 					if (!tsLib.isEmpty(pDownloadStatus))
 					{
@@ -420,13 +420,13 @@ public class dlAgentHandler extends dlAgent implements dmDefineDevInfo, dmDefine
 				{
 					if (tsdmDB.dmdbGetDeltaFileSaveIndex() == DELTA_EXTERNAL_SD_MEMORY)
 					{
-						if (!dmDevinfoAdapter.checkExternalSdMemoryAvailable())
+						if (!dmDevInfoAdapter.checkExternalSdMemoryAvailable())
 							return TS_ERR_NO_MEM_READY;
 					}
 				}				
 				else if(_SYNCML_TS_DM_DELTA_EXTERNAL_STORAGE_)
 				{
-					if(!dmDevinfoAdapter.checkExternalMemoryAvailable())
+					if(!dmDevInfoAdapter.checkExternalMemoryAvailable())
 						return TS_ERR_NO_MEM_READY;
 				}
 
@@ -548,7 +548,7 @@ public class dlAgentHandler extends dlAgent implements dmDefineDevInfo, dmDefine
 						tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
 						return nRc;
 					}
-					tsService.getDownoloadSpeed();
+					tsService.getDownloadSpeed();
 					pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STAUS_SUCCESS);
 					try
 					{
@@ -883,7 +883,7 @@ public class dlAgentHandler extends dlAgent implements dmDefineDevInfo, dmDefine
 				}
 				else
 				{
-					tsService.getDownoloadSpeed();
+					tsService.getDownloadSpeed();
 					pSendData = dlAgentGetReportStatus(OMA_DL_STAUS_SUCCESS);
 
 					try

@@ -14,7 +14,7 @@ import com.tsdm.adapt.tsMsgEvent;
 import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.auth.Auth;
 import com.tsdm.auth.base64;
-import com.tsdm.agent.dmDevinfoAdapter;
+import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.agent.dmAgentInfo;
 import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsLib;
@@ -182,7 +182,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		tsLib.debugPrint(DEBUG_DB, "");
 		try
 		{
-			eSyncMLDMFileParameter Files[] = eSyncMLDMFileParameter.values();
+			eSyncMLDMFileParameter[] Files = eSyncMLDMFileParameter.values();
 
 			SyncDMFileParam = new tsdmFileParam[eSyncMLDMFileParameter.FileMax.Index()];
 
@@ -262,7 +262,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		switch (nType)
 		{
 			case DM_PROFILE_LIST:
-				DMNvmClass.tProfileList = (tsdmProflieList) tsdmDBsql.dmsqlRead(dmSqlDbIdProfileList);
+				DMNvmClass.tProfileList = (tsdmProfileList) tsdmDBsql.dmsqlRead(dmSqlDbIdProfileList);
 				return DMNvmClass.tProfileList;
 
 			case DM_NET_PROFILE_LIST:
@@ -331,7 +331,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 		if (nType >= E2P_SYNCML_DM_PROFILE_IDX && nType < E2P_SYNCML_DM_PROFILE_MAX)
 		{
-			DMNvmClass.tProfileList = (tsdmProflieList) tsdmDBsql.dmsqlRead(dmSqlDbIdProfileList);
+			DMNvmClass.tProfileList = (tsdmProfileList) tsdmDBsql.dmsqlRead(dmSqlDbIdProfileList);
 			if (DMNvmClass.tProfileList == null)
 				return null;
 
@@ -344,7 +344,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		else if (nType >= E2P_SYNCML_DM_INFO_IDX && nType < E2P_SYNCML_DM_INFO_MAX)
 		{
-			DMNvmClass.tProfileList = (tsdmProflieList) tsdmDBsql.dmsqlRead(dmSqlDbIdProfileList);
+			DMNvmClass.tProfileList = (tsdmProfileList) tsdmDBsql.dmsqlRead(dmSqlDbIdProfileList);
 			if (DMNvmClass.tProfileList == null) // Defects
 				return null;
 			int rowid = DMNvmClass.tProfileList.Profileindex;
@@ -651,7 +651,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				// Not Using Profile
 				break;
 			case E2P_SYNCML_DM_PROFILE:
-				DMNvmClass.tProfileList = (tsdmProflieList) oInput;
+				DMNvmClass.tProfileList = (tsdmProfileList) oInput;
 				break;
 			case E2P_SYNCML_DM_NETWORKCONNNAME:
 				DMNvmClass.tProfileList.NetworkConnName = oInput.toString();
@@ -946,7 +946,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			}
 			else
 			{
-				DMNvmClass.tProfileList = (tsdmProflieList) tsdmDBsql.dmsqlRead(dmSqlDbIdProfileList);
+				DMNvmClass.tProfileList = (tsdmProfileList) tsdmDBsql.dmsqlRead(dmSqlDbIdProfileList);
 				if (DMNvmClass.tProfileList != null)
 				{
 					row = DMNvmClass.tProfileList.Profileindex;
@@ -1076,7 +1076,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	static Object dmDbInitNVMSyncDMProfile(Object pProfileList, int nMagicNumber)
 	{
-		tsdmProflieList ptProflieList = (tsdmProflieList) pProfileList;
+		tsdmProfileList ptProflieList = (tsdmProfileList) pProfileList;
 		int nCount = 0;
 		String strTemp = "";
 		String pImei = "";
@@ -1103,7 +1103,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		DMNvmClass.tProfileList.Profileindex = 0;
 
 		ptProflieList.MagicNumber = nMagicNumber;
-		pImei = dmDevinfoAdapter.devAdpGetDeviceId();
+		pImei = dmDevInfoAdapter.devAdpGetDeviceId();
 		if (pImei != null)
 		{
 			ptProflieList.szImei = pImei;
@@ -2590,14 +2590,14 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	public static boolean dmdbCheckProfileListExist()
 	{
-		tsdmProflieList pDMProfile = null;
+		tsdmProfileList pDMProfile = null;
 		boolean bReturn = false;
 		int i = 0;
 
-		pDMProfile = new tsdmProflieList();
+		pDMProfile = new tsdmProfileList();
 		try
 		{
-			pDMProfile = (tsdmProflieList) dmdbRead(E2P_SYNCML_DM_PROFILE, pDMProfile);
+			pDMProfile = (tsdmProfileList) dmdbRead(E2P_SYNCML_DM_PROFILE, pDMProfile);
 		}
 		catch (Exception e)
 		{

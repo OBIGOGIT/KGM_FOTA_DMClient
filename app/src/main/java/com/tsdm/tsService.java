@@ -19,13 +19,11 @@ import android.net.Network;
 import android.os.Binder;
 import android.os.IBinder;
 
-import com.tsdm.adapt.tsMsgEvent;
-import com.tsdm.agent.dlAgent;
 import com.tsdm.agent.dmAgent;
 import com.tsdm.agent.dmTask;
 import com.tsdm.agent.dmUITask;
 import com.tsdm.agent.dmDefineDevInfo;
-import com.tsdm.agent.dmDevinfoAdapter;
+import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.db.tsDefineDB;
 import com.tsdm.db.tsdmDB;
 import com.tsdm.db.tsdmDBsql;
@@ -541,11 +539,11 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 				|| nStatus == DM_FUMO_STATE_READY_TO_UPDATE)
 		{
 			SharedPreferences sp = mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
-			if (dmDevinfoAdapter.devAdpGetModelName().isEmpty()) {
-				dmDevinfoAdapter.devAdpSetModelName(sp.getString("modelName", ""));
+			if (dmDevInfoAdapter.devAdpGetModelName().isEmpty()) {
+				dmDevInfoAdapter.devAdpSetModelName(sp.getString("modelName", ""));
 			}
-			if (dmDevinfoAdapter.devAdpGetDeviceId().isEmpty()) {
-				dmDevinfoAdapter.devAdpSetDeviceId(sp.getString("vinId", ""));
+			if (dmDevInfoAdapter.devAdpGetDeviceId().isEmpty()) {
+				dmDevInfoAdapter.devAdpSetDeviceId(sp.getString("vinId", ""));
 			}
 
 			if(Startlog!=null){
@@ -586,8 +584,8 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		}
 
 		SharedPreferences sp= mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
-		Boolean updatecheck = sp.getBoolean("updateCheck",false);
-		if(updatecheck){
+		Boolean updateCheck = sp.getBoolean("updateCheck",false);
+		if(updateCheck){
 			tsLib.debugPrint(DEBUG_DM, "update check resume");
 			descriptResume();
 		}
@@ -640,10 +638,10 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		if(pasVer ==null) pasVer="";
 
 		String checkVer= avntVer + ";" + pasVer;
-		dmDevinfoAdapter.devAdpSetManufacturer(MANUFACTURE);
-		dmDevinfoAdapter.devAdpSetModelName(modelName);
-		dmDevinfoAdapter.devAdpSetDeviceId(vinId);
-		dmDevinfoAdapter.devAdpSetSoftwareVersion(checkVer);
+		dmDevInfoAdapter.devAdpSetManufacturer(MANUFACTURE);
+		dmDevInfoAdapter.devAdpSetModelName(modelName);
+		dmDevInfoAdapter.devAdpSetDeviceId(vinId);
+		dmDevInfoAdapter.devAdpSetSoftwareVersion(checkVer);
 
 		FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400258.cfg");
 
@@ -744,10 +742,10 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					if(pasVer ==null) pasVer="";
 
 					String checkVer= avntVer + ";" + pasVer;
-					dmDevinfoAdapter.devAdpSetManufacturer(MANUFACTURE);
-					dmDevinfoAdapter.devAdpSetModelName(modelName);
-					dmDevinfoAdapter.devAdpSetDeviceId(vinId);
-					dmDevinfoAdapter.devAdpSetSoftwareVersion(checkVer);
+					dmDevInfoAdapter.devAdpSetManufacturer(MANUFACTURE);
+					dmDevInfoAdapter.devAdpSetModelName(modelName);
+					dmDevInfoAdapter.devAdpSetDeviceId(vinId);
+					dmDevInfoAdapter.devAdpSetSoftwareVersion(checkVer);
 
 					FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400258.cfg");
 
@@ -879,8 +877,8 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					spedit.putString("vinId",vinId);
 					spedit.apply();
 
-					dmDevinfoAdapter.devAdpSetModelName(modelName);
-					dmDevinfoAdapter.devAdpSetDeviceId(vinId);
+					dmDevInfoAdapter.devAdpSetModelName(modelName);
+					dmDevInfoAdapter.devAdpSetDeviceId(vinId);
 
 
 					tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
@@ -950,7 +948,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 
 					}else if(updateState == 4){ //update partion
 
-						dmFotaEntity.updatePartion();
+						dmFotaEntity.updatePartition();
 
 			 	    }
 					else{
@@ -1039,10 +1037,10 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					if(pasVer ==null) pasVer="";
 
 					String checkVer= avntVer + ";" + pasVer;
-					dmDevinfoAdapter.devAdpSetManufacturer(MANUFACTURE);
-					dmDevinfoAdapter.devAdpSetModelName(modelName);
-					dmDevinfoAdapter.devAdpSetDeviceId(vinId);
-					dmDevinfoAdapter.devAdpSetSoftwareVersion(checkVer);
+					dmDevInfoAdapter.devAdpSetManufacturer(MANUFACTURE);
+					dmDevInfoAdapter.devAdpSetModelName(modelName);
+					dmDevInfoAdapter.devAdpSetDeviceId(vinId);
+					dmDevInfoAdapter.devAdpSetSoftwareVersion(checkVer);
 
 					downloadFileFailCause="";
 					uploadFailCause="";
@@ -1626,7 +1624,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 				JSONObject jsonObject = new JSONObject();
 				String logDataStr="";
 				try {
-					jsonObject.put("vin",dmDevinfoAdapter.devAdpGetDeviceId());
+					jsonObject.put("vin", dmDevInfoAdapter.devAdpGetDeviceId());
 					jsonObject.put("workId",workId);
 					byte[] logData = dmCommonEntity.fileRead(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + DM_CLIENT_LOG_FILE);
 					dmCommonEntity.fileWrite(tsdmDB.DM_FS_FFS_DIRECTORY, DM_CLIENT_LOG_FILE, "".getBytes()); //clear
@@ -1663,13 +1661,13 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 
 	}
 
-	public static void dowloadFileSize(int ContentBytesread)
+	public static void downloadFileSize(int ContentBytesread)
 	{
 
 		downloadDataSize=ContentBytesread;
 	}
 
-	public static  void getDownoloadSpeed()
+	public static  void getDownloadSpeed()
 	{
 		receiveEndTime = System.currentTimeMillis();
 		if(receiveEndTime !=0 && receiveStartTime!=0 && downloadDataSize !=0) {

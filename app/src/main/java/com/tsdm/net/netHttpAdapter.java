@@ -35,14 +35,13 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.PowerManager;
 
 import com.tsdm.tsService;
 import com.tsdm.agent.dmDefineDevInfo;
-import com.tsdm.agent.dmDevinfoAdapter;
+import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.db.tsDB;
 import com.tsdm.db.tsDefineDB;
 import com.tsdm.db.tsDBURLParser;
@@ -1317,7 +1316,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 							tsLib.debugPrint(DEBUG_NET, "ContentBytesread:" + ContentBytesread + " , nHttpBodyLength :" + nHttpBodyLength + " , actual :" + actual);
 							old_actual=actual;
 						}
-						tsService.dowloadFileSize(ContentBytesread);
+						tsService.downloadFileSize(ContentBytesread);
 						actualBuff = new byte[actual];
 						aBuff = new ByteArrayInputStream(pHttpObj[appId].pReceiveBuffer, 0, actual);
 						try
@@ -1583,7 +1582,7 @@ public class netHttpAdapter implements netDefine, dmDefineMsg, tsDefineIdle, dmD
 			pHttpObj[appId].pHttpMimeType = HTTP_HEADER_DL_CONTENT_TYPE;
 			pHttpObj[appId].pHttpAccept = HTTP_HEADER_DL_ACCEPT;
 		}
-		pHttpObj[appId].pHttpUserAgent = dmDevinfoAdapter.devAdpGetHttpUserAgent();
+		pHttpObj[appId].pHttpUserAgent = dmDevInfoAdapter.devAdpGetHttpUserAgent();
 
 		ret = getHttpInfo(appId);
 		if (pHttpObj[appId].protocol == TP_TYPE_HTTPS && getIsProxy())

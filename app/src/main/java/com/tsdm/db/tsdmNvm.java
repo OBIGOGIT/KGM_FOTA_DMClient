@@ -9,7 +9,7 @@ public class tsdmNvm implements Serializable, dmDefineDevInfo
 {
 	private static final long		serialVersionUID	= 1L;
 
-	public tsdmProflieList tProfileList;
+	public tsdmProfileList tProfileList;
 	public tsdmInfo NVMSyncMLDMInfo;
 	public tsDBFumoInfo NVMSyncMLDMFUMOInfo;
 	public tsDBPostPone NVMSyncMLPostPone;
@@ -23,7 +23,7 @@ public class tsdmNvm implements Serializable, dmDefineDevInfo
 
 	public tsdmNvm()
 	{
-		tProfileList = new tsdmProflieList();
+		tProfileList = new tsdmProfileList();
 		NVMSyncMLDMInfo = new tsdmInfo();
 		NVMSyncMLDMFUMOInfo = new tsDBFumoInfo();
 		NVMSyncMLPostPone = new tsDBPostPone();
