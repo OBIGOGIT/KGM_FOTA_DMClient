@@ -1,14 +1,10 @@
 package com.tsdm.agent;
 
-import java.math.BigDecimal;
 import java.util.GregorianCalendar;
-
-import android.text.format.Time;
 
 import com.tsdm.tsService;
 import com.tsdm.db.tsDBFumoInfo;
 import com.tsdm.db.tsDefineDB;
-import com.tsdm.db.tsdmDB;
 import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsLib;
 import com.tsdm.adapt.tsDmMsg;
@@ -87,7 +83,7 @@ public class dmFotaEntity implements dmDefineDevInfo, tsDefineIdle, dmDefineUIEv
 		dmAgent.dmAgentSetUserInitiatedStatus(false);
 	}
 
-	public static void updatePartion() {
+	public static void updatePartition() {
 		tsLib.debugPrint(DEBUG_UM, "updateType= "+tsService.updateType);
 		tsDmMsg.taskSendMessage(TASK_MSG_DL_FIRMWARE_UPDATE_PARTITION, null, null);
 		dmAgent.dmAgentSetUserInitiatedStatus(false);

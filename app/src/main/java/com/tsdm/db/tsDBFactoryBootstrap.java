@@ -3,11 +3,10 @@ package com.tsdm.db;
 import java.io.Serializable;
 import java.security.SecureRandom;
 import java.util.Date;
-import java.util.Random;
 
 import com.tsdm.auth.base64;
 import com.tsdm.agent.dmDefineDevInfo;
-import com.tsdm.agent.dmDevinfoAdapter;
+import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.adapt.tsLib;
 import com.tsdm.agent.dmProfileEntity;
 import com.tsdm.agent.dmPreConfigEntity;
@@ -33,7 +32,7 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 		tsDBURLParser dbURLParser2;
 		dbURLParser = new tsDBURLParser();
 		dbURLParser2 = new tsDBURLParser();
-		String pIMEI = dmDevinfoAdapter.devAdpGetDeviceId();
+		String pIMEI = dmDevInfoAdapter.devAdpGetDeviceId();
 		String szURL = "";
 		
 		pProfileInfo = (tsdmInfo) pNVMSyncMLDMInfo;
@@ -90,7 +89,7 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 				pProfileInfo.AuthType = CRED_TYPE_BASIC;
 				pProfileInfo.nServerAuthType = CRED_TYPE_BASIC;
 			}
-			pProfileInfo.UserName = dmDevinfoAdapter.devAdpGetDeviceId();
+			pProfileInfo.UserName = dmDevInfoAdapter.devAdpGetDeviceId();
 
 			pNonce = fBGenerateFactoryNonce();
 

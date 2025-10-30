@@ -1751,17 +1751,17 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		aclValue = OMACL_ADD | OMACL_DELETE | OMACL_GET;
 		DM_SET_OM_PATH(om, DEVINFO_PATH, aclValue, SCOPE_PERMANENT);
 
-		pDevID = dmDevinfoAdapter.devAdpGetDeviceId();
+		pDevID = dmDevInfoAdapter.devAdpGetDeviceId();
 		aclValue = OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVINFO_DEVID_PATH, pDevID, aclValue, SCOPE_PERMANENT);
 
 
-		pManuFact = dmDevinfoAdapter.devAdpGetManufacturer();
+		pManuFact = dmDevInfoAdapter.devAdpGetManufacturer();
 		aclValue = OMACL_ADD | OMACL_DELETE | OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVINFO_MAN_PATH, pManuFact, aclValue, SCOPE_PERMANENT);
 
 
-		pModelName = dmDevinfoAdapter.devAdpGetModelName();
+		pModelName = dmDevInfoAdapter.devAdpGetModelName();
 		aclValue = OMACL_ADD | OMACL_DELETE | OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVINFO_MOD_PATH, pModelName, aclValue, SCOPE_PERMANENT);
 
@@ -1776,7 +1776,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			dmAgentSetOMAccStr(om, DEVINFO_DMV_PATH, DEVINFO_DEFAULT_DMV1_2, aclValue, SCOPE_PERMANENT);
 		}
 
-		pLang = dmDevinfoAdapter.devAdpGetLanguageSetting();
+		pLang = dmDevInfoAdapter.devAdpGetLanguageSetting();
 		aclValue = OMACL_ADD | OMACL_DELETE | OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVINFO_LANG_PATH, pLang, aclValue, SCOPE_PERMANENT);
 
@@ -1821,19 +1821,19 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		aclValue = OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVDETAIL_DEVTYPE_PATH, DEVDETAIL_DEFAULT_DEVTYPE, aclValue, SCOPE_PERMANENT);
 
-		pOEMName = dmDevinfoAdapter.devGetOEMName();
+		pOEMName = dmDevInfoAdapter.devGetOEMName();
 		aclValue = OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVDETAIL_OEM_PATH, pOEMName, aclValue, SCOPE_PERMANENT);
 
-		pFwVersion = dmDevinfoAdapter.devAdpGetFirmwareVersion();
+		pFwVersion = dmDevInfoAdapter.devAdpGetFirmwareVersion();
 		aclValue = OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVDETAIL_FWV_PATH, pFwVersion, aclValue, SCOPE_PERMANENT);
 
-		pSwVersion = dmDevinfoAdapter.devAdpGetSoftwareVersion();
+		pSwVersion = dmDevInfoAdapter.devAdpGetSoftwareVersion();
 		aclValue = OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVDETAIL_SWV_PATH, pSwVersion, aclValue, SCOPE_PERMANENT);
 
-		pHwVersion = dmDevinfoAdapter.devAdpGetHardwareVersion();
+		pHwVersion = dmDevInfoAdapter.devAdpGetHardwareVersion();
 		aclValue = OMACL_GET;
 		dmAgentSetOMAccStr(om, DEVDETAIL_HWV_PATH, pHwVersion, aclValue, SCOPE_PERMANENT);
 
@@ -2512,7 +2512,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		return SDM_RET_OK;
 	}
 
-	public boolean dmAgentVefifyAtomicCmd(dmAgent cmd)
+	public boolean dmAgentVerifyAtomicCmd(dmAgent cmd)
 	{
 		boolean res = true;
 
@@ -2548,7 +2548,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		while (cmd != null)
 		{
-			res = dmAgentVefifyAtomicCmd(cmd);
+			res = dmAgentVerifyAtomicCmd(cmd);
 			if (!res)
 			{
 				isProcess = false;
@@ -5715,7 +5715,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			// MOD : for Bootstrap Con Node.
 			// when Bootstrap case ADD for any condition
-			if (dmAgentGetSyncMode() != DM_SYNC_BOOTSTARP)
+			if (dmAgentGetSyncMode() != DM_SYNC_BOOTSTRAP)
 			{
 				node = tsOmlib.dmOmLibGetNodeProp(om, item.target);
 				if (node != null && item.moredata == 0 && !ws.dataBuffered)
@@ -6101,7 +6101,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 
-							if (dmAgentGetSyncMode() != DM_SYNC_BOOTSTARP) // tnds bootstrap 080314
+							if (dmAgentGetSyncMode() != DM_SYNC_BOOTSTRAP) // tnds bootstrap 080314
 							{
 								res = dmAgentGetAccountFromOM(om);
 							}
@@ -7766,7 +7766,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		String tmpBuf;
 		tsLib.debugPrint(DEBUG_DM, "sdmProcessCmdAdd : target[" + target + "]" + "parent[" + pPath + "]\n");
 
-		if (dmAgentGetSyncMode() != DM_SYNC_BOOTSTARP)
+		if (dmAgentGetSyncMode() != DM_SYNC_BOOTSTRAP)
 		{
 			dm_AccXNodeTndsInfo = new tsDmAccXNode();
 

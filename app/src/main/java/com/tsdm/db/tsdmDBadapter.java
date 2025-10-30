@@ -2,9 +2,8 @@ package com.tsdm.db;
 
 import java.io.*;
 
-import com.tsdm.auth.base64;
 import com.tsdm.agent.dmDefineDevInfo;
-import com.tsdm.agent.dmDevinfoAdapter;
+import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.adapt.tsLib;
 import com.tsdm.net.netDefine;
 
@@ -63,16 +62,16 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			int nDeltaFileIndex = tsdmDB.dmdbGetDeltaFileSaveIndex();
 			if(nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
 			{
-				if(dmDevinfoAdapter.checkExternalMemoryAvailable())
+				if(dmDevInfoAdapter.checkExternalMemoryAvailable())
 				{
-					RemainSize = dmDevinfoAdapter.getAvailableExternalMemorySize();
-					TotalSize = dmDevinfoAdapter.getTotalExternalMemorySize();
+					RemainSize = dmDevInfoAdapter.getAvailableExternalMemorySize();
+					TotalSize = dmDevInfoAdapter.getTotalExternalMemorySize();
 				}
 			}
 			else
 			{
-				RemainSize = dmDevinfoAdapter.getAvailableInternalMemorySize();
-				TotalSize = dmDevinfoAdapter.getTotalInternalMemorySize();
+				RemainSize = dmDevInfoAdapter.getAvailableInternalMemorySize();
+				TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 			}
 		}
 		else if(_SYNCML_TS_DM_DELTA_MULTI_MEMORY_STORAGE_)
@@ -80,38 +79,38 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			int nDeltaFileIndex = tsdmDB.dmdbGetDeltaFileSaveIndex();
 			if(nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
 			{
-				if(dmDevinfoAdapter.checkExternalMemoryAvailable())
+				if(dmDevInfoAdapter.checkExternalMemoryAvailable())
 				{
-					RemainSize = dmDevinfoAdapter.getAvailableExternalMemorySize();
-					TotalSize = dmDevinfoAdapter.getTotalExternalMemorySize();
+					RemainSize = dmDevInfoAdapter.getAvailableExternalMemorySize();
+					TotalSize = dmDevInfoAdapter.getTotalExternalMemorySize();
 				}
 			}
 			else if(nDeltaFileIndex == DELTA_EXTERNAL_SD_MEMORY)
 			{
-				if(dmDevinfoAdapter.checkExternalSdMemoryAvailable())
+				if(dmDevInfoAdapter.checkExternalSdMemoryAvailable())
 				{
-					RemainSize = dmDevinfoAdapter.getAvailableExternalSdMemorySize();
-					TotalSize = dmDevinfoAdapter.getTotalExternalSdMemorySize();
+					RemainSize = dmDevInfoAdapter.getAvailableExternalSdMemorySize();
+					TotalSize = dmDevInfoAdapter.getTotalExternalSdMemorySize();
 				}
 			}
 			else
 			{
-				RemainSize = dmDevinfoAdapter.getAvailableInternalMemorySize();
-				TotalSize = dmDevinfoAdapter.getTotalInternalMemorySize();
+				RemainSize = dmDevInfoAdapter.getAvailableInternalMemorySize();
+				TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 			}
 		}
 		else if (_SYNCML_TS_DM_DELTA_EXTERNAL_STORAGE_)
 		{
-			if(dmDevinfoAdapter.checkExternalMemoryAvailable())
+			if(dmDevInfoAdapter.checkExternalMemoryAvailable())
 			{
-				RemainSize = dmDevinfoAdapter.getAvailableExternalMemorySize();
-				TotalSize = dmDevinfoAdapter.getTotalExternalMemorySize();
+				RemainSize = dmDevInfoAdapter.getAvailableExternalMemorySize();
+				TotalSize = dmDevInfoAdapter.getTotalExternalMemorySize();
 			}
 		}
 		else
 		{
-			RemainSize = dmDevinfoAdapter.getAvailableInternalMemorySize();
-			TotalSize = dmDevinfoAdapter.getTotalInternalMemorySize();
+			RemainSize = dmDevInfoAdapter.getAvailableInternalMemorySize();
+			TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 		}
 		tsLib.debugPrint(DEBUG_DM, String.format("External Memory Size is %d %d and Delta Size is %d bytes", RemainSize, TotalSize, nDataSize));
 		
@@ -133,40 +132,40 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		{
 			if (nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
 			{
-				if (dmDevinfoAdapter.checkExternalMemoryAvailable())
+				if (dmDevInfoAdapter.checkExternalMemoryAvailable())
 				{
-					RemainSize = dmDevinfoAdapter.getAvailableExternalMemorySize();
-					TotalSize = dmDevinfoAdapter.getTotalExternalMemorySize();
+					RemainSize = dmDevInfoAdapter.getAvailableExternalMemorySize();
+					TotalSize = dmDevInfoAdapter.getTotalExternalMemorySize();
 				}
 			}
 			else
 			{
-				RemainSize = dmDevinfoAdapter.getAvailableInternalMemorySize();
-				TotalSize = dmDevinfoAdapter.getTotalInternalMemorySize();
+				RemainSize = dmDevInfoAdapter.getAvailableInternalMemorySize();
+				TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 			}
 		}
 		else if (_SYNCML_TS_DM_DELTA_MULTI_MEMORY_STORAGE_)
 		{
 			if (nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
 			{
-				if (dmDevinfoAdapter.checkExternalMemoryAvailable())
+				if (dmDevInfoAdapter.checkExternalMemoryAvailable())
 				{
-					RemainSize = dmDevinfoAdapter.getAvailableExternalMemorySize();
-					TotalSize = dmDevinfoAdapter.getTotalExternalMemorySize();
+					RemainSize = dmDevInfoAdapter.getAvailableExternalMemorySize();
+					TotalSize = dmDevInfoAdapter.getTotalExternalMemorySize();
 				}
 			}
 			else if (nDeltaFileIndex == DELTA_EXTERNAL_SD_MEMORY)
 			{
-				if (dmDevinfoAdapter.checkExternalSdMemoryAvailable())
+				if (dmDevInfoAdapter.checkExternalSdMemoryAvailable())
 				{
-					RemainSize = dmDevinfoAdapter.getAvailableExternalSdMemorySize();
-					TotalSize = dmDevinfoAdapter.getTotalExternalSdMemorySize();
+					RemainSize = dmDevInfoAdapter.getAvailableExternalSdMemorySize();
+					TotalSize = dmDevInfoAdapter.getTotalExternalSdMemorySize();
 				}
 			}
 			else
 			{
-				RemainSize = dmDevinfoAdapter.getAvailableInternalMemorySize();
-				TotalSize = dmDevinfoAdapter.getTotalInternalMemorySize();
+				RemainSize = dmDevInfoAdapter.getAvailableInternalMemorySize();
+				TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 			}
 		}
 		tsLib.debugPrint(DEBUG_DB, " Index : " + nDeltaFileIndex);

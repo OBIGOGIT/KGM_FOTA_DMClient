@@ -14,13 +14,13 @@ public class tsDBfile implements Serializable, dmDefineDevInfo
 	private static final int 		DM_DB_READ_PROFILE_INFO = 4;
 
 	public tsdmNvm DMNvmClass;
-	public tsdmProflieList DMprofile;
+	public tsdmProfileList DMprofile;
 	public tsdmInfo DMprofileInfo;
 	public tsdmNetworkProfileList DMNetProfile;
 
 	tsDBfile()
 	{
-		DMprofile = new tsdmProflieList();
+		DMprofile = new tsdmProfileList();
 		DMprofileInfo = new tsdmInfo();
 		DMNetProfile = new tsdmNetworkProfileList();
 		DMNvmClass = new tsdmNvm();
@@ -31,7 +31,7 @@ public class tsDBfile implements Serializable, dmDefineDevInfo
 		switch (nType)
 		{
 			case DM_PROFILE_LIST:
-				DMprofile = new tsdmProflieList();
+				DMprofile = new tsdmProfileList();
 				break;
 			case DM_NET_PROFILE_LIST:
 				DMNetProfile = new tsdmNetworkProfileList();

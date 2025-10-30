@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import com.tsdm.agent.dmDefineDevInfo;
-import com.tsdm.agent.dmDevinfoAdapter;
+import com.tsdm.agent.dmDevInfoAdapter;
 
 public class tsDmEncoder extends tsDmWbxmlencoder implements dmDefineDevInfo
 {
@@ -1318,7 +1318,7 @@ public class tsDmEncoder extends tsDmWbxmlencoder implements dmDefineDevInfo
 		return DM_ERR_OK;
 	}
 
-	public byte[] dmEncDevinf2Opaque(ByteArrayOutputStream out, dmDevinfoAdapter devinf, int[] size)
+	public byte[] dmEncDevinf2Opaque(ByteArrayOutputStream out, dmDevInfoAdapter devinf, int[] size)
 	{
 		if (devinf == null)
 		{

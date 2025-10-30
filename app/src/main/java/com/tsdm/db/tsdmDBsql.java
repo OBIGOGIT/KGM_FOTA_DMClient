@@ -492,7 +492,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 		}
 	}
 
-	public static void insertProfileListRow(tsdmProflieList profilelist)
+	public static void insertProfileListRow(tsdmProfileList profilelist)
 	{
 		ContentValues initialValues = new ContentValues();
 
@@ -538,7 +538,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 		db.delete(DATABASE_PROFILELIST_TABLE, "rowid=" + rowId, null);
 	}
 
-	public static void updateProfileListRow(long rowId, tsdmProflieList profilelist)
+	public static void updateProfileListRow(long rowId, tsdmProfileList profilelist)
 	{
 		ContentValues args = new ContentValues();
 
@@ -579,7 +579,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 		db.update(DATABASE_PROFILELIST_TABLE, args, "rowid=" + rowId, null);
 	}
 
-	public static Object fetchProfileListRow(long rowId, tsdmProflieList profilelist)
+	public static Object fetchProfileListRow(long rowId, tsdmProfileList profilelist)
 	{
 		String[] FROM = {
 				DM_SQL_DB_ROWID,
@@ -1328,7 +1328,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 		switch (SqlID)
 		{
 			case dmSqlDbIdProfileList:
-				insertProfileListRow((tsdmProflieList) Input);
+				insertProfileListRow((tsdmProfileList) Input);
 				break;
 
 			case dmSqlDbIdProfileInfo1:
@@ -1375,7 +1375,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 		switch (SqlID)
 		{
 			case dmSqlDbIdProfileList:
-				tsdmDB.DMNvmClass.tProfileList = (tsdmProflieList) Input;
+				tsdmDB.DMNvmClass.tProfileList = (tsdmProfileList) Input;
 				updateProfileListRow(DM_SQL_DB_PROFILELIST_ROWID, tsdmDB.DMNvmClass.tProfileList);
 				break;
 
@@ -1512,7 +1512,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 		switch (FileID)
 		{
 			case dmSqlDbIdProfileList:
-				tsdmDB.DMNvmClass.tProfileList = (tsdmProflieList) fetchProfileListRow(DM_SQL_DB_PROFILELIST_ROWID, tsdmDB.DMNvmClass.tProfileList);
+				tsdmDB.DMNvmClass.tProfileList = (tsdmProfileList) fetchProfileListRow(DM_SQL_DB_PROFILELIST_ROWID, tsdmDB.DMNvmClass.tProfileList);
 				return tsdmDB.DMNvmClass.tProfileList;
 
 			case dmSqlDbIdProfileInfo1:

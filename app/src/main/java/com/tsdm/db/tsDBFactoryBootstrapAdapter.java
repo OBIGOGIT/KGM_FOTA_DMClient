@@ -5,10 +5,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import com.tsdm.agent.dmDefineDevInfo;
-import com.tsdm.agent.dmDevinfoAdapter;
+import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.adapt.tsLib;
 
-public class tsDBFactoryBootstrapadapter implements dmDefineDevInfo
+public class tsDBFactoryBootstrapAdapter implements dmDefineDevInfo
 {
 	private static int		default_passwordLen	= 16;
 
@@ -65,19 +65,19 @@ public class tsDBFactoryBootstrapadapter implements dmDefineDevInfo
 
 	public static String generateClientPassword(String deviceId, int passwordLen)
 	{
-		String imei = dmDevinfoAdapter.devAdpGetDeviceId();
+		String imei = dmDevInfoAdapter.devAdpGetDeviceId();
 		String key = generateClientPasswordKey(imei);
 		return generatePassword(deviceId, key, passwordLen);
 	}
 
 	public static String generateServerPassword(String deviceId, int passwordLen)
 	{
-		String imei = dmDevinfoAdapter.devAdpGetDeviceId();
+		String imei = dmDevInfoAdapter.devAdpGetDeviceId();
 		String key = generateServerPasswordKey(imei);
 		return generatePassword(deviceId, key, passwordLen);
 	}
 
-	public tsDBFactoryBootstrapadapter()
+	public tsDBFactoryBootstrapAdapter()
 	{
 	}
 
@@ -106,7 +106,7 @@ public class tsDBFactoryBootstrapadapter implements dmDefineDevInfo
 			return null;
 		}
 		// by default we generate 16 chars password.
-		imei = dmDevinfoAdapter.devAdpGetDeviceId();
+		imei = dmDevInfoAdapter.devAdpGetDeviceId();
 
 		String newimei = get36BasedIMEI(imei);
 		StringBuffer SBuffer = null;
