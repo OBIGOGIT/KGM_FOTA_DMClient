@@ -441,7 +441,10 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 				apn3Enable =apn3;
 
 				tsLib.debugPrint(DEBUG_UM, "onApnConnectionChanged: apn3Enable = " + apn3Enable + " / isApnChanged = " + isApnChanged);
-				if(apn3Enable &&  !isApnChanged) {
+				if (!apn3Enable && isApnChanged) {
+					tsLib.debugPrint(DEBUG_UM, "onApnConnectionChanged: apn3 connection disabled");
+					isApnChanged = false;
+				} if(apn3Enable &&  !isApnChanged) {
 					CcuInfo[] ccuInfos = EMThirdPartyLib.network().getCcuInfo();
 					if (ccuInfos != null) {
 						tsLib.debugPrint(DEBUG_UM, "ccuInfos length "+ccuInfos.length);
