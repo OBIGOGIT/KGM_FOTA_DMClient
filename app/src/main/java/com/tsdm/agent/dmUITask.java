@@ -68,14 +68,15 @@ public class dmUITask implements Runnable, dmDefineMsg, dmDefineUIEvent, dmDefin
 				int nStatus = tsdmDB.dmdbGetFUMOStatus();
 				if( nStatus != DM_FUMO_STATE_UPDATE_SUCCESSFUL_NODATA && nStatus !=DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING) {
 					if (nStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS) {
+						tsLib.debugPrintException(DEBUG_UI, "network fail occurred while progress download");
 						tsService.downloadFileFailCause = "download network error";
 						dmFotaEntity.downloadFileFail();
+						tsService.tsDownloadFail(2);
 					} else {
 						dlAgent.dlAgentSetClientInitFlag(DM_NONE_INIT);
 						dmAgent.dmAgentSetUserInitiatedStatus(false);
 						dmAgent.dmAgentSetServerInitiatedStatus(false);
 					}
-					tsService.tsDownloadFail(2);
 				}
 				break;
 
