@@ -441,7 +441,10 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 				apn3Enable =apn3;
 
 				tsLib.debugPrint(DEBUG_UM, "onApnConnectionChanged: apn3Enable = " + apn3Enable + " / isApnChanged = " + isApnChanged);
-				if(apn3Enable &&  !isApnChanged) {
+				if (!apn3Enable && isApnChanged) {
+					tsLib.debugPrint(DEBUG_UM, "onApnConnectionChanged: apn3 connection disabled");
+					isApnChanged = false;
+				} if(apn3Enable &&  !isApnChanged) {
 					CcuInfo[] ccuInfos = EMThirdPartyLib.network().getCcuInfo();
 					if (ccuInfos != null) {
 						tsLib.debugPrint(DEBUG_UM, "ccuInfos length "+ccuInfos.length);
@@ -462,13 +465,6 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 				}
 			}
 		});
-
-/*		EMThirdPartyLib.common().SetListener(new EM3LibCommon.EM3LibCommonListener() {
-			@Override
-			public void onSplit(int split) {
-				tsLib.debugPrint(DEBUG_UM, "onSplit: " + split);
-			}
-		});*/
 
 		EMThirdPartyLib.common().SetFactoryListener(new EM3LibCommon.EM3LibCommonFactoryListener() {
 			@Override
@@ -650,7 +646,13 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		setDMState(DM_PROGRESS);
 		dmAgent.dmAgentSetSyncMode(DM_SYNC_NONE);
 		netHttpAdapter.setIsConnected(false);
-		tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
+
+		int nStatus = tsdmDB.dmdbGetFUMOStatus();
+		if (nStatus != DM_FUMO_STATE_UPDATE_SUCCESSFUL_NODATA) {
+			tsLib.debugPrint(DEBUG_DM, "descriptResume : CURRENT STATE is not DM_FUMO_STATE_UPDATE_FAILED_NODATA. set status to DM_FUMO_STATE_NONE");
+			tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
+		}
+
 		tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_INIT, null, null);
 		dmFotaEntity.startSession();
 	}
@@ -665,14 +667,6 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 				Startlog=null;
 			}
 
-			/*while(!isNetworkConnect()){
-						try {
-							Thread.sleep(200);
-						} catch (InterruptedException e) {
-							throw new RuntimeException(e);
-						}
-		   }*/
-
 			if(Objects.equals(intent.getAction(), UM2DM_INTENT_NAME)) {
 
 				SharedPreferences sptemp = mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
@@ -680,7 +674,6 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 
                 if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_UPDATE_CHECK)){
 
-					// FIXME : Need to save intent information for retry logic ...
 					modelName=intent.getStringExtra(INTENT_MODEL_NAME);
 					if(modelName==null)modelName="";
 					vinId=intent.getStringExtra(INTENT_VIN_ID);
@@ -735,8 +728,9 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					spedit.putString("workId","");
 					spedit.putString("logUploadURI","");
 					spedit.putInt("descriptResumeState",0);
-					spedit.putBoolean("updateCheck",true);
 					spedit.apply();
+
+					setUpdateCheckStatus(true);
 
 					if(avntVer ==null) avntVer="";
 					if(pasVer ==null) pasVer="";
@@ -756,11 +750,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					{
 						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
 						tsNetworkUnready();
-
-						spedit.putBoolean("updateCheck",true);
-						spedit.apply();
 						tsLib.debugPrint(DEBUG_UM, "onReceive update check on network disconnected ...");
-						tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_DOWNLOAD_FAILED);
 					} else {
 						setDMState(DM_PROGRESS);
 						dmAgent.dmAgentSetSyncMode(DM_SYNC_NONE);
@@ -771,13 +761,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					}
 				}
 				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_DOWNLOAD_CONFIRM_RES)){
-					if (!tsService.isNetworkConnect())
-					{
-						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
-
-						tsNetworkUnready();
-						return;
-					}
+					setUpdateCheckStatus(true);
 					if(intent.getBooleanExtra(INTENT_CONFIRM_RES, false)) {
 						tsLib.debugPrint(DEBUG_UM, "intent confirmResult true");
 
@@ -818,16 +802,18 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 							dmFotaEntity.cancelDownload();
 						}
 					}
-				}
-				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_UPDATE_STANDBY)){
+
+					// Send Network Unready after request proceeded
 					if (!tsService.isNetworkConnect())
 					{
 						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
 
 						tsNetworkUnready();
-						return;
 					}
+				}
+				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_UPDATE_STANDBY)){
 					tsLib.debugPrint(DEBUG_UM, "intent update standby");
+					setUpdateCheckStatus(true);
 
 					if(getDMState()!= DM_IDLE) {
 						return;
@@ -837,13 +823,8 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					dmFotaEntity.updateStandby();
 				}
 				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_UPDATE_REPORT)){
-					if (!tsService.isNetworkConnect())
-					{
-						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
+					setUpdateCheckStatus(true);
 
-						tsNetworkUnready();
-						return;
-					}
 					modelName=intent.getStringExtra(INTENT_MODEL_NAME);
 					if(modelName==null)modelName="";
 					vinId=intent.getStringExtra(INTENT_VIN_ID);
@@ -946,7 +927,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 
 						dmFotaEntity.updateUserCancel();
 
-					}else if(updateState == 4){ //update partion
+					}else if(updateState == 4){ //update partition
 
 						dmFotaEntity.updatePartition();
 
@@ -956,13 +937,6 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					}
 				}
 				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_USB_UPDATE_START)){
-					if (!tsService.isNetworkConnect())
-					{
-						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
-
-						tsNetworkUnready();
-						return;
-					}
 					modelName=intent.getStringExtra(INTENT_MODEL_NAME);
 					if(modelName==null)modelName="";
 					vinId=intent.getStringExtra(INTENT_VIN_ID);
@@ -979,15 +953,18 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					FileDelete(tsdmDB.DM_FS_FFS_DIRECTORY + "/" + "2400258.cfg");
 					tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 					setDMState(DM_IDLE);
-				}
-				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_USB_UPDATE_REPORT)){
+
+					// Send Network Unready after request proceeded
 					if (!tsService.isNetworkConnect())
 					{
 						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
 
 						tsNetworkUnready();
-						return;
 					}
+				}
+				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_USB_UPDATE_REPORT)){
+					setUpdateCheckStatus(true);
+
 					modelName=intent.getStringExtra(INTENT_MODEL_NAME);
 					if(modelName==null)modelName="";
 					vinId=intent.getStringExtra(INTENT_VIN_ID);
@@ -1052,14 +1029,6 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					dmFotaEntity.startSession();
 				}
 				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_NET_PROFILE_REQ)){
-					if (!tsService.isNetworkConnect())
-					{
-						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
-
-						tsNetworkUnready();
-						return;
-					}
-
 					tsLib.debugPrint(DEBUG_UM, "intent network profile Request");
 					SharedPreferences sp = mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
 					int setProfileIndex= sp.getInt("networkProfile",0);
@@ -1071,21 +1040,28 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 					tsLib.debugPrint(DEBUG_UM, "intent network profile Response");
 					tsLib.debugPrint(DEBUG_UM, "networkProfile = " + i.getIntExtra(INTENT_NETWORK_PROFILE,0));
 					mContext.sendBroadcast(i);
-				}
-				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_NET_PROFILE_SET)){
 
+					// Send Network Unready after request proceeded
 					if (!tsService.isNetworkConnect())
 					{
 						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
 
 						tsNetworkUnready();
-						return;
 					}
-
+				}
+				else if(Objects.equals(intent.getStringExtra(INTENT_MSGTYPE), INTENT_MSGTYPE_NET_PROFILE_SET)){
 					tsLib.debugPrint(DEBUG_UM, "intent network profile Set");
 					int networkProfile=intent.getIntExtra(INTENT_NETWORK_PROFILE,0);
 					tsLib.debugPrint(DEBUG_UM, "networkProfile = " + networkProfile);
 					dmNetProfileSet(networkProfile);
+
+					// Send Network Unready after request proceeded
+					if (!tsService.isNetworkConnect())
+					{
+						tsLib.debugPrint(DEBUG_UM, intent.getStringExtra(INTENT_MSGTYPE));
+
+						tsNetworkUnready();
+					}
 				}
 			}
 		}
@@ -1128,10 +1104,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		tsLib.debugPrint(DEBUG_UM, "failCause = " + i.getIntExtra(INTENT_UPDATE_FAILCASUSE, 0));
 		mContext.sendBroadcast(i);
 
-		SharedPreferences sp= mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
-		SharedPreferences.Editor spedit = sp.edit();
-		spedit.putBoolean("updateCheck",false);
-		spedit.apply();
+		setUpdateCheckStatus(false);
 	}
 
 	public static void tsUpdateExtra()   //(DM-->UM)
@@ -1145,10 +1118,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		tsLib.debugPrint(DEBUG_UM, "intent msgType = " + i.getStringExtra(INTENT_MSGTYPE));
 		mContext.sendBroadcast(i);
 
-		SharedPreferences sp= mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
-		SharedPreferences.Editor spedit = sp.edit();
-		spedit.putBoolean("updateCheck",false);
-		spedit.apply();
+		setUpdateCheckStatus(false);
 	}
 
 	public static void tsNetworkUnready()   //(DM-->UM)
@@ -1161,11 +1131,6 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		i.putExtra(INTENT_MSGTYPE, INTENT_MSGTYPE_NETWORK_UNREADY);
 		tsLib.debugPrint(DEBUG_UM, "intent msgType = " + i.getStringExtra(INTENT_MSGTYPE));
 		mContext.sendBroadcast(i);
-
-		SharedPreferences sp= mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
-		SharedPreferences.Editor spedit = sp.edit();
-		spedit.putBoolean("updateCheck",false);
-		spedit.apply();
 	}
 
 	public static void tsDownloadRequest()   //(DM-->UM)
@@ -1177,9 +1142,7 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		String updateContent= sp.getString("downloadDescript","");
         String avntUpVersion= sp.getString("avntUpVersion","");
 
-		SharedPreferences.Editor spedit = sp.edit();
-		spedit.putBoolean("updateCheck",false);
-		spedit.apply();
+		setUpdateCheckStatus(false);
 
 		Intent i = new Intent();
 		i.setAction(DM2UM_INTENT_NAME);
@@ -1722,4 +1685,19 @@ public class tsService extends Service implements dmDefineMsg, dmDefineUIEvent, 
 		return ret;
 	}
 
+	public static void setUpdateCheckStatus(boolean updateCheck) {
+		SharedPreferences sp= mContext.getSharedPreferences("dmClient", MODE_PRIVATE);
+
+		boolean previousUpdateCheck = sp.getBoolean("updateCheck", false);
+		if (previousUpdateCheck == updateCheck) {
+			// Already same
+			return;
+		}
+
+        tsLib.debugPrint(DEBUG_DM, "setUpdateCheckStatus : " + updateCheck);
+
+		SharedPreferences.Editor spedit = sp.edit();
+		spedit.putBoolean("updateCheck", updateCheck);
+		spedit.apply();
+	}
 }

@@ -540,6 +540,7 @@ public class dmTask implements Runnable, dmDefineDevInfo, dmDefineMsg, dmDefineU
 
 			case TASK_MSG_DM_SYNCML_FINISH:
 				tsLib.debugPrint(DEBUG_TASK, "TASK_MSG_DM_SYNCML_FINISH");
+				tsService.setUpdateCheckStatus(false);
 				agent.tpClose(SYNCMLDM);
 				agent.tpCloseNetWork(SYNCMLDM);
 				dmAgent.tpSetRetryCount(TP_RETRY_COUNT_NONE);
