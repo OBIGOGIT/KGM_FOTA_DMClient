@@ -1,8 +1,8 @@
 package com.tsdm.adapt;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsOmList implements dmDefineDevInfo
+public class tsOmList
 {
 	public tsOmList next;
 	public Object		data;
@@ -48,37 +48,37 @@ public class tsOmList implements dmDefineDevInfo
 
 		switch (format)
 		{
-			case FORMAT_B64:
+			case DmDevInfoConst.FORMAT_B64:
 				outbuf = "b64";
 				break;
-			case FORMAT_BIN:
+			case DmDevInfoConst.FORMAT_BIN:
 				outbuf = "bin";
 				break;
-			case FORMAT_BOOL:
+			case DmDevInfoConst.FORMAT_BOOL:
 				outbuf = "bool";
 				break;
-			case FORMAT_CHR:
+			case DmDevInfoConst.FORMAT_CHR:
 				outbuf = "chr";
 				break;
-			case FORMAT_INT:
+			case DmDevInfoConst.FORMAT_INT:
 				outbuf = "int";
 				break;
-			case FORMAT_NODE:
+			case DmDevInfoConst.FORMAT_NODE:
 				outbuf = "node";
 				break;
-			case FORMAT_NULL:
+			case DmDevInfoConst.FORMAT_NULL:
 				outbuf = "null";
 				break;
-			case FORMAT_XML:
+			case DmDevInfoConst.FORMAT_XML:
 				outbuf = "xml";
 				break;
-			case FORMAT_FLOAT:
+			case DmDevInfoConst.FORMAT_FLOAT:
 				outbuf = "float";
 				break;
-			case FORMAT_TIME:
+			case DmDevInfoConst.FORMAT_TIME:
 				outbuf = "time";
 				break;
-			case FORMAT_DATE:
+			case DmDevInfoConst.FORMAT_DATE:
 				outbuf = "date";
 				break;
 
@@ -93,30 +93,30 @@ public class tsOmList implements dmDefineDevInfo
 	public static int dmOmGetFormatFromString(String str)
 	{
 		if (str.compareTo("b64") == 0)
-			return FORMAT_B64;
+			return DmDevInfoConst.FORMAT_B64;
 		else if (str.compareTo("bin") == 0)
-			return FORMAT_BIN;
+			return DmDevInfoConst.FORMAT_BIN;
 		else if (str.compareTo("bool") == 0)
-			return FORMAT_BOOL;
+			return DmDevInfoConst.FORMAT_BOOL;
 		else if (str.compareTo("chr") == 0)
-			return FORMAT_CHR;
+			return DmDevInfoConst.FORMAT_CHR;
 		else if (str.compareTo("int") == 0)
-			return FORMAT_INT;
+			return DmDevInfoConst.FORMAT_INT;
 		else if (str.compareTo("node") == 0)
-			return FORMAT_NODE;
+			return DmDevInfoConst.FORMAT_NODE;
 		else if (str.compareTo("null") == 0)
-			return FORMAT_NULL;
+			return DmDevInfoConst.FORMAT_NULL;
 		else if (str.compareTo("xml") == 0)
-			return FORMAT_XML;
+			return DmDevInfoConst.FORMAT_XML;
 		else if (str.compareTo("float") == 0)
-			return FORMAT_FLOAT;
+			return DmDevInfoConst.FORMAT_FLOAT;
 		else if (str.compareTo("time") == 0)
-			return FORMAT_TIME;
+			return DmDevInfoConst.FORMAT_TIME;
 		else if (str.compareTo("date") == 0)
-			return FORMAT_DATE;
+			return DmDevInfoConst.FORMAT_DATE;
 
 		else
-			return FORMAT_NONE;
+			return DmDevInfoConst.FORMAT_NONE;
 	}
 
 }

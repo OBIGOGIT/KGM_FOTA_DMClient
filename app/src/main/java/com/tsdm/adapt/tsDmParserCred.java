@@ -2,9 +2,10 @@ package com.tsdm.adapt;
 
 import java.io.IOException;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.WbxmlProtocolConst;
 
-public class tsDmParserCred implements tsDefineWbxml
+public class tsDmParserCred
 {
 	public tsDmParserMeta meta;
 	public String			data;
@@ -12,10 +13,10 @@ public class tsDmParserCred implements tsDefineWbxml
 	public int dmParseCred(tsDmParser p)
 	{
 		int id = -1;
-		int res = DM_ERR_OK;
+		int res = WbxmlProtocolConst.DM_ERR_OK;
 
-		res = p.dmParseCheckElement(WBXML_TAG_Cred);
-		if (res != DM_ERR_OK)
+		res = p.dmParseCheckElement(WbxmlProtocolConst.WBXML_TAG_Cred);
+		if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
 			return res;
 		}
@@ -28,10 +29,10 @@ public class tsDmParserCred implements tsDefineWbxml
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(dmDefineDevInfo.DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 
-			if (id == WBXML_END)
+			if (id == WbxmlProtocolConst.WBXML_END)
 			{
 				id = p.dmParseReadElement();
 				break;
@@ -39,18 +40,18 @@ public class tsDmParserCred implements tsDefineWbxml
 
 			switch (id)
 			{
-				case WBXML_TAG_Meta:
+				case WbxmlProtocolConst.WBXML_TAG_Meta:
 					meta = new tsDmParserMeta();
 					res = meta.dmParseMeta(p);
 					meta = p.Meta;
 					break;
 
-				case WBXML_TAG_Data:
+				case WbxmlProtocolConst.WBXML_TAG_Data:
 					res = p.dmParseElement(id);
 					data = p._pParserElement;
 					break;
 
-				case WBXML_SWITCH_PAGE:
+				case WbxmlProtocolConst.WBXML_SWITCH_PAGE:
 					id = p.dmParseReadElement();
 					id = p.dmParseReadElement();
 
@@ -59,10 +60,10 @@ public class tsDmParserCred implements tsDefineWbxml
 
 				default:
 					// unknown element
-					res = DM_ERR_UNKNOWN_ELEMENT;
+					res = WbxmlProtocolConst.DM_ERR_UNKNOWN_ELEMENT;
 			}
 
-			if (res != DM_ERR_OK)
+			if (res != WbxmlProtocolConst.DM_ERR_OK)
 			{
 				return res;
 			}

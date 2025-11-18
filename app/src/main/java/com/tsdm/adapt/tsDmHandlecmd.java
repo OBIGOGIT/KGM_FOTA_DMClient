@@ -1,9 +1,9 @@
 package com.tsdm.adapt;
 
 import com.tsdm.agent.dmAgent;
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsDmHandlecmd implements dmDefineDevInfo
+public class tsDmHandlecmd
 {
 
 	public void dmHdlCmdSyncHdr(Object userdata, tsDmParserSyncheader header)
@@ -827,7 +827,7 @@ public class tsDmHandlecmd implements dmDefineDevInfo
 		}
 
 		dest.type = src.type;
-		if (dest.type == TYPE_STRING)
+		if (dest.type == DmDevInfoConst.TYPE_STRING)
 		{
 			dest.data = src.data;
 			dest.size = src.size;
@@ -1231,7 +1231,7 @@ public class tsDmHandlecmd implements dmDefineDevInfo
 		tsDmParserPcdata o;
 		o = new tsDmParserPcdata();
 
-		o.type = TYPE_STRING;
+		o.type = DmDevInfoConst.TYPE_STRING;
 		o.size = str.length;
 		o.data = new char[str.length];
 		for (int i = 0; i < str.length; i++)
@@ -1273,7 +1273,7 @@ public class tsDmHandlecmd implements dmDefineDevInfo
 		{
 			return null;
 		}
-		if (pcdata.type != TYPE_STRING)
+		if (pcdata.type != DmDevInfoConst.TYPE_STRING)
 		{
 			return null;
 		}

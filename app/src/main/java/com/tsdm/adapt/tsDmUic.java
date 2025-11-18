@@ -1,11 +1,13 @@
 package com.tsdm.adapt;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.UserInteractionCommandConst;
+import com.tsdm.core.data.constants.DmProtocolConst;
 import com.tsdm.db.tsDefineDB;
 import com.tsdm.db.tsDBUICResultKeep;
 import com.tsdm.db.tsdmDB;
 
-public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefineDB
+public class tsDmUic implements tsDefineDB
 {
 	public static tsDmUicOption dmUicCreateUicOption()
 	{
@@ -14,8 +16,8 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 		opt = new tsDmUicOption();
 		opt.text = new tsDmText();
 		opt.defaultResponse = new tsDmText();
-		opt.text = tsList.listCreateText(UIC_MAX_TITLE_SIZE, null);
-		opt.defaultResponse = tsList.listCreateText(UIC_MAX_USERINPUT_SIZE, 0);
+		opt.text = tsList.listCreateText(UserInteractionCommandConst.UIC_MAX_TITLE_SIZE, null);
+		opt.defaultResponse = tsList.listCreateText(UserInteractionCommandConst.UIC_MAX_USERINPUT_SIZE, 0);
 
 		return opt;
 	}
@@ -43,27 +45,27 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 
 	public static int dmUicGetUicType(String pType)
 	{
-		tsLib.debugPrint(DEBUG_DM, "pType " + pType);
-		int type = UIC_TYPE_NONE;
-		if (pType.compareTo(ALERT_DISPLAY) == 0)
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "pType " + pType);
+		int type = UserInteractionCommandConst.UIC_TYPE_NONE;
+		if (pType.compareTo(DmProtocolConst.ALERT_DISPLAY) == 0)
 		{
-			type = UIC_TYPE_DISP;
+			type = UserInteractionCommandConst.UIC_TYPE_DISP;
 		}
-		else if (pType.compareTo(ALERT_CONTINUE_OR_ABORT) == 0)
+		else if (pType.compareTo(DmProtocolConst.ALERT_CONTINUE_OR_ABORT) == 0)
 		{
-			type = UIC_TYPE_CONFIRM;
+			type = UserInteractionCommandConst.UIC_TYPE_CONFIRM;
 		}
-		else if (pType.compareTo(ALERT_TEXT_INPUT) == 0)
+		else if (pType.compareTo(DmProtocolConst.ALERT_TEXT_INPUT) == 0)
 		{
-			type = UIC_TYPE_INPUT;
+			type = UserInteractionCommandConst.UIC_TYPE_INPUT;
 		}
-		else if (pType.compareTo(ALERT_SINGLE_CHOICE) == 0)
+		else if (pType.compareTo(DmProtocolConst.ALERT_SINGLE_CHOICE) == 0)
 		{
-			type = UIC_TYPE_SINGLE_CHOICE;
+			type = UserInteractionCommandConst.UIC_TYPE_SINGLE_CHOICE;
 		}
-		else if (pType.compareTo(ALERT_MULTIPLE_CHOICE) == 0)
+		else if (pType.compareTo(DmProtocolConst.ALERT_MULTIPLE_CHOICE) == 0)
 		{
-			type = UIC_TYPE_MULTI_CHOICE;
+			type = UserInteractionCommandConst.UIC_TYPE_MULTI_CHOICE;
 		}
 
 		return type;
@@ -74,7 +76,7 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 		tsDmUicOption pTarget = (tsDmUicOption) target;
 		tsDmUicOption pSource = (tsDmUicOption) source;
 		int i = 0;
-		tsLib.debugPrint(DEBUG_DM, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "");
 		pTarget.appId = pSource.appId;
 		pTarget.inputType = pSource.inputType;
 		pTarget.echoType = pSource.echoType;
@@ -117,11 +119,11 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 			pTarget.defaultResponse.size = 0;
 		}
 
-		if (pSource.UICType == UIC_TYPE_SINGLE_CHOICE || pSource.UICType == UIC_TYPE_MULTI_CHOICE)
+		if (pSource.UICType == UserInteractionCommandConst.UIC_TYPE_SINGLE_CHOICE || pSource.UICType == UserInteractionCommandConst.UIC_TYPE_MULTI_CHOICE)
 		{
 			if (pSource.uicMenuNumbers == 0)
 			{
-				tsLib.debugPrint(DEBUG_DM, " uicMenuNumbers = 0 !!!");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, " uicMenuNumbers = 0 !!!");
 			}
 		}
 		pTarget.uicMenuNumbers = pSource.uicMenuNumbers;
@@ -129,7 +131,7 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 		{
 			if (pSource.uicMenuList[i] != null)
 			{
-				if (i < UIC_MAX_CHOICE_MENU && pSource.uicMenuList[i].length() > 0)
+				if (i < UserInteractionCommandConst.UIC_MAX_CHOICE_MENU && pSource.uicMenuList[i].length() > 0)
 				{
 					pTarget.uicMenuList[i] = pSource.uicMenuList[i];
 				}
@@ -146,10 +148,10 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 	public static tsDmUicResult createUicResult()
 	{
 		tsDmUicResult res;
-		tsLib.debugPrint(DEBUG_DM, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "");
 		res = new tsDmUicResult();
 		res.text = new tsDmText();
-		res.text = tsList.listCreateText(UIC_MAX_USERINPUT_SIZE, null);
+		res.text = tsList.listCreateText(UserInteractionCommandConst.UIC_MAX_USERINPUT_SIZE, null);
 
 		return res;
 	}
@@ -157,7 +159,7 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 	public static Object dmUicFreeUicResult(tsDmUicResult uicResult)
 	{
 		tsDmUicResult obj = (tsDmUicResult) uicResult;
-		tsLib.debugPrint(DEBUG_DM, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "");
 		obj.text.text = null;
 		obj.text = null;
 
@@ -170,10 +172,10 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 		tsDmUicResult ptUicResult = (tsDmUicResult) pData;
 		tsDBUICResultKeep ptUicResultKeep = null;
 
-		tsLib.debugPrint(DEBUG_DM, " pUicResultKeepFlag [" + pUicResultKeepFlag + "]");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, " pUicResultKeepFlag [" + pUicResultKeepFlag + "]");
 		if (ptUicResult == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "ptUicResult Pointer is NULL!");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "ptUicResult Pointer is NULL!");
 			return ptUicResult;
 		}
 
@@ -201,7 +203,7 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		ptUicResultKeep = null;
 
@@ -215,8 +217,8 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 		int chTmp = 0;
 		int ipOption = 0;
 
-		tsLib.debugPrint(DEBUG_DM, "pUicOptions :" + pUicOptions);
-		tsLib.debugPrint(DEBUG_DM, "uicOption :" + uicOption.toString());
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "pUicOptions :" + pUicOptions);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "uicOption :" + uicOption.toString());
 
 		if (pOption[ipOption] == 0)
 			return String.valueOf(pOption);
@@ -252,12 +254,12 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 			}
 			catch (NumberFormatException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				uicOption.minDT = 0;
 			}
 			catch (Exception e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				uicOption.minDT = 0;
 			}
 		}
@@ -277,19 +279,19 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 				chTmp = 0;
 
 			String temp = String.valueOf(pOption).substring(ipOption, ipOption + i);
-			tsLib.debugPrint(DEBUG_DM, "temp :" + temp);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "temp :" + temp);
 			try
 			{
 				uicOption.maxDT = Integer.valueOf(temp);
 			}
 			catch (NumberFormatException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				uicOption.maxDT = 0;
 			}
 			catch (Exception e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				uicOption.maxDT = 0;
 			}
 		}
@@ -333,12 +335,12 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 			}
 			catch (NumberFormatException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				uicOption.maxLen = 0;
 			}
 			catch (Exception e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				uicOption.maxLen = 0;
 			}
 		}
@@ -363,22 +365,22 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 			switch (pOption[ipOption])
 			{
 				case 'A':
-					uicOption.inputType = UIC_INPUTTYPE_ALPHANUMERIC;
+					uicOption.inputType = UserInteractionCommandConst.UIC_INPUTTYPE_ALPHANUMERIC;
 					break;
 				case 'N':
-					uicOption.inputType = UIC_INPUTTYPE_NUMERIC;
+					uicOption.inputType = UserInteractionCommandConst.UIC_INPUTTYPE_NUMERIC;
 					break;
 				case 'D':
-					uicOption.inputType = UIC_INPUTTYPE_DATE;
+					uicOption.inputType = UserInteractionCommandConst.UIC_INPUTTYPE_DATE;
 					break;
 				case 'T':
-					uicOption.inputType = UIC_INPUTTYPE_TIME;
+					uicOption.inputType = UserInteractionCommandConst.UIC_INPUTTYPE_TIME;
 					break;
 				case 'P':
-					uicOption.inputType = UIC_INPUTTYPE_PHONENUBMER;
+					uicOption.inputType = UserInteractionCommandConst.UIC_INPUTTYPE_PHONENUBMER;
 					break;
 				case 'I':
-					uicOption.inputType = UIC_INPUTTYPE_IPADDRESS;
+					uicOption.inputType = UserInteractionCommandConst.UIC_INPUTTYPE_IPADDRESS;
 					break;
 			}
 		}
@@ -402,10 +404,10 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 			switch (pOption[ipOption])
 			{
 				case 'T':
-					uicOption.echoType = UIC_ECHOTYPE_TEXT;
+					uicOption.echoType = UserInteractionCommandConst.UIC_ECHOTYPE_TEXT;
 					break;
 				case 'P':
-					uicOption.echoType = UIC_ECHOTYPE_PASSWORD;
+					uicOption.echoType = UserInteractionCommandConst.UIC_ECHOTYPE_PASSWORD;
 					break;
 			}
 		}

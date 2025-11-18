@@ -2,9 +2,10 @@ package com.tsdm.adapt;
 
 import java.io.IOException;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.WbxmlProtocolConst;
 
-class tsDmParserAnchor implements tsDefineWbxml, dmDefineDevInfo
+class tsDmParserAnchor
 {
 	public String	last;
 	public String	next;
@@ -12,28 +13,28 @@ class tsDmParserAnchor implements tsDefineWbxml, dmDefineDevInfo
 	public int dmParseAnchor(tsDmParser p)
 	{
 		int id = -1;
-		int res = DM_ERR_OK;
-		tsLib.debugPrint(DEBUG_DM, "");
+		int res = WbxmlProtocolConst.DM_ERR_OK;
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "");
 
-		res = p.dmParseCheckElement(WBXML_METINF_Anchor);
-		if (res != DM_ERR_OK)
+		res = p.dmParseCheckElement(WbxmlProtocolConst.WBXML_METINF_Anchor);
+		if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
 			return res;
 		}
 
 		res = p.dmParseZeroBitTagCheck();
-		if (res == DM_ERR_ZEROBIT_TAG)
+		if (res == WbxmlProtocolConst.DM_ERR_ZEROBIT_TAG)
 		{
-			return DM_ERR_OK;
+			return WbxmlProtocolConst.DM_ERR_OK;
 		}
-		else if (res != DM_ERR_OK)
+		else if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, " not DM_ERR_OK");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, " not DM_ERR_OK");
 			return res;
 		}
 
 		res = p.dmParseSkipLiteralElement();
-		if (res != DM_ERR_OK)
+		if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
 			return res;
 		}
@@ -46,10 +47,10 @@ class tsDmParserAnchor implements tsDefineWbxml, dmDefineDevInfo
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 
-			if (id == WBXML_END)
+			if (id == WbxmlProtocolConst.WBXML_END)
 			{
 				id = p.dmParseReadElement();
 				break;
@@ -57,21 +58,21 @@ class tsDmParserAnchor implements tsDefineWbxml, dmDefineDevInfo
 
 			switch (id)
 			{
-				case WBXML_METINF_Last:
+				case WbxmlProtocolConst.WBXML_METINF_Last:
 					res = p.dmParseElement(id);
 					last = p._pParserElement;
 					break;
 
-				case WBXML_METINF_Next:
+				case WbxmlProtocolConst.WBXML_METINF_Next:
 					res = p.dmParseElement(id);
 					next = p._pParserElement;
 					break;
 
 				default:
-					res = DM_ERR_UNKNOWN_ELEMENT;
+					res = WbxmlProtocolConst.DM_ERR_UNKNOWN_ELEMENT;
 			}
 
-			if (res != DM_ERR_OK)
+			if (res != WbxmlProtocolConst.DM_ERR_OK)
 			{
 				return res;
 			}

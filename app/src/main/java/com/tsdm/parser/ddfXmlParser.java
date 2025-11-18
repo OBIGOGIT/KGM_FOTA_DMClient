@@ -7,10 +7,10 @@ import javax.xml.parsers.*;
 
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class ddfXmlParser implements dmDefineDevInfo
+public class ddfXmlParser
 {
 	public ddfXmlParser(DefaultHandler handler, String s)
 	{
@@ -29,7 +29,7 @@ public class ddfXmlParser implements dmDefineDevInfo
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "error : " + e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "error : " + e.toString());
 		}
 		finally
 		{
@@ -41,7 +41,7 @@ public class ddfXmlParser implements dmDefineDevInfo
 				}
 				catch (IOException e)
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				}
 		}
 	}

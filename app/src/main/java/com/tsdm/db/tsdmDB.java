@@ -11,19 +11,19 @@ import java.io.RandomAccessFile;
 import java.io.Serializable;
 
 import com.tsdm.adapt.tsMsgEvent;
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.auth.Auth;
 import com.tsdm.auth.base64;
 import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.agent.dmAgentInfo;
-import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsLib;
-import com.tsdm.adapt.tsDefineUic;
-import com.tsdm.agent.dmDefineUIEvent;
 import com.tsdm.agent.dmProfileEntity;
 import com.tsdm.agent.dmPreConfigEntity;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.DmUiEvent;
+import com.tsdm.core.data.constants.FumoConst;
+import com.tsdm.core.data.constants.UserInteractionCommandConst;
 
-public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDefineDevInfo, tsDefineIdle, tsDefineUic, tsDefineDB, dmDefineUIEvent
+public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, tsDefineDB
 {
 	enum eSyncMLDMNVMParameter
 	{
@@ -105,7 +105,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			SyncMLNVMNotiInfo			= 0x0066,
 			SyncMLlastAreaCode			= 0x0067,
 			SyncMLNVMAccXNode			= 0x0083;
-	
+
 
 	public static final int					DMINFOMAGIC					= 2355;
 	public static final int					DMPROFILEMAGIC				= 3783;
@@ -156,7 +156,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		Areacodeindex[eSyncMLDMNVMParameter.NVM_FUMO_POSTPONE.Value()] = SyncMLPostPone;
 		Areacodeindex[eSyncMLDMNVMParameter.NVM_IMSI_INFO.Value()] = SyncMLIMSIInfo;
 
-		if (_SYNCML_TS_DM_VERSION_V12_)
+		if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 		{
 			Areacodeindex[eSyncMLDMNVMParameter.NVM_DM_ACC_X_NODE.Value()] = SyncMLNVMAccXNode;
 			Areacodeindex[eSyncMLDMNVMParameter.NVM_NOTI_RESYNC_MODE.Value()] = SyncMLNVMResyncMode;
@@ -179,7 +179,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	public static boolean dmdbInit()
 	{
-		tsLib.debugPrint(DEBUG_DB, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "");
 		try
 		{
 			eSyncMLDMFileParameter[] Files = eSyncMLDMFileParameter.values();
@@ -211,7 +211,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception ex)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Init Exception");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Init Exception");
 			return false;
 		}
 
@@ -300,7 +300,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				return DMNvmClass.NVMSyncMLDmAgentInfo.nAgentType;
 
 			default:
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Wrong Type");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Wrong Type");
 				break;
 		}
 		return null;
@@ -319,7 +319,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				break;
 
 			default:
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Wrong Type");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Wrong Type");
 				break;
 		}
 	}
@@ -410,7 +410,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		else
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "----wrong file id----");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "----wrong file id----");
 			return null;
 		}
 
@@ -445,7 +445,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			case E2P_SYNCML_DM_NOTI_SAVED_INFO:
 				return DMNvmClass.tProfileList.NotiResumeState;
 			case E2P_SYNCML_DM_NOTI_NOTI_RESYNC_MODE:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.tProfileList.nNotiReSyncMode;
 			case E2P_SYNCML_DM_UIC_RESULT_KEEP:
 				return DMNvmClass.tProfileList.tUicResultKeep;
@@ -486,16 +486,16 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			case E2P_SYNCML_DM_PATH:
 				return DMNvmClass.NVMSyncMLDMInfo.Path;
 			case E2P_SYNCML_DM_APPID:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.NVMSyncMLDMInfo.AppID;
 			case E2P_SYNCML_DM_AUTHLEVEL:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.NVMSyncMLDMInfo.AuthLevel;
 			case E2P_SYNCML_DM_SERVERAUTHLEVEL:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.NVMSyncMLDMInfo.ServerAuthLevel;
 			case E2P_SYNCML_DM_PREFCONREF:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.NVMSyncMLDMInfo.PrefConRef;
 			case E2P_SYNCML_DM_SERVERID:
 				return DMNvmClass.NVMSyncMLDMInfo.ServerID;
@@ -522,19 +522,19 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			case E2P_SYNCML_DM_CHANGED_PROTOCOL:
 				return (DMNvmClass.NVMSyncMLDMInfo.bChangedProtocol);
 			case E2P_SYNCML_DM_ACCXNODE_INFO1:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.NVMSyncMLAccXNode.stAccXNodeList[0];
 			case E2P_SYNCML_DM_ACCXNODE_INFO2:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.NVMSyncMLAccXNode.stAccXNodeList[1];
 			case E2P_SYNCML_DM_ACCXNODE_INFO3:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.NVMSyncMLAccXNode.stAccXNodeList[2];
 			case E2P_SYNCML_DM_ACCXNODE_INFO4:
 			case E2P_SYNCML_DM_ACCXNODE_INFO5:
 				break;
 			case E2P_SYNCML_DM_RESYNC_MODE:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					return DMNvmClass.NVMSyncMLResyncMode.nNoceResyncMode;
 			case E2P_SYNCML_FUMO_INFO:
 				return DMNvmClass.NVMSyncMLDMFUMOInfo;
@@ -622,7 +622,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 		if (oInput == null)
 		{
-			tsLib.debugPrint(DEBUG_DB, "oInput is null");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "oInput is null");
 			return false;
 		}
 
@@ -680,7 +680,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				break;
 			case E2P_SYNCML_DM_SKIP_DEV_DISCOVERY:
 				DMNvmClass.tProfileList.bSkipDevDiscovery = Boolean.valueOf(oInput.toString());
-				break;				
+				break;
 			case E2P_SYNCML_DM_IMEI:
 				DMNvmClass.tProfileList.szImei = oInput.toString();
 				break;
@@ -780,22 +780,22 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				break;
 			// 1.2
 			case E2P_SYNCML_DM_ACCXNODE_INFO1:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					DMNvmClass.NVMSyncMLAccXNode.stAccXNodeList[0] = (tsDBAccXNode) oInput;
 				break;
 			case E2P_SYNCML_DM_ACCXNODE_INFO2:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					DMNvmClass.NVMSyncMLAccXNode.stAccXNodeList[1] = (tsDBAccXNode) oInput;
 				break;
 			case E2P_SYNCML_DM_ACCXNODE_INFO3:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					DMNvmClass.NVMSyncMLAccXNode.stAccXNodeList[2] = (tsDBAccXNode) oInput;
 				break;
 			case E2P_SYNCML_DM_ACCXNODE_INFO4:
 			case E2P_SYNCML_DM_ACCXNODE_INFO5:
 				break;
 			case E2P_SYNCML_DM_RESYNC_MODE:
-				if (_SYNCML_TS_DM_VERSION_V12_)
+				if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 					DMNvmClass.NVMSyncMLResyncMode.nNoceResyncMode = Boolean.valueOf(oInput.toString());
 				break;
 
@@ -953,7 +953,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				}
 				else
 				{
-					tsLib.debugPrint(DEBUG_DB, "DMNvmClass.tProfileList is null");
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "DMNvmClass.tProfileList is null");
 				}
 			}
 			switch (row)
@@ -1022,7 +1022,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 	}
@@ -1051,12 +1051,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		else if (pfileparam.AreaCode == SyncMLNVMAccXNode)
 		{
-			if (_SYNCML_TS_DM_VERSION_V12_)
+			if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 				pfileparam.pNVMUser = (Object) DMNvmClass.NVMSyncMLAccXNode;
 		}
 		else if (pfileparam.AreaCode == SyncMLNVMResyncMode)
 		{
-			if (_SYNCML_TS_DM_VERSION_V12_)
+			if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 				pfileparam.pNVMUser = (Object) DMNvmClass.NVMSyncMLResyncMode;
 		}
 		else if (pfileparam.AreaCode == SyncMLNVMDmAgentInfo)
@@ -1068,7 +1068,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		else
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support Area Code: " + String.valueOf(pfileparam.AreaCode));
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Support Area Code: " + String.valueOf(pfileparam.AreaCode));
 		}
 
 		return pfileparam;
@@ -1080,13 +1080,13 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		int nCount = 0;
 		String strTemp = "";
 		String pImei = "";
-		
+
 		if(DMNvmClass == null || DMNvmClass.tProfileList == null) //defect_110921
 		{
-			tsLib.debugPrintException(DEBUG_DM, "DMNvmClass or DMNvmClass.tProfileList is null. return");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, "DMNvmClass or DMNvmClass.tProfileList is null. return");
 			return null;
 		}
-		
+
 		for (nCount = 0; nCount < DM_SETTING_PROFILE_NUM; nCount++)
 		{
 			DMNvmClass.tProfileList.Profileindex = nCount;
@@ -1136,7 +1136,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		if (pFUMOInfo == null)
 		{
 			pFUMOInfo = new tsDBFumoInfo();
-			tsLib.debugPrintException(DEBUG_DB, "pFUMOInfo = null");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, "pFUMOInfo = null");
 
 		}
 
@@ -1145,7 +1145,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		pFUMOInfo.ResultCode = "";
 		pFUMOInfo.ServerPort = 80;
 		pFUMOInfo.nDownloadMode = true;
-		pFUMOInfo.Protocol = NETWORK_TYPE_HTTP;
+		pFUMOInfo.Protocol = DmDevInfoConst.NETWORK_TYPE_HTTP;
 
 		return pFUMOInfo;
 	}
@@ -1173,7 +1173,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		tsDBResyncMode bResyncMode = (tsDBResyncMode) SyncDMResyncMode;
 
 		// Default_ResyncMode_ON
-		if (_SYNCML_TS_DM__VERSION_V12_NONCE_RESYNC)
+		if (DmDevInfoConst._SYNCML_TS_DM__VERSION_V12_NONCE_RESYNC)
 			bResyncMode.nNoceResyncMode = true;
 		else
 			bResyncMode.nNoceResyncMode = false;
@@ -1190,7 +1190,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		else
 		{
-			DmAgentInfo.nAgentType = SYNCML_DM_AGENT_DM;
+			DmAgentInfo.nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 		}
 
 		return DmAgentInfo;
@@ -1222,12 +1222,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		else if (areaCode == SyncMLNVMAccXNode)
 		{
-			if (_SYNCML_TS_DM_VERSION_V12_)
+			if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 				pNVMUser = dmdbNVMSyncDMAccXNodeInit(pNVMUser, magicNumber);
 		}
 		else if (areaCode == SyncMLNVMResyncMode)
 		{
-			if (_SYNCML_TS_DM_VERSION_V12_)
+			if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 				pNVMUser = dmdbNVMSyncDMResyncModeInit(pNVMUser, magicNumber);
 		}
 		else if (areaCode == SyncMLNVMDmAgentInfo)
@@ -1303,11 +1303,11 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		{
 			SyncMLFileParamtemp = dmSyncMLFileParam[eSyncMLDMNVMParameter.NVM_IMSI_INFO.Value()];
 		}
-		else if ((areacode == SyncMLNVMAccXNode) && (_SYNCML_TS_DM_VERSION_V12_))
+		else if ((areacode == SyncMLNVMAccXNode) && (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_))
 		{
 			SyncMLFileParamtemp = dmSyncMLFileParam[eSyncMLDMNVMParameter.NVM_DM_ACC_X_NODE.Value()];
 		}
-		else if ((areacode == SyncMLNVMResyncMode) && (_SYNCML_TS_DM_VERSION_V12_))
+		else if ((areacode == SyncMLNVMResyncMode) && (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_))
 		{
 			SyncMLFileParamtemp = dmSyncMLFileParam[eSyncMLDMNVMParameter.NVM_NOTI_RESYNC_MODE.Value()];
 		}
@@ -1321,7 +1321,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		else
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "FFS not find area code by num :" + areacode);
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "FFS not find area code by num :" + areacode);
 			return null;
 		}
 
@@ -1341,7 +1341,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				eRet = dbAdpAppFileCreate(null, FileID, nSize, pBuffer); // think as file not exist -> create new File
 				//if (eRet != TS_FS_OK)
 				//{
-				//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Create FAILED");
+				//	tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Create FAILED");
 				//}
 			}
 			else
@@ -1350,13 +1350,13 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				eRet = dbAdpAppendFileWrite(FileID, len, pBuffer, nSize);
 				if (eRet != TS_FS_OK)
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "Append FAILED");
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Append FAILED");
 				}
 			}
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return eRet;
 	}
@@ -1410,7 +1410,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			}
 			catch (FileNotFoundException e)
 			{
-				tsLib.debugPrint(DEBUG_DB, e.toString());
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, e.toString());
 				return TS_FS_ERR_FILE_NOT_FOUND;
 			}
 			finally
@@ -1424,7 +1424,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				}
 				catch (IOException e)
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				}
 			}
 		}
@@ -1462,12 +1462,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			nRtnStatus = TS_FS_ERR_FILE_NOT_FOUND;
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			nRtnStatus = TS_ERR_NO_MEM_READY;
 		}
 		finally
@@ -1481,7 +1481,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				nRtnStatus = TS_FS_FAIL;
 			}
 		}
@@ -1507,7 +1507,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (NullPointerException ex)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, ex.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, ex.toString());
 		}
 		return eRet;
 	}
@@ -1546,15 +1546,15 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		int AreaCodeTemp;
 		int nCount = 0;
 
-		tsLib.debugPrint(DEBUG_DB, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "");
 
-		if(_SYNCML_TS_DM_REGISTRY_PROFILE_)
+		if(DmDevInfoConst._SYNCML_TS_DM_REGISTRY_PROFILE_)
 		{
 			dmPreConfigEntity.openConfigFile();
 		}
-		
+
 		/* Must Make before Profile Info. */
-		if (_SYNCML_TS_DM_VERSION_V12_)
+		if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 		{
 			AreaCodeTemp = SyncMLNVMAccXNode;
 			if (!tsdmDBsql.existsAccXListNodeRow(3))
@@ -1586,7 +1586,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		if (!tsdmDBsql.existsSimInfoRow(1))
 			dmdbInitFfsFile((int) AreaCodeTemp, 0);
 
-		if (_SYNCML_TS_DM_VERSION_V12_)
+		if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 		{
 			AreaCodeTemp = SyncMLNVMResyncMode; // Nonce_resync_menu
 			if (!tsdmDBsql.existsResyncModeRow(1))
@@ -1606,11 +1606,11 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		if (FileID == eSyncMLDMFileParameter.FileFirmwareData.FileId())
 		{
 			handle = (long)(FFS_OWNER_SYNCML * 10000) + FileID;
-			
-			if(_SYNCML_TS_DM_DELTA_INTERIOR_MEMORY_STORAGE_)
+
+			if(DmDevInfoConst._SYNCML_TS_DM_DELTA_INTERIOR_MEMORY_STORAGE_)
 			{
 				int nDeltaFileIndex = dmdbGetDeltaFileSaveIndex();
-				if(nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
+				if(nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_MEMORY)
 				{
 					szFileName = String.format("%s/%d%s", DM_FS_FFS_EXTERNEL_DIRECTORY_FOTA, handle, DM_FS_FFS_FILE_EXTENTION);
 				}
@@ -1619,14 +1619,14 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 					szFileName = String.format("%s/%d%s", DM_FS_FFS_DIRECTORY, handle, DM_FS_FFS_FILE_EXTENTION);
 				}
 			}
-			else if(_SYNCML_TS_DM_DELTA_MULTI_MEMORY_STORAGE_)
+			else if(DmDevInfoConst._SYNCML_TS_DM_DELTA_MULTI_MEMORY_STORAGE_)
 			{
 				int nDeltaFileIndex = dmdbGetDeltaFileSaveIndex();
-				if(nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
+				if(nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_MEMORY)
 				{
 					szFileName = String.format("%s/%d%s", DM_FS_FFS_EXTERNEL_DIRECTORY_FOTA, handle, DM_FS_FFS_FILE_EXTENTION);
 				}
-				else if(nDeltaFileIndex == DELTA_EXTERNAL_SD_MEMORY)
+				else if(nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_SD_MEMORY)
 				{
 					szFileName = String.format("%s/%d%s", DM_FS_FFS_EXTERNEL_SD_DIRECTORY_FOTA, handle, DM_FS_FFS_FILE_EXTENTION);
 				}
@@ -1635,7 +1635,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 					szFileName = String.format("%s/%d%s", DM_FS_FFS_DIRECTORY, handle, DM_FS_FFS_FILE_EXTENTION);
 				}
 			}
-			else if(_SYNCML_TS_DM_DELTA_EXTERNAL_STORAGE_)
+			else if(DmDevInfoConst._SYNCML_TS_DM_DELTA_EXTERNAL_STORAGE_)
 			{
 				szFileName = String.format("%s/%d%s", DM_FS_FFS_EXTERNEL_DIRECTORY_FOTA, handle, DM_FS_FFS_FILE_EXTENTION);
 			}
@@ -1710,7 +1710,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		{
 			if (pszFileName == null)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "pszFileName is NULL");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "pszFileName is NULL");
 				return TS_FS_ERR_BAD_PARAM;
 			}
 			else
@@ -1724,7 +1724,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return eRet;
 	}
@@ -1735,15 +1735,15 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		boolean confirm = false;
 		int size = 0;
 
-		tsLib.debugPrint(DEBUG_DM, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "");
 		if (childFile == null)
 		{
-			tsLib.debugPrint(DEBUG_DM, "can not get child list of " + targetFolder.getPath());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "can not get child list of " + targetFolder.getPath());
 			return false;
 		}
 
 		size = childFile.length;
-		tsLib.debugPrint(DEBUG_DM, String.format("nfilenum of directory [%s] : %d ", targetFolder.getPath(), size));
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, String.format("nfilenum of directory [%s] : %d ", targetFolder.getPath(), size));
 		try
 		{
 			if (size > 0)
@@ -1753,7 +1753,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 					String szName = childFile[i].getName();
 					if (szName.contains("lost+found") || szName.contains("recovery"))
 					{
-						tsLib.debugPrintException(DEBUG_DM, "cannot delete specific file in cache directory " + szName);
+						tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, "cannot delete specific file in cache directory " + szName);
 					}
 					else
 					{
@@ -1762,10 +1762,10 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 							confirm = childFile[i].delete();
 							if (!confirm)
 							{
-								tsLib.debugPrintException(DEBUG_DM, "fail to delete " + childFile[i].getPath());
+								tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, "fail to delete " + childFile[i].getPath());
 							}
 							else
-								tsLib.debugPrintException(DEBUG_DM, "deleted file name is " + szName);
+								tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, "deleted file name is " + szName);
 						}
 						else
 						{
@@ -1777,12 +1777,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception ex)
 		{
-			tsLib.debugPrintException(DEBUG_DM, "fail to delete");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, "fail to delete");
 			return false;
 		}
 		return true;
 	}
-	
+
 	public static boolean dmReadFile(int FileID, int nOffset, int nSize, byte[] pData)
 	{
 		String szfilename = null;
@@ -1795,7 +1795,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return bRet;
 	}
@@ -1811,7 +1811,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return Input;
 	}
@@ -1872,7 +1872,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nIdx;
 	}
@@ -1885,7 +1885,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, String.format("unable to write index\n%s", e.toString()));
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, String.format("unable to write index\n%s", e.toString()));
 		}
 	}
 
@@ -1898,7 +1898,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return authType;
 	}
@@ -1912,7 +1912,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return authType;
 	}
@@ -1925,7 +1925,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -1937,21 +1937,21 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
 	public static void dmdbSetChangedProtocol(boolean bChanged)
 	{
-		tsLib.debugPrint(DEBUG_DB, " : " + bChanged);
-		
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, " : " + bChanged);
+
 		try
 		{
 			dmdbWrite(E2P_SYNCML_DM_CHANGED_PROTOCOL, String.valueOf(bChanged));
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -1964,7 +1964,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		return bChanged;
 	}
@@ -1980,7 +1980,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return ptProfileInfo;
 	}
@@ -1988,14 +1988,14 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 	public static boolean dmdbSetProfileInfo(tsdmInfo ptProfileInfo)
 	{
 		boolean nRet = false;
-		
+
 		try
 		{
 			dmdbWrite(E2P_SYNCML_DM_INFO, ptProfileInfo);
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nRet;
 	}
@@ -2010,7 +2010,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pProfileName;
 	}
@@ -2023,7 +2023,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2035,7 +2035,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 	public static void dmdbSetServerUrl(String pServerUrl)
@@ -2046,7 +2046,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2058,7 +2058,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2070,7 +2070,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2082,7 +2082,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2095,25 +2095,25 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pProtocol;
 	}
 
 	public static String dmdbGetFUMOProtocol()
 	{
-		int nFUMOStatus = DM_FUMO_STATE_NONE;
+		int nFUMOStatus = FumoConst.DM_FUMO_STATE_NONE;
 		String pProtocol = "";
 
 		nFUMOStatus = dmdbGetFUMOStatus();
 
 		try
 		{
-			if (nFUMOStatus == DM_FUMO_STATE_DOWNLOAD_COMPLETE || nFUMOStatus == DM_FUMO_STATE_DOWNLOAD_FAILED || nFUMOStatus == DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
+			if (nFUMOStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_COMPLETE || nFUMOStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_FAILED || nFUMOStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
 			{
 				pProtocol = (String) dmdbRead(E2P_SYNCML_FUMO_STATUSNOTIFYPROTOCOL, pProtocol);
 			}
-			else if (nFUMOStatus == DM_FUMO_STATE_IDLE_START)
+			else if (nFUMOStatus == FumoConst.DM_FUMO_STATE_IDLE_START)
 			{
 				pProtocol = (String) dmdbRead(E2P_SYNCML_FUMO_PROTOCOL, pProtocol);
 			}
@@ -2124,7 +2124,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		return pProtocol;
@@ -2134,23 +2134,23 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 	{
 		switch (appId)
 		{
-			case SYNCMLDM:
+			case DmDevInfoConst.SYNCMLDM:
 				try
 				{
 					dmdbWrite(E2P_SYNCML_DM_SESSIONID, nSessionID);
 				}
 				catch (Exception e)
 				{
-					tsLib.debugPrintException(DEBUG_DB, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 				}
 				break;
 
-			case SYNCMLDL:
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support Application");
+			case DmDevInfoConst.SYNCMLDL:
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Support Application");
 				break;
 
 			default:
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support Application");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Support Application");
 				break;
 		}
 	}
@@ -2163,23 +2163,23 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		{
 			switch (appId)
 			{
-				case SYNCMLDM:
+				case DmDevInfoConst.SYNCMLDM:
 					SessionId = (String) dmdbRead(E2P_SYNCML_DM_SESSIONID, SessionId);
 					break;
 
-				case SYNCMLDL:
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support Application");
+				case DmDevInfoConst.SYNCMLDL:
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Support Application");
 					break;
 
 				default:
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support Application");
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Support Application");
 					SessionId = (String) dmdbRead(E2P_SYNCML_DM_SESSIONID, SessionId);
 					break;
 			}
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		return SessionId;
@@ -2194,7 +2194,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2203,7 +2203,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		if (pNonce == null)
 		{
 			return;
-		}	
+		}
 
 		try
 		{
@@ -2211,32 +2211,32 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
 	public static String dmdbGetServerUrl(int appId)
 	{
 		String ServerUrl = null;
-		int nStatus = DM_FUMO_STATE_NONE;
+		int nStatus = FumoConst.DM_FUMO_STATE_NONE;
 
 		try
 		{
 			switch (appId)
 			{
-				case SYNCMLDM:
+				case DmDevInfoConst.SYNCMLDM:
 					ServerUrl = (String) dmdbRead(E2P_SYNCML_DM_SERVERURL, ServerUrl);
 					break;
 
-				case SYNCMLDL:
-					int nAgentType = SYNCML_DM_AGENT_DM;
+				case DmDevInfoConst.SYNCMLDL:
+					int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
 					nStatus = dmdbGetFUMOStatus();
-					if (nStatus == DM_FUMO_STATE_DOWNLOAD_COMPLETE || nStatus == DM_FUMO_STATE_DOWNLOAD_FAILED || nStatus == DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
+					if (nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_COMPLETE || nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_FAILED || nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
 					{
 						ServerUrl = (String) dmdbRead(E2P_SYNCML_FUMO_STATUSNOTIFYURL, ServerUrl);
 					}
-					else if (nStatus == DM_FUMO_STATE_IDLE_START || nStatus == DM_STATE_GET_SESSION_ID_START)
+					else if (nStatus == FumoConst.DM_FUMO_STATE_IDLE_START || nStatus == FumoConst.DM_STATE_GET_SESSION_ID_START)
 					{
 						ServerUrl = (String) dmdbRead(E2P_SYNCML_FUMO_SERVERURL, ServerUrl);
 					}
@@ -2253,32 +2253,32 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return ServerUrl;
 	}
 
 	public static String getServerAddress(int appId)
 	{
-		int nStatus = DM_FUMO_STATE_NONE;
+		int nStatus = FumoConst.DM_FUMO_STATE_NONE;
 		String ServerIP = null;
 		try
 		{
 			switch (appId)
 			{
-				case SYNCMLDM:
+				case DmDevInfoConst.SYNCMLDM:
 					ServerIP = (String) dmdbRead(E2P_SYNCML_DM_SERVERIP, ServerIP);
 					break;
 
-				case SYNCMLDL:
-					int nAgentType = SYNCML_DM_AGENT_DM;
+				case DmDevInfoConst.SYNCMLDL:
+					int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
 					nStatus = dmdbGetFUMOStatus();
-					if (nStatus == DM_FUMO_STATE_DOWNLOAD_COMPLETE || nStatus == DM_FUMO_STATE_DOWNLOAD_FAILED || nStatus == DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
+					if (nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_COMPLETE || nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_FAILED || nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
 					{
 						ServerIP = (String) dmdbRead(E2P_SYNCML_FUMO_STATUSNOTIFYIP, ServerIP);
 					}
-					else if (nStatus == DM_FUMO_STATE_IDLE_START)
+					else if (nStatus == FumoConst.DM_FUMO_STATE_IDLE_START)
 					{
 						ServerIP = (String) dmdbRead(E2P_SYNCML_FUMO_SERVERIP, ServerIP);
 					}
@@ -2295,7 +2295,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return ServerIP;
 	}
@@ -2309,7 +2309,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pszAuthLevel;
 	}
@@ -2323,7 +2323,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pszAuthLevel;
 	}
@@ -2337,7 +2337,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pszPrefConRef;
 	}
@@ -2351,7 +2351,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return severid;
 	}
@@ -2372,7 +2372,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return ClientPassword;
 	}
@@ -2386,7 +2386,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return ServerPassword;
 	}
@@ -2400,7 +2400,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pNonce;
 	}
@@ -2414,32 +2414,32 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pNonce;
 	}
 
 	public static int dmdbGetServerPort(int appId)
 	{
-		int nStatus = DM_FUMO_STATE_NONE;
+		int nStatus = FumoConst.DM_FUMO_STATE_NONE;
 		int port = 0;
 		try
 		{
 			switch (appId)
 			{
-				case SYNCMLDM:
+				case DmDevInfoConst.SYNCMLDM:
 					port = Integer.valueOf(String.valueOf(dmdbRead(E2P_SYNCML_DM_SERVERPORT, port)));
 					break;
 
-				case SYNCMLDL:
-					int nAgentType = SYNCML_DM_AGENT_DM;
+				case DmDevInfoConst.SYNCMLDL:
+					int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
 					nStatus = dmdbGetFUMOStatus();
-					if (nStatus == DM_FUMO_STATE_DOWNLOAD_COMPLETE || nStatus == DM_FUMO_STATE_DOWNLOAD_FAILED || nStatus == DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
+					if (nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_COMPLETE || nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_FAILED || nStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_IN_CANCEL)
 					{
 						port = Integer.valueOf(String.valueOf(dmdbRead(E2P_SYNCML_FUMO_STATUSNOTIFYPORT, port)));
 					}
-					else if (nStatus == DM_FUMO_STATE_IDLE_START)
+					else if (nStatus == FumoConst.DM_FUMO_STATE_IDLE_START)
 					{
 						port = Integer.valueOf(String.valueOf(dmdbRead(E2P_SYNCML_FUMO_SERVERPORT, port)));
 					}
@@ -2455,7 +2455,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		return port;
@@ -2469,11 +2469,11 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			// defect_110921
 			Object oStatus = dmdbRead(E2P_SYNCML_DM_PROFILE_INDEX_NOTI_EVT, nEvent);
 			if (oStatus != null)
-				nEvent = ((Integer) oStatus).intValue();			
+				nEvent = ((Integer) oStatus).intValue();
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nEvent;
 	}
@@ -2486,7 +2486,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return;
 	}
@@ -2501,7 +2501,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				case SYNCMLDM:
 					pNetConnName = (String) dmdbRead(E2P_SYNCML_DM_NETWORKCONNNAME, pNetConnName);
 					break;
-				case SYNCMLDL:
+				case DmDevInfoConst.SYNCMLDL:
 					pNetConnName = (String) dmdbRead(E2P_SYNCML_DM_NETWORKCONNNAME, pNetConnName);
 					break;
 				default:
@@ -2509,12 +2509,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 					break;
 			}*/
 			pNetConnName = (String) dmdbRead(E2P_SYNCML_DM_NETWORKCONNNAME, pNetConnName);
-			tsLib.debugPrint(DEBUG_DB, "AppID[" + appId + "], NetConnName is " + pNetConnName);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "AppID[" + appId + "], NetConnName is " + pNetConnName);
 
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		return pNetConnName;
@@ -2524,17 +2524,17 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 	{
 		switch (appId)
 		{
-			case SYNCMLDM:
+			case DmDevInfoConst.SYNCMLDM:
 				try
 				{
 					dmdbWrite(E2P_SYNCML_DM_NETWORKCONNNAME, pNetConnName);
 				}
 				catch (Exception e)
 				{
-					tsLib.debugPrintException(DEBUG_DB, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 				}
 				break;
-			case SYNCMLDL:
+			case DmDevInfoConst.SYNCMLDL:
 				break;
 			default:
 				try
@@ -2543,7 +2543,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				}
 				catch (Exception e)
 				{
-					tsLib.debugPrintException(DEBUG_DB, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 				}
 				break;
 		}
@@ -2558,7 +2558,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return ptConRef;
 	}
@@ -2571,7 +2571,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2583,7 +2583,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return ptConBack;
 	}
@@ -2601,7 +2601,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		if (pDMProfile != null)
@@ -2635,7 +2635,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			}
 			catch (Exception e)
 			{
-				tsLib.debugPrintException(DEBUG_DB, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 			}
 			if (oStatus != null && oStatus.hashCode() != 0)
 			{
@@ -2647,7 +2647,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				// if status is 0, no report
 			}
 		}
-		tsLib.debugPrint(DEBUG_DB, "= [" + nStatus+"]");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "= [" + nStatus+"]");
 		return nStatus;
 	}
 
@@ -2659,20 +2659,20 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		int nBuckupStatus = nFumoStatus;
 		nFumoStatus = nstatus;
 		
-		tsLib.debugPrint(DEBUG_DB, "[" + nstatus +"]");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "[" + nstatus +"]");
 		try
 		{
 			bret = dmdbWrite(E2P_SYNCML_FUMO_STATUS, String.valueOf(nstatus));
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		if (!bret)
 		{
 			nFumoStatus = nBuckupStatus;
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "db write was failed");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "db write was failed");
 		}
 	}
 
@@ -2684,7 +2684,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2697,23 +2697,23 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
-		tsLib.debugPrint(DEBUG_DB, "pNodeName = " + pNodeName);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "pNodeName = " + pNodeName);
 		return pNodeName;
 	}
 
 	public static void dmdbSetFUMOCorrelator(String pCorrelator)
 	{
-		tsLib.debugPrint(DEBUG_DB, "pCorrelator = " + pCorrelator);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "pCorrelator = " + pCorrelator);
 		try
 		{
 			dmdbWrite(E2P_SYNCML_FUMO_CORRELATOR, pCorrelator);
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -2726,21 +2726,21 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
-		tsLib.debugPrint(DEBUG_DB, "pCorrelator = " + pCorrelator);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "pCorrelator = " + pCorrelator);
 
 		return pCorrelator;
 	}
 
 	public static String dmdbGetMimeType()
 	{
-		int nFUMOStatus = DM_FUMO_STATE_NONE;
+		int nFUMOStatus = FumoConst.DM_FUMO_STATE_NONE;
 
 		nFUMOStatus = dmdbGetFUMOStatus();
-		tsLib.debugPrint(DEBUG_DB, "nFUMOStatus :" + nFUMOStatus);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "nFUMOStatus :" + nFUMOStatus);
 
-		if (nFUMOStatus == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR || nFUMOStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
+		if (nFUMOStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR || nFUMOStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
 		{
 			return dmdbGetFUMODDContentType();
 		}
@@ -2749,11 +2749,11 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	public static String dmdbGetAcceptType()
 	{
-		int nFUMOStatus = DM_FUMO_STATE_NONE;
+		int nFUMOStatus = FumoConst.DM_FUMO_STATE_NONE;
 
 		nFUMOStatus = dmdbGetFUMOStatus();
 
-		if (nFUMOStatus == DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR || nFUMOStatus == DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
+		if (nFUMOStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR || nFUMOStatus == FumoConst.DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS)
 		{
 			return dmdbGetFUMODDAcceptType();
 		}
@@ -2764,7 +2764,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 	public static boolean dmdbGetWifiOnlyFlag()
 	{
 		boolean check = false;
-		tsLib.debugPrint(DEBUG_DB, " is" + Boolean.toString(check));
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, " is" + Boolean.toString(check));
 		return check;
 	}
 	
@@ -2777,7 +2777,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nRet;
 	}
@@ -2794,7 +2794,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		
 		return nIndex;
@@ -2802,14 +2802,14 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	public static void dmdbSetDeltaFileSaveIndex(int nIndex)
 	{
-		tsLib.debugPrint(DEBUG_DB, " : " + nIndex);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, " : " + nIndex);
 		try
 		{
 			dmdbWrite(E2P_SYNCML_DM_DELTAFILE_SAVE_INDEX, nIndex);
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -2822,7 +2822,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		return pContent;
@@ -2837,7 +2837,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		return pAccept;
@@ -2859,14 +2859,14 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				nMechanism = 0;
 			}
 
-			if ((nMechanism == DM_FUMO_MECHANISM_NONE) || (nMechanism >= DM_FUMO_MECHANISM_END))
+			if ((nMechanism == FumoConst.DM_FUMO_MECHANISM_NONE) || (nMechanism >= FumoConst.DM_FUMO_MECHANISM_END))
 			{
-				return DM_FUMO_MECHANISM_NONE;
+				return FumoConst.DM_FUMO_MECHANISM_NONE;
 			}
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		return nMechanism;
@@ -2880,7 +2880,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -2892,7 +2892,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -2908,15 +2908,15 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
-		tsLib.debugPrint(DEBUG_DB, "bUpdateWait " + String.valueOf(bUpdateWait));
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "bUpdateWait " + String.valueOf(bUpdateWait));
 		return bUpdateWait;
 	}
 
 	public static void dmdbSetUpdateWait(Boolean bUpdateWait)
 	{
-		tsLib.debugPrint(DEBUG_DB, "bUpdateWait " + String.valueOf(bUpdateWait));
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "bUpdateWait " + String.valueOf(bUpdateWait));
 
 		try
 		{
@@ -2924,7 +2924,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -2940,7 +2940,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 
 		return nDownloadMode;
@@ -2954,7 +2954,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -2967,28 +2967,28 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pResultCode;
 	}
 
 	public static boolean dmdbSetFUMOServerUrl(int appId, String pURL)
 	{
-		char[] aServerAddr = new char[MAX_URL_LENGTH];
+		char[] aServerAddr = new char[DmDevInfoConst.MAX_URL_LENGTH];
 		// ADD : Improve URL Port Adding
 		char[] aTempServerAddr = null;
-		char[] aProtocol = new char[MAX_PROTOCOL_LENGTH];
-		char[] aTempPort = new char[MAX_PORT_LENGTH];
+		char[] aProtocol = new char[DmDevInfoConst.MAX_PROTOCOL_LENGTH];
+		char[] aTempPort = new char[DmDevInfoConst.MAX_PORT_LENGTH];
 
 		int nPort = 0;
 		boolean ret = false;
 		tsDBURLParser getParser;
 
-		tsLib.debugPrint(DEBUG_DB, " pURL: " + pURL);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, " pURL: " + pURL);
 
 		if(pURL.equals("Alert garage")){
-			tsLib.debugPrint(DEBUG_DB, " Alert garage: ");
-			tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_ALERT_GARAGE);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, " Alert garage: ");
+			tsMsgEvent.SetMsgEvent(null, DmUiEvent.DL_EVENT_UI_ALERT_GARAGE);
 			return false;
 		}
 		else {
@@ -3004,16 +3004,16 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				pURL = getParser.pURL;
 				aServerAddr = getParser.pAddress.toCharArray();
 				aProtocol = getParser.pProtocol.toCharArray();
-				tsLib.debugPrint(DEBUG_DB, "nPort = [" + nPort + "] aServerAddr = [" + String.valueOf(aServerAddr) + "] aProtocol = [" + String.valueOf(aProtocol) + "]");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "nPort = [" + nPort + "] aServerAddr = [" + String.valueOf(aServerAddr) + "] aProtocol = [" + String.valueOf(aProtocol) + "]");
 
-				tsLib.debugPrint(DEBUG_DB, "aProtocol = [" + getParser.pProtocol + "] " + "pURL = [" + pURL + "] aServerAddr = [" + getParser.pAddress + "] nPort = [" + getParser.nPort + "]");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "aProtocol = [" + getParser.pProtocol + "] " + "pURL = [" + pURL + "] aServerAddr = [" + getParser.pAddress + "] nPort = [" + getParser.nPort + "]");
 
 				// ADD : Improve URL Port Adding
 				aTempPort = String.valueOf(nPort).toCharArray();
 
 				char[] szurl = new char[pURL.length()];
 				szurl = pURL.toCharArray();
-				tsLib.debugPrint(DEBUG_DB, String.valueOf(szurl));
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, String.valueOf(szurl));
 
 				aTempServerAddr = tsDB.dbDoDMBootStrapURI(aTempServerAddr, szurl, aTempPort);
 
@@ -3024,7 +3024,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 				if (getParser.pAddress.hashCode() == 0) {
 					// wrong URL.
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "Parsing Error");
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Parsing Error");
 					return ret;
 				}
 
@@ -3033,7 +3033,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 				aTempServerAddr = getParser.pAddress.toCharArray();
 				aProtocol = getParser.pProtocol.toCharArray();
 
-				tsLib.debugPrint(DEBUG_DB, "aProtocol = [" + getParser.pProtocol + "] " + "pURL = [" + pURL + "] aServerAddr = [" + getParser.pAddress + "] nPort = [" + getParser.nPort + "]");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "aProtocol = [" + getParser.pProtocol + "] " + "pURL = [" + pURL + "] aServerAddr = [" + getParser.pAddress + "] nPort = [" + getParser.nPort + "]");
 
 				try {
 					dmdbWrite(E2P_SYNCML_FUMO_PROTOCOL, String.valueOf(aProtocol));
@@ -3041,12 +3041,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 					dmdbWrite(E2P_SYNCML_FUMO_SERVERIP, String.valueOf(aServerAddr));
 					dmdbWrite(E2P_SYNCML_FUMO_SERVERPORT, String.valueOf(nPort));
 				} catch (Exception e) {
-					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				}
 
 				return true;
 			} catch (Exception ex) {
-				tsLib.debugPrintException(DEBUG_DB, ex.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, ex.toString());
 				return false;
 			}
 		}
@@ -3060,7 +3060,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -3073,7 +3073,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pReportURI;
 	}
@@ -3087,7 +3087,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pReportURI;
 	}
@@ -3101,7 +3101,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pReportURI;
 	}
@@ -3118,7 +3118,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nSize;
 	}
@@ -3134,11 +3134,11 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		finally
 		{
@@ -3151,7 +3151,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 	}
@@ -3166,7 +3166,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return ptObjFUMO;
 	}
@@ -3181,7 +3181,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
@@ -3193,7 +3193,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -3209,7 +3209,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nCount;
 	}
@@ -3222,7 +3222,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -3238,9 +3238,9 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
-		tsLib.debugPrint(DEBUG_DM, "Download Postpone Flag : " + bFlag);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "Download Postpone Flag : " + bFlag);
 		return bFlag;
 	}
 
@@ -3249,7 +3249,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		String serverId = null;
 		int nProfileIdx = 0;
 
-		tsLib.debugPrint(DEBUG_DB, "serverId = " + inputServerId);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "serverId = " + inputServerId);
 		try
 		{
 			// defect_110921
@@ -3259,12 +3259,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		
 		if (tsLib.isEmpty(inputServerId))
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "ServerID is NULL");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "ServerID is NULL");
 			return nProfileIdx;
 		}
 
@@ -3300,7 +3300,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		return true;
 	}
@@ -3317,7 +3317,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nMode;
 	}
@@ -3326,12 +3326,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 	{
 		tsdmInfo pNvInfo = null;
 
-		tsLib.debugPrint(DEBUG_DB, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "");
 
 		pNvInfo = (tsdmInfo) dmdbRead(E2P_SYNCML_DM_INFO, pNvInfo);
 		if (pNvInfo == null)
 		{
-			tsLib.debugPrint(DEBUG_DB, "pNvInfo is NULL");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "pNvInfo is NULL");
 			return;
 		}
 		dmdbSetServerUrl(pNvInfo.ServerUrl_Org);
@@ -3350,7 +3350,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return pIMSI;
 	}
@@ -3359,7 +3359,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 	{
 		if (pIMSI == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "pIMSI is NULL");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "pIMSI is NULL");
 			return false;
 		}
 		else
@@ -3370,7 +3370,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			}
 			catch (Exception e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 
@@ -3396,7 +3396,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		if (tsLib.isEmpty(szServerNonce))
@@ -3404,10 +3404,10 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 			return null;
 		}
 		
-		tsLib.debugPrint(DEBUG_DB, "nActive = " + nActive);
-		tsLib.debugPrint(DEBUG_DB, "szServerId = " + szServerId);
-		tsLib.debugPrint(DEBUG_DB, "szServerPwd = " + szServerPwd);
-		tsLib.debugPrint(DEBUG_DB, "szServerNonce = " + szServerNonce);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "nActive = " + nActive);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "szServerId = " + szServerId);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "szServerPwd = " + szServerPwd);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "szServerNonce = " + szServerNonce);
 
 		byte[] pNonce = new byte[szServerNonce.length()];
 		pNonce = base64.decode(szServerNonce.getBytes());
@@ -3425,7 +3425,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	public static void dmdbClearUicResultKeepFlag()
 	{
-		int eUIcKeepFlag = UIC_SAVE_NONE;
+		int eUIcKeepFlag = UserInteractionCommandConst.UIC_SAVE_NONE;
 
 		try
 		{
@@ -3433,7 +3433,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		return;
 
@@ -3441,20 +3441,20 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 
 	public static void dmdbSetDmAgentType(int nAgentType)
 	{
-		tsLib.debugPrint(DEBUG_DB, "AgentType=" + nAgentType);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "AgentType=" + nAgentType);
 		try
 		{
 			dmdbWrite(E2P_SYNCML_DM_AGENT_INFO_AGENT_TYPE, (Integer) nAgentType);
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 	}
 
 	public static int dmdbGetDmAgentType()
 	{
-		int nRet = SYNCML_DM_AGENT_DM; // Default Agent Type
+		int nRet = DmDevInfoConst.SYNCML_DM_AGENT_DM; // Default Agent Type
 		try
 		{
 			Object oStatus = dmdbRead(E2P_SYNCML_DM_AGENT_INFO_AGENT_TYPE, null);
@@ -3463,7 +3463,7 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nRet;
 	}
@@ -3473,12 +3473,12 @@ public class tsdmDB  extends tsDBFactoryBootstrap  implements Serializable, dmDe
 		boolean nRet = false;
 		try
 		{
-			tsLib.debugPrint(DEBUG_DB, "lcurrTime is " + lcurrTime);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "lcurrTime is " + lcurrTime);
 			nRet = dmdbWrite(E2P_SYNCML_DM_CURR_CHECK_TIME, lcurrTime);
 		}
 		catch (Exception e) 
 		{
-			tsLib.debugPrintException(DEBUG_DB, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, e.toString());
 		}
 		return nRet;
 	}

@@ -6,6 +6,7 @@ import java.util.*;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.db.tsDBAccXNode;
 import com.tsdm.db.tsdmInfo;
 import com.tsdm.adapt.tsLib;
@@ -13,7 +14,7 @@ import com.tsdm.tsService;
 
 import javax.xml.parsers.*;
 
-public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
+public class dmPreConfigEntity extends DefaultHandler
 {
 	private static final String	DM_CONFIG_FILE_NAME					= "file:///data/data/com.tsdm/tsDmConfig.xml";
 	private static final String	DM_CONFIG_BASE_ACCOUNT_PATH			= "Dm12Root";
@@ -77,7 +78,7 @@ public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
 		ConfigPath = path;
 		int ret= loadConfig();
 		if(ret == -1) {
-			tsLib.debugPrint(DEBUG_UM,"dmPreConfigEntity ReCreate");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_UM,"dmPreConfigEntity ReCreate");
 			tsService.configFileReCreate();
 			loadConfig();
 		}
@@ -104,20 +105,20 @@ public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
 		ConfigMap = new HashMap<String, String>();
 		int nRet = -1;
 
-		tsLib.debugPrint(DEBUG_DM, "Start Load_Config "+ConfigPath);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "Start Load_Config "+ConfigPath);
 
 		try {
-			tsLib.debugPrint(DEBUG_DM, "Config File Read Start");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "Config File Read Start");
 			// Start parsing of the XML
 			nRet = parseBySAX(ConfigPath);
 		} catch(FileNotFoundException fnfe) {
-			tsLib.debugPrint(DEBUG_EXCEPTION, "Open ["+ConfigPath+"] FileNotFoundException: "+fnfe.getMessage());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_EXCEPTION, "Open ["+ConfigPath+"] FileNotFoundException: "+fnfe.getMessage());
 			return -1;
 		} catch(IOException e) {
-			tsLib.debugPrint(DEBUG_EXCEPTION, "Read ["+ConfigPath+"] IOException: "+e.getMessage());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_EXCEPTION, "Read ["+ConfigPath+"] IOException: "+e.getMessage());
 			return -1;
 		} catch(Exception e) {
-			tsLib.debugPrint(DEBUG_EXCEPTION, "Read ["+ConfigPath+"] Exception: "+e.getMessage());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_EXCEPTION, "Read ["+ConfigPath+"] Exception: "+e.getMessage());
 			return -1;
 		}
 
@@ -137,10 +138,10 @@ public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
 			adapter.setContentHandler(this);
 			adapter.parse(xml_file_path);
 		} catch(FileNotFoundException fnfe) {
-			tsLib.debugPrint(DEBUG_EXCEPTION, "Open ["+ConfigPath+"] FileNotFoundException: "+fnfe.getMessage());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_EXCEPTION, "Open ["+ConfigPath+"] FileNotFoundException: "+fnfe.getMessage());
 			return -1;
 		} catch (Exception e) {
-			tsLib.debugPrint(DEBUG_EXCEPTION, "processWithSAX Exception : " + e.getMessage());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_EXCEPTION, "processWithSAX Exception : " + e.getMessage());
 			return -1;
 		}
 
@@ -149,12 +150,12 @@ public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
 
 	public void startDocument()
 	{
-		tsLib.debugPrint(DEBUG_DM, "XML parsing started");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "XML parsing started");
 	}
 
 	public void endDocument()
 	{
-		tsLib.debugPrint(DEBUG_DM, "XML parsing ended");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "XML parsing ended");
 	}
 
 
@@ -189,13 +190,13 @@ public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
                 if("name".equals(name))
                 {
                     ConfigGroup = value;
-					tsLib.debugPrint(DEBUG_DM, "GroupName:["+value+"]");
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "GroupName:["+value+"]");
                 }
                 
                 if("value".equals(name))
                 {
         			ConfigMap.put(ConfigGroup+Cur_Attr_Name, value);
-					tsLib.debugPrint(DEBUG_DM, "AttrName:"+Cur_Attr_Name+" ["+value+"]");
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "AttrName:"+Cur_Attr_Name+" ["+value+"]");
                 }
             }
         }
@@ -322,15 +323,15 @@ public class dmPreConfigEntity extends DefaultHandler implements dmDefineDevInfo
 		/* ./x/Name(Server Id) */
 		pAccXnodeInfo.Account = xmlConfigFile.findConfig(DM_CONFIG_SECTION_DM_SETTING, DM_CONFIG_BASE_ACCOUNT_PATH) + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_SERVERID);
 		/* ./x/AppAddr/x */
-		pAccXnodeInfo.AppAddr = pAccXnodeInfo.Account + SYNCML_DMACC_APPADDR_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_APPADDR_X_NAME);
+		pAccXnodeInfo.AppAddr = pAccXnodeInfo.Account + DmDevInfoConst.SYNCML_DMACC_APPADDR_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_APPADDR_X_NAME);
 		/* ./x/AppAddr/x/Port/x */
-		pAccXnodeInfo.AppAddrPort = pAccXnodeInfo.AppAddr + SYNCML_APPADDR_PORT_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_APPADDR_PORT_X_NAME);
+		pAccXnodeInfo.AppAddrPort = pAccXnodeInfo.AppAddr + DmDevInfoConst.SYNCML_APPADDR_PORT_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_APPADDR_PORT_X_NAME);
 		/* ./x/AppAuth/x (Server) */
-		pAccXnodeInfo.ServerAppAuth = pAccXnodeInfo.Account + SYNCML_DMACC_APPAUTH_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_APPAUTH_SERVER_X_NAME);
+		pAccXnodeInfo.ServerAppAuth = pAccXnodeInfo.Account + DmDevInfoConst.SYNCML_DMACC_APPAUTH_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_APPAUTH_SERVER_X_NAME);
 		/* ./x/AppAuth/x (Client) */
-		pAccXnodeInfo.ClientAppAuth = pAccXnodeInfo.Account + SYNCML_DMACC_APPAUTH_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_APPAUTH_CLIENT_X_NAME);
+		pAccXnodeInfo.ClientAppAuth = pAccXnodeInfo.Account + DmDevInfoConst.SYNCML_DMACC_APPAUTH_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_APPAUTH_CLIENT_X_NAME);
 		/* ./x/ToConRef/x */
-		pAccXnodeInfo.ToConRef = pAccXnodeInfo.Account + SYNCML_DMACC_TOCONREF_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_TOCONREF_X_NAME);
+		pAccXnodeInfo.ToConRef = pAccXnodeInfo.Account + DmDevInfoConst.SYNCML_DMACC_TOCONREF_PATH + "/" + xmlConfigFile.findConfig(pszSection, DM_CONFIG_TOCONREF_X_NAME);
 
 		return true;
 	}

@@ -2,9 +2,10 @@ package com.tsdm.adapt;
 
 import java.io.IOException;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.WbxmlProtocolConst;
 
-public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
+public class tsDmParserSync
 {
 	public int				cmdid;
 	public boolean			is_noresp;
@@ -18,25 +19,25 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 	public int dmParseSync(tsDmParser p)
 	{
 		int id = -1;
-		int res = DM_ERR_OK;
+		int res = WbxmlProtocolConst.DM_ERR_OK;
 		boolean call_start_sync = true;
 
-		tsLib.debugPrint(DEBUG_DM, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "");
 
-		res = p.dmParseCheckElement(WBXML_TAG_Sync);
-		if (res != DM_ERR_OK)
+		res = p.dmParseCheckElement(WbxmlProtocolConst.WBXML_TAG_Sync);
+		if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
 			return res;
 		}
 
 		res = p.dmParseZeroBitTagCheck();
-		if (res == DM_ERR_ZEROBIT_TAG)
+		if (res == WbxmlProtocolConst.DM_ERR_ZEROBIT_TAG)
 		{
-			return DM_ERR_OK;
+			return WbxmlProtocolConst.DM_ERR_OK;
 		}
-		else if (res != DM_ERR_OK)
+		else if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, " not DM_ERR_OK");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, " not DM_ERR_OK");
 			return res;
 		}
 
@@ -48,10 +49,10 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 
-			if (id == WBXML_END)
+			if (id == WbxmlProtocolConst.WBXML_END)
 			{
 				id = p.dmParseReadElement();
 				break;
@@ -59,12 +60,12 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 
 			switch (id)
 			{
-				case WBXML_TAG_CmdID:
+				case WbxmlProtocolConst.WBXML_TAG_CmdID:
 					res = p.dmParseElement(id);
 					cmdid = Integer.parseInt(p._pParserElement);
 					break;
 
-				case WBXML_TAG_NoResp:
+				case WbxmlProtocolConst.WBXML_TAG_NoResp:
 					int noresp = p.dmParseBlankElement(id);
 					if (noresp == 1)
 						is_noresp = true;
@@ -72,7 +73,7 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 						is_noresp = false;
 					break;
 
-				case WBXML_TAG_NoResults:
+				case WbxmlProtocolConst.WBXML_TAG_NoResults:
 					int noresults = p.dmParseBlankElement(id);
 					if (noresults == 1)
 						is_noresults = true;
@@ -80,34 +81,34 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 						is_noresults = false;
 					break;
 
-				case WBXML_TAG_Cred:
+				case WbxmlProtocolConst.WBXML_TAG_Cred:
 					cred = new tsDmParserCred();
 					res = cred.dmParseCred(p);
 					cred = p.Cred;
 					break;
 
-				case WBXML_TAG_Target:
+				case WbxmlProtocolConst.WBXML_TAG_Target:
 					res = p.dmParseElement(id);
 					target = p._pTarget;
 					break;
 
-				case WBXML_TAG_Source:
+				case WbxmlProtocolConst.WBXML_TAG_Source:
 					res = p.dmParseElement(id);
 					source = p.Source;
 					break;
 
-				case WBXML_TAG_Meta:
+				case WbxmlProtocolConst.WBXML_TAG_Meta:
 					meta = new tsDmParserMeta();
 					res = meta.dmParseMeta(p);
 					meta = p.Meta;
 					break;
 
-				case WBXML_TAG_NumberOfChanges:
+				case WbxmlProtocolConst.WBXML_TAG_NumberOfChanges:
 					res = p.dmParseElement(id);
 					numofchanges = Integer.parseInt(p._pParserElement);
 					break;
 
-				case WBXML_TAG_Copy:
+				case WbxmlProtocolConst.WBXML_TAG_Copy:
 					if (call_start_sync)
 					{
 						call_start_sync = false;
@@ -116,7 +117,7 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 					res = copy.dmParseCopy(p);
 					break;
 
-				case WBXML_TAG_Sequence:
+				case WbxmlProtocolConst.WBXML_TAG_Sequence:
 					if (call_start_sync)
 					{
 						call_start_sync = false;
@@ -125,7 +126,7 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 					res = sequence.dmParseSequence(p);
 					break;
 
-				case WBXML_TAG_Atomic:
+				case WbxmlProtocolConst.WBXML_TAG_Atomic:
 					if (call_start_sync)
 					{
 						call_start_sync = false;
@@ -134,8 +135,8 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 					res = atomic.dmParseAtomic(p);
 					break;
 				// parse sync command and etc...
-				case WBXML_TAG_Add:
-					tsLib.debugPrint(DEBUG_DM, " : WBXML_TAG_Add");
+				case WbxmlProtocolConst.WBXML_TAG_Add:
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, " : WBXML_TAG_Add");
 					if (call_start_sync)
 					{
 						call_start_sync = false;
@@ -144,7 +145,7 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 					res = add.dmParseAdd(p);
 					break;
 
-				case WBXML_TAG_Replace:
+				case WbxmlProtocolConst.WBXML_TAG_Replace:
 					if (call_start_sync)
 					{
 						call_start_sync = false;
@@ -153,7 +154,7 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 					res = replace.dmParseReplace(p);
 					break;
 
-				case WBXML_TAG_Delete:
+				case WbxmlProtocolConst.WBXML_TAG_Delete:
 					if (call_start_sync)
 					{
 						call_start_sync = false;
@@ -162,7 +163,7 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 					res = delete.dmParseDelete(p);
 					break;
 
-				case WBXML_SWITCH_PAGE:
+				case WbxmlProtocolConst.WBXML_SWITCH_PAGE:
 					id = p.dmParseReadElement();
 					id = p.dmParseReadElement();
 
@@ -170,10 +171,10 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 					break;
 
 				default:
-					res = DM_ERR_UNKNOWN_ELEMENT;
+					res = WbxmlProtocolConst.DM_ERR_UNKNOWN_ELEMENT;
 			}
 
-			if (res != DM_ERR_OK)
+			if (res != WbxmlProtocolConst.DM_ERR_OK)
 			{
 				return res;
 			}
@@ -184,7 +185,7 @@ public class tsDmParserSync implements tsDefineWbxml, dmDefineDevInfo
 			call_start_sync = false;
 		}
 
-		return DM_ERR_OK;
+		return WbxmlProtocolConst.DM_ERR_OK;
 
 	}
 }

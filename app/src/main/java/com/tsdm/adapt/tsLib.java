@@ -4,14 +4,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.tsdm.agent.dmCommonEntity;
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.db.tsdmDB;
 import com.tsdm.tsService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class tsLib implements dmDefineDevInfo
+public class tsLib
 {
 	private final static char[]	HEX_DIGITS	= {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
@@ -84,7 +84,7 @@ public class tsLib implements dmDefineDevInfo
 		}
 		catch (Exception e)
 		{
-			debugPrintException(DEBUG_EXCEPTION, e.getMessage());
+			debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.getMessage());
 		}
 	}
 
@@ -98,7 +98,7 @@ public class tsLib implements dmDefineDevInfo
 		}
 		catch (Exception e)
 		{
-			debugPrintException(DEBUG_EXCEPTION, e.getMessage());
+			debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.getMessage());
 		}
 	}
 
@@ -193,7 +193,7 @@ public class tsLib implements dmDefineDevInfo
 
 	public static void debugPrint(String title, String content)
 	{
-		if (_SYNCML_TS_LOG_ON_)
+		if (DmDevInfoConst._SYNCML_TS_LOG_ON_)
 		{
 			StackTraceElement[] trace = new Throwable().getStackTrace();
 			String msg = "";
@@ -237,7 +237,7 @@ public class tsLib implements dmDefineDevInfo
 
 	public static void debugPrintException(String title, String content)
 	{
-		if (_SYNCML_TS_LOG_ON_)
+		if (DmDevInfoConst._SYNCML_TS_LOG_ON_)
 		{
 			StringBuffer strBuffer = new StringBuffer();
 			StackTraceElement[] trace = new Throwable().getStackTrace();

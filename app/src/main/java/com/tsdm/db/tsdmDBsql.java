@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.agent.dmAgentInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
+public class tsdmDBsql implements tsDefineDBsql
 {
 	private static SQLiteDatabase	db;
 
@@ -60,13 +60,13 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 			{
 				sql = "ALTER TABLE " + tabelName + " ADD " + column + " " + type + " default " + defaultValue;
 			}
-			tsLib.debugPrint(DEBUG_DM, "Database Add Column : " + tabelName + " / " + column + " / " + type);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "Database Add Column : " + tabelName + " / " + column + " / " + type);
 			
 			db.execSQL(sql);
 		}
 		catch(Exception e)
 		{
-			tsLib.debugPrint(DEBUG_DM, e.toString());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, e.toString());
 		}
 	}
 
@@ -487,7 +487,7 @@ public class tsdmDBsql implements tsDefineDBsql, dmDefineDevInfo
 		}
 		catch (NullPointerException ex)
 		{
-			tsLib.debugPrintException(DEBUG_DB, "db not initialized " + ex.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DB, "db not initialized " + ex.toString());
 			return false;
 		}
 	}

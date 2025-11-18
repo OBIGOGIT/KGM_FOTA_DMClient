@@ -5,13 +5,13 @@ import java.security.SecureRandom;
 import java.util.Date;
 
 import com.tsdm.auth.base64;
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.adapt.tsLib;
 import com.tsdm.agent.dmProfileEntity;
 import com.tsdm.agent.dmPreConfigEntity;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDefineDBsql
+public class tsDBFactoryBootstrap implements Serializable, tsDefineDBsql
 {
 	public static final int 	DM_FACTORYBOOTSTRAP_SERVERPWD = 0;
 	public static final int 	DM_FACTORYBOOTSTRAP_CLIENTID = 1;
@@ -37,11 +37,11 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 		
 		pProfileInfo = (tsdmInfo) pNVMSyncMLDMInfo;
 		
-		if(_SYNCML_TS_DM_REGISTRY_PROFILE_)
+		if(DmDevInfoConst._SYNCML_TS_DM_REGISTRY_PROFILE_)
 		{
 			if(dmPreConfigEntity.getDmProfileInfoFromConfigFile(pProfileInfo, nIdex) == false)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Get Profile Info Failed");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Get Profile Info Failed");
 				return null;
 			}
 		}
@@ -64,7 +64,7 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 		String port = new String(Integer.toString(pProfileInfo.ServerPort));
 		pProfileInfo.ServerUrl = dmProfileEntity.dmDoServerURI(szURL,
 				pProfileInfo.ServerUrl.toCharArray(), port.toCharArray());
-		tsLib.debugPrint(DEBUG_DB, "Tab : " + pProfileInfo.ServerUrl);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "Tab : " + pProfileInfo.ServerUrl);
 		
 		dbURLParser = tsDB.dbURLParser(pProfileInfo.ServerUrl);
 		pProfileInfo.ServerUrl = dbURLParser.pURL;
@@ -84,24 +84,24 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 
 		if (nIdex < 3)
 		{
-			if(!_SYNCML_TS_DM_REGISTRY_PROFILE_)
+			if(!DmDevInfoConst._SYNCML_TS_DM_REGISTRY_PROFILE_)
 			{
-				pProfileInfo.AuthType = CRED_TYPE_BASIC;
-				pProfileInfo.nServerAuthType = CRED_TYPE_BASIC;
+				pProfileInfo.AuthType = DmDevInfoConst.CRED_TYPE_BASIC;
+				pProfileInfo.nServerAuthType = DmDevInfoConst.CRED_TYPE_BASIC;
 			}
 			pProfileInfo.UserName = dmDevInfoAdapter.devAdpGetDeviceId();
 
 			pNonce = fBGenerateFactoryNonce();
 
-			if (_SYNCML_TS_DM_VERSION_V12_)
+			if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 			{
 				tsDBAccXNode dm_AccXNodeInfo = new tsDBAccXNode();
 				
-				if(_SYNCML_TS_DM_REGISTRY_PROFILE_)
+				if(DmDevInfoConst._SYNCML_TS_DM_REGISTRY_PROFILE_)
 				{
 					if(dmPreConfigEntity.getAccXnodeInfoFromConfigFile(dm_AccXNodeInfo, nIdex) == false)
 					{
-						tsLib.debugPrintException(DEBUG_EXCEPTION, "Get Acc Xnode Info Failed");
+						tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Get Acc Xnode Info Failed");
 					}
 				}
 				else
@@ -124,7 +124,7 @@ public class tsDBFactoryBootstrap implements Serializable, dmDefineDevInfo, tsDe
 		}
 		else
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Wrong Index : " + nIdex);
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Wrong Index : " + nIdex);
 		}
 		return pProfileInfo;
 	}

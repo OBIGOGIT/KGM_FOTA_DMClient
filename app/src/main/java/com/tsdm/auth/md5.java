@@ -3,8 +3,8 @@ package com.tsdm.auth;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
 public class md5
 {
@@ -26,7 +26,7 @@ public class md5
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			tsLib.debugPrintException(dmDefineDevInfo.DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		// Client의 Digest를 생성 B64(H(username:password))

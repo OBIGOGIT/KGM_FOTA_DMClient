@@ -8,7 +8,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.tsdm.agent.dmAgent;
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.db.tsdmDB;
 import com.tsdm.adapt.tsLinkedList;
 import com.tsdm.adapt.tsDmVnode;
@@ -321,7 +321,7 @@ class DMTndsTagManage implements xmlDefine
 	}
 }
 
-public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDefine
+public class ddfParser extends DefaultHandler implements xmlDefine
 {
 
 	public static boolean				bNodeChangeMode;
@@ -559,7 +559,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		nTagCode = dmDDFXmlTagCode(localName);
 		gTagCode = nTagCode;
 
-		tsLib.debugPrint(DEBUG_PARSER, "start =          " + localName);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "start =          " + localName);
 
 		switch (nTagCode)
 		{
@@ -604,7 +604,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 	{
 		DDFXmlElement XmlElement = new DDFXmlElement();
 
-		tsLib.debugPrint(DEBUG_PARSER, "end =            " + localName);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "end =            " + localName);
 
 		if (CurXmlTree == null)
 		{
@@ -649,72 +649,72 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 				break;
 
 			case XML_TAG_Add:
-				XmlElement.acl = XmlElement.acl | OMACL_ADD;
+				XmlElement.acl = XmlElement.acl | DmDevInfoConst.OMACL_ADD;
 				break;
 
 			case XML_TAG_Get:
-				XmlElement.acl = XmlElement.acl | OMACL_GET;
+				XmlElement.acl = XmlElement.acl | DmDevInfoConst.OMACL_GET;
 				break;
 
 			case XML_TAG_Replace:
-				XmlElement.acl = XmlElement.acl | OMACL_REPLACE;
+				XmlElement.acl = XmlElement.acl | DmDevInfoConst.OMACL_REPLACE;
 				break;
 
 			case XML_TAG_Delete:
-				XmlElement.acl = XmlElement.acl | OMACL_DELETE;
+				XmlElement.acl = XmlElement.acl | DmDevInfoConst.OMACL_DELETE;
 				break;
 
 			case XML_TAG_Exec:
-				XmlElement.acl = XmlElement.acl | OMACL_EXEC;
+				XmlElement.acl = XmlElement.acl | DmDevInfoConst.OMACL_EXEC;
 				break;
 
 			case XML_TAG_Dynamic:
-				XmlElement.scope = SCOPE_DYNAMIC;
+				XmlElement.scope = DmDevInfoConst.SCOPE_DYNAMIC;
 				break;
 
 			case XML_TAG_Permanent:
-				XmlElement.scope = SCOPE_PERMANENT;
+				XmlElement.scope = DmDevInfoConst.SCOPE_PERMANENT;
 				break;
 
 			case XML_TAG_node:
-				XmlElement.format = FORMAT_NODE;
+				XmlElement.format = DmDevInfoConst.FORMAT_NODE;
 				break;
 
 			case XML_TAG_chr:
-				XmlElement.format = FORMAT_CHR;
+				XmlElement.format = DmDevInfoConst.FORMAT_CHR;
 				break;
 
 			case XML_TAG_int:
-				XmlElement.format = FORMAT_INT;
+				XmlElement.format = DmDevInfoConst.FORMAT_INT;
 				break;
 
 			case XML_TAG_xml:
-				XmlElement.format = FORMAT_XML;
+				XmlElement.format = DmDevInfoConst.FORMAT_XML;
 				break;
 
 			case XML_TAG_null:
-				XmlElement.format = FORMAT_NULL;
+				XmlElement.format = DmDevInfoConst.FORMAT_NULL;
 				break;
 
 			case XML_TAG_bool:
-				XmlElement.format = FORMAT_BOOL;
+				XmlElement.format = DmDevInfoConst.FORMAT_BOOL;
 				break;
 
 			case XML_TAG_bin:
-				XmlElement.format = FORMAT_BIN;
+				XmlElement.format = DmDevInfoConst.FORMAT_BIN;
 				break;
 
 			case XML_TAG_b64:
-				XmlElement.format = FORMAT_B64;
+				XmlElement.format = DmDevInfoConst.FORMAT_B64;
 				break;
 			case XML_TAG_float:
-				XmlElement.format = FORMAT_FLOAT;
+				XmlElement.format = DmDevInfoConst.FORMAT_FLOAT;
 				break;
 			case XML_TAG_date:
-				XmlElement.format = FORMAT_DATE;
+				XmlElement.format = DmDevInfoConst.FORMAT_DATE;
 				break;
 			case XML_TAG_time:
-				XmlElement.format = FORMAT_TIME;
+				XmlElement.format = DmDevInfoConst.FORMAT_TIME;
 				break;
 
 			default:
@@ -729,7 +729,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		DDFXmlElement XmlElement = new DDFXmlElement();
 		String pData;
 
-		tsLib.debugPrint(DEBUG_PARSER, "characters =     " + new String(ch).substring(0, length));
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "characters =     " + new String(ch).substring(0, length));
 
 		if (CurXmlTree == null)
 		{
@@ -929,7 +929,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (dmDDFParsing(xmlstream, xmltree) != XML_ERR_OK)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Parsing Fail");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Parsing Fail");
 			return ret;
 		}
 
@@ -941,7 +941,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		}
 
 		ret = true;
-		tsLib.debugPrint(DEBUG_PARSER, "Success.");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Success.");
 
 		return ret;
 	}
@@ -967,7 +967,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 				}
 				catch (Exception e)
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				}
 				finally
 				{
@@ -980,7 +980,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 					}
 					catch (IOException e)
 					{
-						tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+						tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 					}
 				}
 
@@ -1008,7 +1008,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 				}
 				catch (Exception e)
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				}
 				finally
 				{
@@ -1021,7 +1021,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 					}
 					catch (IOException e)
 					{
-						tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+						tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 					}
 				}
 				break;
@@ -1049,32 +1049,32 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 			if (XmlElement.tag != null)
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Tag:");
-				tsLib.debugPrint(DEBUG_PARSER, XmlElement.tag);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Tag:");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, XmlElement.tag);
 			}
 
 			if (XmlElement.name != null)
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Name:");
-				tsLib.debugPrint(DEBUG_PARSER, XmlElement.name);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Name:");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, XmlElement.name);
 			}
 
 			if (XmlElement.path != null)
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Path:");
-				tsLib.debugPrint(DEBUG_PARSER, XmlElement.path);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Path:");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, XmlElement.path);
 			}
 
 			if (XmlElement.data != null)
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Data:");
-				tsLib.debugPrint(DEBUG_PARSER, XmlElement.data);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Data:");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, XmlElement.data);
 			}
 
 			if (XmlElement.Size != null)
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Size:");
-				tsLib.debugPrint(DEBUG_PARSER, XmlElement.Size);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Size:");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, XmlElement.Size);
 			}
 
 			nTagCode = dmDDFXmlTagCode(XmlElement.tag);
@@ -1089,7 +1089,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 				}
 				else
 				{
-					tsLib.debugPrint(DEBUG_PARSER, "Root Path is NULL.");
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Root Path is NULL.");
 				}
 
 				if (XmlElement.type != null)
@@ -1147,8 +1147,8 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 					break;
 
 				default:
-					tsLib.debugPrintException(DEBUG_EXCEPTION, String.valueOf(nTagCode));
-					tsLib.debugPrintException(DEBUG_EXCEPTION, gSdmXmlOmaTags[nTagCode]);
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, String.valueOf(nTagCode));
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, gSdmXmlOmaTags[nTagCode]);
 					break;
 			}
 			pTree = (DM_Tree) tsLinkedList.listGetNextObj(childlist);
@@ -1203,7 +1203,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (nId <= DM_MO_ID_NONE || nId >= DM_MO_ID_END)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "wrong nId. [" + nId + "]");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "wrong nId. [" + nId + "]");
 			return null;
 		}
 		return gSdmManagementObjectIdPath[nId];
@@ -1214,7 +1214,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (nId <= DM_MO_ID_NONE || nId >= DM_MO_ID_END)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "wrong nId. [" + nId + "]");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "wrong nId. [" + nId + "]");
 			return null;
 		}
 
@@ -1227,7 +1227,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		tsDmVnode node = null;
 		boolean bRet = false;
 
-		if (pPath != null && pPath.equals(BASE_ACCOUNT_PATH))
+		if (pPath != null && pPath.equals(DmDevInfoConst.BASE_ACCOUNT_PATH))
 		{
 			pTmpAccPath = pPath;
 			pTmpAccPath = pTmpAccPath.concat("/");
@@ -1262,9 +1262,9 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (element.name != null)
 		{
-			if (DEFAULT_BIG_BUFFER_SIZE <= printData.length() + element.name.length())
+			if (DmDevInfoConst.DEFAULT_BIG_BUFFER_SIZE <= printData.length() + element.name.length())
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Buffer Overflow. Increase the space. for element->name.");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Buffer Overflow. Increase the space. for element->name.");
 				printData = null;
 				return;
 			}
@@ -1274,9 +1274,9 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (element.data != null)
 		{
-			if (DEFAULT_BIG_BUFFER_SIZE <= printData.length() + element.data.length())
+			if (DmDevInfoConst.DEFAULT_BIG_BUFFER_SIZE <= printData.length() + element.data.length())
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Buffer Overflow. Increase the space. for element->data.");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Buffer Overflow. Increase the space. for element->data.");
 				printData = null;
 				return;
 			}
@@ -1286,9 +1286,9 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (element.type != null)
 		{
-			if (DEFAULT_BIG_BUFFER_SIZE <= printData.length() + element.type.length())
+			if (DmDevInfoConst.DEFAULT_BIG_BUFFER_SIZE <= printData.length() + element.type.length())
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Buffer Overflow. Increase the space. element->type.");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Buffer Overflow. Increase the space. element->type.");
 				printData = null;
 				return;
 			}
@@ -1296,7 +1296,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 			printData = printData.concat(element.type);
 		}
 		if (printData != null)
-			tsLib.debugPrint(DEBUG_PARSER, "[" + printData + "] [" + element.acl + "][" + element.format + "][" + element.scope + "].");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "[" + printData + "] [" + element.acl + "][" + element.format + "][" + element.scope + "].");
 
 		printData = null;
 	}
@@ -1314,11 +1314,11 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (element.name == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Not exist nodename.");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not exist nodename.");
 			return false;
 		}
 
-		if (_SYNCML_TS_DM_VERSION_V12_)
+		if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 		{
 			if (tsLib.libStrstr(element.path, ".") == null)
 			{
@@ -1349,7 +1349,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 			if (element.name.equals("AAuthData"))
 			{
-				format = FORMAT_B64;
+				format = DmDevInfoConst.FORMAT_B64;
 			}
 		}
 
@@ -1359,27 +1359,27 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (aclValue == 0x00)
 		{
-			aclValue = OMACL_ADD | OMACL_DELETE | OMACL_GET | OMACL_REPLACE;
+			aclValue = DmDevInfoConst.OMACL_ADD | DmDevInfoConst.OMACL_DELETE | DmDevInfoConst.OMACL_GET | DmDevInfoConst.OMACL_REPLACE;
 		}
 
-		if (scope == SCOPE_NONE)
+		if (scope == DmDevInfoConst.SCOPE_NONE)
 		{
-			scope = SCOPE_DYNAMIC;
+			scope = DmDevInfoConst.SCOPE_DYNAMIC;
 		}
 
-		if (format == FORMAT_NONE)
+		if (format == DmDevInfoConst.FORMAT_NONE)
 		{
-			format = FORMAT_NODE;
+			format = DmDevInfoConst.FORMAT_NODE;
 		}
 
-		if (format == FORMAT_NODE || format == FORMAT_NULL || format == FORMAT_NONE)
+		if (format == DmDevInfoConst.FORMAT_NODE || format == DmDevInfoConst.FORMAT_NULL || format == DmDevInfoConst.FORMAT_NONE)
 		{
 			dmDDFSetOMTree(g_om, nodename, pData, nLen, element.type, aclValue, scope, format);
 			OMSETPATH(g_om, nodename, aclValue, scope);
 		}
 		else
 		{
-			if (format == FORMAT_BIN)
+			if (format == DmDevInfoConst.FORMAT_BIN)
 			{
 				nLen = 0;
 			}
@@ -1392,9 +1392,9 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 				}
 				nLen = pData.length();
 			}
-			if (nodename.length() < 0 || nodename.length() >= MAX_NODENAME_SIZE)
+			if (nodename.length() < 0 || nodename.length() >= DmDevInfoConst.MAX_NODENAME_SIZE)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "nodename Size[" + nodename.length() + "]. Fatal ERROR.");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "nodename Size[" + nodename.length() + "]. Fatal ERROR.");
 				return false;
 			}
 			dmDDFSetOMTree(g_om, nodename, pData, nLen, element.type, aclValue, scope, format);
@@ -1411,9 +1411,9 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		node = tsOmlib.dmOmLibGetNodeProp(omt, path);
 
-		dmAgent.dmAgentSetSyncMode(DM_SYNC_BOOTSTRAP); // test code
+		dmAgent.dmAgentSetSyncMode(DmDevInfoConst.DM_SYNC_BOOTSTRAP); // test code
 
-		if (node == null || dmAgent.dmAgentGetSyncMode() == DM_SYNC_BOOTSTRAP)
+		if (node == null || dmAgent.dmAgentGetSyncMode() == DmDevInfoConst.DM_SYNC_BOOTSTRAP)
 		{
 			dmDDFSetOMTreeProperty(omt, path, pData, nLen, pMime, format);
 			dmAgent.dmAgentMakeDefaultAcl(omt, path, aclValue, scope);
@@ -1421,7 +1421,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (bNodeChangeMode)
 		{
-			tsLib.debugPrint(DEBUG_PARSER, "bNodeChangeMode Change Node.");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "bNodeChangeMode Change Node.");
 			dmDDFSetOMTreeProperty(omt, path, pData, nLen, pMime, format);
 			dmAgent.dmAgentMakeDefaultAcl(omt, path, aclValue, scope);
 		}
@@ -1432,7 +1432,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		tsDmVnode node;
 		tsOmList list;
 		long nSize;
-		char[] tmpbuf = new char[(int) MAX_NODENAME_SIZE];
+		char[] tmpbuf = new char[(int) DmDevInfoConst.MAX_NODENAME_SIZE];
 		int index = 0;
 
 		tsOmlib.dmOmMakeParentPath(path, tmpbuf);
@@ -1449,10 +1449,10 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (node == null)
 		{
-			tsOmlib.dmOmProcessCmdImplicitAdd(omt, tmp, OMACL_ADD | OMACL_DELETE | OMACL_GET | OMACL_REPLACE, 1);
+			tsOmlib.dmOmProcessCmdImplicitAdd(omt, tmp, DmDevInfoConst.OMACL_ADD | DmDevInfoConst.OMACL_DELETE | DmDevInfoConst.OMACL_GET | DmDevInfoConst.OMACL_REPLACE, 1);
 		}
 
-		if (format == FORMAT_NODE || format == FORMAT_NULL || format == FORMAT_NONE)
+		if (format == DmDevInfoConst.FORMAT_NODE || format == DmDevInfoConst.FORMAT_NULL || format == DmDevInfoConst.FORMAT_NONE)
 		{
 			tsOmlib.dmOmWrite(omt, path, 0, 0, "", 0);
 		}
@@ -1461,7 +1461,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 			nSize = tsOmlib.dmOmWrite(omt, path, nLen, 0, pData, nLen);
 			if (nSize <= 0)
 			{
-				tsLib.debugPrint(DEBUG_PARSER, "Size[" + nSize + "]");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Size[" + nSize + "]");
 			}
 		}
 
@@ -1540,8 +1540,8 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 					break;
 
 				default:
-					tsLib.debugPrintException(DEBUG_EXCEPTION, String.valueOf(nTagCode));
-					tsLib.debugPrintException(DEBUG_EXCEPTION, gSdmXmlOmaTags[nTagCode]);
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, String.valueOf(nTagCode));
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, gSdmXmlOmaTags[nTagCode]);
 					break;
 			}
 		}
@@ -1599,14 +1599,14 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (dmDDFParsing(xmlstream, xmltree) != XML_ERR_OK)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Parsing Fail.");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Parsing Fail.");
 			g_om = null;
 			return 0;
 		}
 
 		if (omt == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "OMT is NULL.");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "OMT is NULL.");
 			g_om = null;
 			return 0;
 		}
@@ -1619,13 +1619,13 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (!ret)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Check the xml file.");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Check the xml file.");
 			g_om = null;
 			return 0;
 		}
 
 		ret = true;
-		tsLib.debugPrint(DEBUG_PARSER, "Success.");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Success.");
 
 		return 1;
 	}
@@ -1719,8 +1719,8 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 				default:
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, String.valueOf(nSize));
-					tsLib.debugPrintException(DEBUG_EXCEPTION, String.valueOf(wbxmlData));
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, String.valueOf(nSize));
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, String.valueOf(wbxmlData));
 					return null;
 				}
 					// break;
@@ -1822,7 +1822,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		dmDDFTNDSCheckMem(pXMLBuf);
 		//if (!dmDDFTNDSCheckMem(pXMLBuf))
 		//{
-		//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
+		//	tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Alloc Error !!! ###");
 		//	return false;
 		//}
 
@@ -1874,7 +1874,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		}
 		else
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "TNDS Tag Right ###");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "TNDS Tag Right ###");
 			return false;
 		}
 
@@ -1943,7 +1943,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 	{
 		if (gstTagManage.nTagSP == DM_TNDS_INCLUDE_TAG_MAX_NUM)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "TagSP FULL !!! ###");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "TagSP FULL !!! ###");
 			return false;
 		}
 
@@ -2066,7 +2066,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		dmDDFTNDSCheckMem(pOpenTagName);
 		//if (!dmDDFTNDSCheckMem(pOpenTagName))
 		//{
-		//	tsLib.debugPrintException(DEBUG_EXCEPTION, " Alloc Error !!! ###");
+		//	tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, " Alloc Error !!! ###");
 		//	return null;
 		//}
 
@@ -2153,7 +2153,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 			default:
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, " child tag vlaue is " + nTag + "  ###");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, " child tag vlaue is " + nTag + "  ###");
 			}
 				break;
 		}
@@ -2335,8 +2335,8 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 				default:
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, String.valueOf(nSize));
-					tsLib.debugPrintException(DEBUG_EXCEPTION, pData);
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, String.valueOf(nSize));
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, pData);
 					return false;
 				}
 					// break;
@@ -2391,7 +2391,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		dmDDFTNDSCheckMem(pCloseTagName);
 		//if (!dmDDFTNDSCheckMem(pCloseTagName))
 		//{
-		//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
+		//	tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Alloc Error !!! ###");
 		//	return null;
 		//}
 
@@ -2410,7 +2410,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 		if (gstTagManage.nTagSP == 0)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, " TagSP EMPTY !!! ###");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, " TagSP EMPTY !!! ###");
 			return 0;
 		}
 
@@ -2513,7 +2513,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 					break;
 				default:
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, String.valueOf(nChar));
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, String.valueOf(nChar));
 					return null;
 				}
 					// break;
@@ -2549,7 +2549,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 		dmDDFTNDSCheckMem(pWbxmlBuf);
 		//if (!dmDDFTNDSCheckMem(pWbxmlBuf))
 		//{
-		//	tsLib.debugPrintException(DEBUG_EXCEPTION, "Alloc Error !!! ###");
+		//	tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Alloc Error !!! ###");
 		//	return false;
 		//}
 
@@ -2727,7 +2727,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 			return DM_XML_SYNCML_HEX_VALUE;
 		}
 
-		tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Found String !!! ###");
+		tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Found String !!! ###");
 		return (char) -1;
 	}
 
@@ -2792,7 +2792,7 @@ public class ddfParser extends DefaultHandler implements dmDefineDevInfo, xmlDef
 
 			default:
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "[value : " + cHex + "]!!! ###");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "[value : " + cHex + "]!!! ###");
 			}
 				break;
 		}

@@ -1,8 +1,8 @@
 package com.tsdm.adapt;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsDmVfspace implements dmDefineDevInfo
+public class tsDmVfspace
 {
 	int		i;
 	int[]	start;
@@ -11,7 +11,7 @@ public class tsDmVfspace implements dmDefineDevInfo
 	public tsDmVfspace()
 	{
 		i = 0;
-		start = new int[(int) MAX_NODE_NUM];
-		end = new int[(int) MAX_NODE_NUM];
+		start = new int[(int) DmDevInfoConst.MAX_NODE_NUM];
+		end = new int[(int) DmDevInfoConst.MAX_NODE_NUM];
 	}
 }

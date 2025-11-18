@@ -3,9 +3,10 @@ package com.tsdm.adapt;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.WbxmlProtocolConst;
 
-public class tsDmWbxmldecoder implements tsDefineWbxml
+public class tsDmWbxmldecoder
 {
 	protected byte[]	wbxbuff		= null;
 	public int			wbxindex	= 0;
@@ -37,7 +38,7 @@ public class tsDmWbxmldecoder implements tsDefineWbxml
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(dmDefineDevInfo.DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 	}
 
@@ -60,7 +61,7 @@ public class tsDmWbxmldecoder implements tsDefineWbxml
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(dmDefineDevInfo.DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		str = new String(buf.toByteArray());
@@ -100,7 +101,7 @@ public class tsDmWbxmldecoder implements tsDefineWbxml
 		int len;
 		try
 		{
-			if (type == WBXML_OPAQUE)
+			if (type == WbxmlProtocolConst.WBXML_OPAQUE)
 			{
 				len = dmWbxDecReadBufferMbUINT32();
 				for (int i = 0; i < len; i++)
@@ -113,7 +114,7 @@ public class tsDmWbxmldecoder implements tsDefineWbxml
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(dmDefineDevInfo.DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		return obj;
@@ -140,7 +141,7 @@ public class tsDmWbxmldecoder implements tsDefineWbxml
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(dmDefineDevInfo.DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		return obj;

@@ -18,10 +18,10 @@ package com.tsdm.auth;
 
 import android.util.Base64;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class base64 implements dmDefineDevInfo
+public class base64
 {
 	private static byte[]	base64Alphabet	= new byte[255];
 
@@ -60,7 +60,7 @@ public class base64 implements dmDefineDevInfo
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		return buf;
@@ -78,7 +78,7 @@ public class base64 implements dmDefineDevInfo
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		return buf;

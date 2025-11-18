@@ -1,6 +1,8 @@
 package com.tsdm.adapt;
 
-public class tsDmUicOption implements tsDefineUic
+import com.tsdm.core.data.constants.UserInteractionCommandConst;
+
+public class tsDmUicOption
 {
 	public int			appId;
 	public int			minDT;
@@ -22,7 +24,7 @@ public class tsDmUicOption implements tsDefineUic
 
 	tsDmUicOption()
 	{
-		uicMenuList = new String[UIC_MAX_CHOICE_MENU];
+		uicMenuList = new String[UserInteractionCommandConst.UIC_MAX_CHOICE_MENU];
 		text = new tsDmText();
 		defaultResponse = new tsDmText();
 	}

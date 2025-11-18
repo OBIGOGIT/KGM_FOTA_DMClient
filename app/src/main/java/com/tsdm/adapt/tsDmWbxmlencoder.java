@@ -3,9 +3,10 @@ package com.tsdm.adapt;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.WbxmlProtocolConst;
 
-public class tsDmWbxmlencoder implements tsDefineWbxml
+public class tsDmWbxmlencoder
 {
 	private static ByteArrayOutputStream	out				= null;
 
@@ -20,7 +21,7 @@ public class tsDmWbxmlencoder implements tsDefineWbxml
 
 	public boolean dmWbxEncStartDocument(int pid, int charset, String stringtable, int stsize)
 	{
-		if (!dmWbxEncAppendByte(WBXML_VERSION))
+		if (!dmWbxEncAppendByte(WbxmlProtocolConst.WBXML_VERSION))
 			return false;
 		if (!dmWbxEncAppendMbUINT32(pid))
 			return false;
@@ -49,19 +50,19 @@ public class tsDmWbxmlencoder implements tsDefineWbxml
 		int token = index;
 
 		if (content)
-			token |= WBXML_TOKEN_WITH_CONTENT;
+			token |= WbxmlProtocolConst.WBXML_TOKEN_WITH_CONTENT;
 
 		return dmWbxEncAppendByte(token);
 	}
 
 	public boolean dmWbxEncEndElement()
 	{
-		return dmWbxEncAppendByte(WBXML_END);
+		return dmWbxEncAppendByte(WbxmlProtocolConst.WBXML_END);
 	}
 
 	public boolean dmWbxEncAddSwitchpage(int index)
 	{
-		if (!dmWbxEncAppendByte(WBXML_SWITCH_PAGE))
+		if (!dmWbxEncAppendByte(WbxmlProtocolConst.WBXML_SWITCH_PAGE))
 		{
 			return false;
 		}
@@ -75,7 +76,7 @@ public class tsDmWbxmlencoder implements tsDefineWbxml
 
 	public boolean dmWbxEncAddContent(String str)
 	{
-		if (!dmWbxEncAppendByte(WBXML_STR_I))
+		if (!dmWbxEncAppendByte(WbxmlProtocolConst.WBXML_STR_I))
 		{
 			return false;
 		}
@@ -89,7 +90,7 @@ public class tsDmWbxmlencoder implements tsDefineWbxml
 
 	public boolean dmWbxEncAddOpaque(char[] buf, int size) throws IOException
 	{
-		if (!dmWbxEncAppendByte(WBXML_OPAQUE))
+		if (!dmWbxEncAppendByte(WbxmlProtocolConst.WBXML_OPAQUE))
 		{
 			return false;
 		}
@@ -122,7 +123,7 @@ public class tsDmWbxmlencoder implements tsDefineWbxml
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(dmDefineDevInfo.DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		return true;
 	}

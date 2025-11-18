@@ -4,11 +4,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsDBFactoryBootstrapAdapter implements dmDefineDevInfo
+public class tsDBFactoryBootstrapAdapter
 {
 	private static int		default_passwordLen	= 16;
 
@@ -142,7 +142,7 @@ public class tsDBFactoryBootstrapAdapter implements dmDefineDevInfo
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		return t;
 	}

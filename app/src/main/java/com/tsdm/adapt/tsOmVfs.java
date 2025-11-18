@@ -7,11 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.db.tsDB;
 import com.tsdm.db.tsdmDB;
 
-public class tsOmVfs implements dmDefineDevInfo
+public class tsOmVfs
 {
 	public tsDmVnode root;
 	public byte[]				stdobj_space;
@@ -34,7 +34,7 @@ public class tsOmVfs implements dmDefineDevInfo
 
 	public static int dmOmvfsInit(tsOmVfs pVfs)
 	{
-		int nRet = OMVFS_ERR_OK;
+		int nRet = DmDevInfoConst.OMVFS_ERR_OK;
 		if (pVfs.root == null)
 		{
 			pVfs.root = dmOmvfsCreateNewNode("/", true);
@@ -56,7 +56,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		{
 			acl = new tsOmAcl();
 			acl.serverid = "*";
-			acl.ac = OMACL_ADD | OMACL_DELETE | OMACL_GET | OMACL_REPLACE;
+			acl.ac = DmDevInfoConst.OMACL_ADD | DmDevInfoConst.OMACL_DELETE | DmDevInfoConst.OMACL_GET | DmDevInfoConst.OMACL_REPLACE;
 
 			item = new tsOmList();
 			item.data = acl;
@@ -66,11 +66,11 @@ public class tsOmVfs implements dmDefineDevInfo
 		}
 
 		ptNode.name = name;
-		ptNode.format = FORMAT_NODE;
+		ptNode.format = DmDevInfoConst.FORMAT_NODE;
 		ptNode.verno = 0;
 		ptNode.size = 0;
 		ptNode.vaddr = -1;
-		ptNode.scope = SCOPE_DYNAMIC;
+		ptNode.scope = DmDevInfoConst.SCOPE_DYNAMIC;
 
 		return ptNode;
 	}
@@ -88,7 +88,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		nSize = tsdmDB.dmdbGetFileSize(nFileId);
 		if (nSize <= 0)
 		{
-			return OMVFS_ERR_OK;
+			return DmDevInfoConst.OMVFS_ERR_OK;
 		}
 
 		byte[] tmp = new byte[nSize];
@@ -99,11 +99,11 @@ public class tsOmVfs implements dmDefineDevInfo
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		pBuff = tmp[index];
-		while (pBuff == OMVFSPACK_STARTNODE)
+		while (pBuff == DmDevInfoConst.OMVFSPACK_STARTNODE)
 		{
 			try
 			{
@@ -111,11 +111,11 @@ public class tsOmVfs implements dmDefineDevInfo
 			}
 			catch (Exception e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 
 				pVfs.resetStdobj();
 				dmOmvfsDeleteOmFile();
-				return OMVFS_ERR_OK;
+				return DmDevInfoConst.OMVFS_ERR_OK;
 			}
 			if (pBuff == 0)
 			{
@@ -126,11 +126,11 @@ public class tsOmVfs implements dmDefineDevInfo
 				}
 				catch (IOException e)
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				}
 				tmp = null;
 				index = 0;
-				return OMVFS_ERR_FAILED;
+				return DmDevInfoConst.OMVFS_ERR_FAILED;
 			}
 		}
 
@@ -141,7 +141,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		tmp = null;
@@ -150,7 +150,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		nSize = tsdmDB.dmdbGetFileSize(nFileId);
 		tsdmDB.dmReadFile(nFileId, 0, nSize, pVfs.stdobj_space);
 
-		return OMVFS_ERR_OK;
+		return DmDevInfoConst.OMVFS_ERR_OK;
 	}
 
 	public static int dmOmvfsSaveFs(tsOmVfs pVfs) throws IOException
@@ -176,17 +176,17 @@ public class tsOmVfs implements dmDefineDevInfo
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		nFileId = tsdmDB.dmdbGetFileIdObjectData();
-		tsdmDB.dmdbWriteFile(nFileId, (int) MAX_SPACE_SIZE, pVfs.stdobj_space);
+		tsdmDB.dmdbWriteFile(nFileId, (int) DmDevInfoConst.MAX_SPACE_SIZE, pVfs.stdobj_space);
 
-		return OMVFS_ERR_OK;
+		return DmDevInfoConst.OMVFS_ERR_OK;
 	}
 
 	public static DataOutputStream dmOmvfsPackFsNode(DataOutputStream pBuff, tsDmVnode ptNode) throws IOException
@@ -272,13 +272,13 @@ public class tsOmVfs implements dmDefineDevInfo
 
 	public static DataOutputStream dmOmvfsPackStart(DataOutputStream pBuff) throws IOException
 	{
-		pBuff.writeByte(OMVFSPACK_STARTNODE);
+		pBuff.writeByte(DmDevInfoConst.OMVFSPACK_STARTNODE);
 		return pBuff;
 	}
 
 	public static DataOutputStream dmOmvfsPackEnd(DataOutputStream pBuff) throws IOException
 	{
-		pBuff.writeByte(OMVFSPACK_ENDNODE);
+		pBuff.writeByte(DmDevInfoConst.OMVFSPACK_ENDNODE);
 		return pBuff;
 	}
 
@@ -310,7 +310,7 @@ public class tsOmVfs implements dmDefineDevInfo
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 
@@ -337,9 +337,9 @@ public class tsOmVfs implements dmDefineDevInfo
 		if (in == null)
 			return 0;
 
-		while (ptr != OMVFSPACK_ENDNODE)
+		while (ptr != DmDevInfoConst.OMVFSPACK_ENDNODE)
 		{
-			if (ptr == OMVFSPACK_STARTNODE)
+			if (ptr == DmDevInfoConst.OMVFSPACK_STARTNODE)
 			{
 				ptr = in.readByte();
 				index++;
@@ -348,19 +348,19 @@ public class tsOmVfs implements dmDefineDevInfo
 				dmOmvfsAppendNode(pVfs, ptNode, ptChild);
 
 				ptr = buf[index];// in.read();
-				while (ptr != OMVFSPACK_ENDNODE)
+				while (ptr != DmDevInfoConst.OMVFSPACK_ENDNODE)
 				{
-					if (ptr == OMVFSPACK_STARTNODE)
+					if (ptr == DmDevInfoConst.OMVFSPACK_STARTNODE)
 					{
 						ptr = dmOmvfsUnpackFsNode(pVfs, in, ptr, ptChild, buf, nSize);
 					}
-					else if (ptr != OMVFSPACK_ENDNODE)
+					else if (ptr != DmDevInfoConst.OMVFSPACK_ENDNODE)
 					{
 						return 0;
 					}
 				}
 			}
-			else if (ptr != OMVFSPACK_ENDNODE)
+			else if (ptr != DmDevInfoConst.OMVFSPACK_ENDNODE)
 			{
 				return 0;
 			}
@@ -368,7 +368,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		ptr = in.readByte();
 		index++; // read(=skip) end
 		if (index == nSize)
-			return OMVFSPACK_ENDNODE;
+			return DmDevInfoConst.OMVFSPACK_ENDNODE;
 
 		return buf[index];
 	}
@@ -508,7 +508,7 @@ public class tsOmVfs implements dmDefineDevInfo
 
 		if (dmOmvfsHaveThisChild(pVfs, ptParent, ptChild))
 		{
-			return OMVFS_ERR_NOEFFECT;
+			return DmDevInfoConst.OMVFS_ERR_NOEFFECT;
 		}
 
 		if (ptParent.childlist == null)
@@ -516,7 +516,7 @@ public class tsOmVfs implements dmDefineDevInfo
 			ptParent.childlist = ptChild;
 			/* MOD : Improve ACL Check(Merge From KDS) */
 			ptChild.ptParentNode = ptParent;
-			return OMVFS_ERR_OK;
+			return DmDevInfoConst.OMVFS_ERR_OK;
 		}
 
 		last = ptParent.childlist;
@@ -528,7 +528,7 @@ public class tsOmVfs implements dmDefineDevInfo
 
 		/* MOD : Improve ACL Check(Merge From KDS) */
 		ptChild.ptParentNode = ptParent;
-		return OMVFS_ERR_OK;
+		return DmDevInfoConst.OMVFS_ERR_OK;
 	}
 
 	public static boolean dmOmvfsHaveThisChild(tsOmVfs pVfs, tsDmVnode ptParent, tsDmVnode ptChild)
@@ -645,22 +645,22 @@ public class tsOmVfs implements dmDefineDevInfo
 			{
 				if (dmOmvfsGetNode(pVfs, nodename, ptBaseNode) != null)
 				{
-					return OMVFS_ERR_NOEFFECT;
+					return DmDevInfoConst.OMVFS_ERR_NOEFFECT;
 				}
 
 				ptNode = dmOmvfsCreateNewNode(nodename, true);
 				dmOmvfsAppendNode(pVfs, ptBaseNode, ptNode);
-				return OMVFS_ERR_OK;
+				return DmDevInfoConst.OMVFS_ERR_OK;
 			}
 			ptNode = dmOmvfsGetNode(pVfs, nodename, ptBaseNode);
 			if (ptNode == null)
 			{
-				return OMVFS_ERR_BUFFER_NOT_ENOUGH;
+				return DmDevInfoConst.OMVFS_ERR_BUFFER_NOT_ENOUGH;
 			}
 
 			ptBaseNode = ptNode;
 		}
-		return OMVFS_ERR_OK;
+		return DmDevInfoConst.OMVFS_ERR_OK;
 	}
 
 	public static int dmOmvfsWriteObj(tsOmVfs pVfs, String pPath, int nTotalSize, int nOffset, Object pBuff, int nBuffSize)
@@ -673,7 +673,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		ptNode = dmOmvfsPath2Node(pVfs, pPath);
 		if (ptNode == null)
 		{
-			return OMVFS_ERR_INVALIDPARAMETER;
+			return DmDevInfoConst.OMVFS_ERR_INVALIDPARAMETER;
 		}
 		if (nOffset == 0)
 		{
@@ -698,9 +698,9 @@ public class tsOmVfs implements dmDefineDevInfo
 		}
 
 		ret = dmOmvfsSaveFsData(pVfs, ptNode, (int) (addr + nOffset), pBuff, nBuffSize);
-		//if (ret != OMVFS_ERR_OK)
+		//if (ret != DmDevInfoConst.OMVFS_ERR_OK)
 		//{
-		//	return OMVFS_ERR_FAILED;
+		//	return DmDevInfoConst.OMVFS_ERR_FAILED;
 		//}
 		return nBuffSize;
 
@@ -757,14 +757,14 @@ public class tsOmVfs implements dmDefineDevInfo
 			}
 		}
 
-		if (MAX_SPACE_SIZE - pSpace.end[pSpace.i - 1] - 1 >= nSize)
+		if (DmDevInfoConst.MAX_SPACE_SIZE - pSpace.end[pSpace.i - 1] - 1 >= nSize)
 		{
 			ret = pSpace.end[pSpace.i - 1];
 			pSpace = null;
 			return ret;
 		}
 
-		ret = OMVFS_ERR_NOSPACE;
+		ret = DmDevInfoConst.OMVFS_ERR_NOSPACE;
 
 		pSpace = null;
 		return ret;
@@ -799,7 +799,7 @@ public class tsOmVfs implements dmDefineDevInfo
 				break;
 			pVfs.stdobj_space[l + i] = data[i];
 		}
-		return OMVFS_ERR_OK;
+		return DmDevInfoConst.OMVFS_ERR_OK;
 	}
 
 	public static int dmOmvfsLoadFsData(tsOmVfs pVfs, tsDmVnode ptNode, int addr, char[] pBuff, int nSize)
@@ -809,7 +809,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		{
 			pBuff[i] = (char) pVfs.stdobj_space[addr + i];
 		}
-		return OMVFS_ERR_OK;
+		return DmDevInfoConst.OMVFS_ERR_OK;
 	}
 
 	public static int dmOmvfsRemoveNode(tsOmVfs pVfs, tsDmVnode ptNode, boolean deletechilds)
@@ -822,13 +822,13 @@ public class tsOmVfs implements dmDefineDevInfo
 		{
 			if (!deletechilds)
 			{
-				return OMVFS_ERR_FAILED;
+				return DmDevInfoConst.OMVFS_ERR_FAILED;
 			}
 
 			while (cur != null)
 			{
 				ret = dmOmvfsRemoveNode(pVfs, cur, true);
-				if (ret != OMVFS_ERR_OK)
+				if (ret != DmDevInfoConst.OMVFS_ERR_OK)
 				{
 					return ret;
 				}
@@ -847,7 +847,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		ptParent = dmOmvfsGetParent(pVfs, pVfs.root, ptNode);
 		if (ptParent == null)
 		{
-			return OMVFS_ERR_FAILED;
+			return DmDevInfoConst.OMVFS_ERR_FAILED;
 		}
 		if (ptParent.childlist == ptNode)
 		{
@@ -887,7 +887,7 @@ public class tsOmVfs implements dmDefineDevInfo
 		ptNode.ptParentNode = null;
 		ptNode = null;
 
-		return OMVFS_ERR_OK;
+		return DmDevInfoConst.OMVFS_ERR_OK;
 	}
 
 	public static tsDmVnode dmOmvfsGetParent(tsOmVfs pVfs, tsDmVnode ptBaseNode, tsDmVnode ptNode)
@@ -963,13 +963,13 @@ public class tsOmVfs implements dmDefineDevInfo
 		if (ptNode.size > 0 && ptNode.vaddr >= 0)
 		{
 			ret = dmOmvfsLoadFsData(pVfs, ptNode, ptNode.vaddr, pBuff, ptNode.size);
-			//if (ret != OMVFS_ERR_OK)
+			//if (ret != DmDevInfoConst.OMVFS_ERR_OK)
 			//{
-			//	return OMVFS_ERR_FAILED;
+			//	return DmDevInfoConst.OMVFS_ERR_FAILED;
 			//}
-			return OMVFS_ERR_OK;
+			return DmDevInfoConst.OMVFS_ERR_OK;
 		}
-		return OMVFS_ERR_FAILED;
+		return DmDevInfoConst.OMVFS_ERR_FAILED;
 	}
 
 	public static int dmOmvfsSetData(tsOmVfs pVfs, tsDmVnode ptNode, Object pBuff, int nBuffSize)
@@ -987,12 +987,12 @@ public class tsOmVfs implements dmDefineDevInfo
 		ptNode.size = nBuffSize;
 
 		ret = dmOmvfsSaveFsData(pVfs, ptNode, (int) addr, pBuff, nBuffSize);
-		//if (ret != OMVFS_ERR_OK)
+		//if (ret != DmDevInfoConst.OMVFS_ERR_OK)
 		//{
-		//	return OMVFS_ERR_FAILED;
+		//	return DmDevInfoConst.OMVFS_ERR_FAILED;
 		//}
 
-		return OMVFS_ERR_OK;
+		return DmDevInfoConst.OMVFS_ERR_OK;
 	}
 
 	public static void dmOmvfsEnd(tsOmVfs pVfs)

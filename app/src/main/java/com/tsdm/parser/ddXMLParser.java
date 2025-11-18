@@ -11,18 +11,18 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.tsService;
 
-public class ddXMLParser implements dmDefineDevInfo
+public class ddXMLParser
 {
 	private ByteArrayInputStream	pXMLStream;
 	private InputSource				pInputXMLSource;
 
 	public ddXMLDataSet dlParserDownloadDescriptor(byte[] pDump) throws ParserConfigurationException, SAXException, IOException
 	{
-		tsLib.debugPrint(DEBUG_PARSER, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "");
 		SAXParserFactory spf = SAXParserFactory.newInstance();
 		spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
 		SAXParser sp = spf.newSAXParser();
@@ -42,24 +42,24 @@ public class ddXMLParser implements dmDefineDevInfo
 		try {
 		int target_num = parsedDataSet.objectURI.indexOf("dd?id=")+6;
 		String workId = parsedDataSet.objectURI.substring(target_num,(parsedDataSet.objectURI.substring(target_num).indexOf("&pkgid")+target_num));
-		tsLib.debugPrint(DEBUG_PARSER, "workId "+workId);
-		tsLib.debugPrint(DEBUG_PARSER, "objectURI "+ parsedDataSet.objectURI);
-		tsLib.debugPrint(DEBUG_PARSER, "name "+parsedDataSet.name);
-		tsLib.debugPrint(DEBUG_PARSER, "crc "+parsedDataSet.crc);
-		tsLib.debugPrint(DEBUG_PARSER, "logUploadURI  "+parsedDataSet.logUploadURI);
-		tsLib.debugPrint(DEBUG_PARSER, "size "+parsedDataSet.size);
-		tsLib.debugPrint(DEBUG_PARSER, "installNotifyURI "+parsedDataSet.installNotifyURI);
-		tsLib.debugPrint(DEBUG_PARSER, "rVersion  "+parsedDataSet.rVersion);
-		//tsLib.debugPrint(DEBUG_PARSER, "description "+parsedDataSet.description);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "workId "+workId);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "objectURI "+ parsedDataSet.objectURI);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "name "+parsedDataSet.name);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "crc "+parsedDataSet.crc);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "logUploadURI  "+parsedDataSet.logUploadURI);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "size "+parsedDataSet.size);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "installNotifyURI "+parsedDataSet.installNotifyURI);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "rVersion  "+parsedDataSet.rVersion);
+		//tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "description "+parsedDataSet.description);
 
 		tsService.setDownFileInfo(workId, parsedDataSet.logUploadURI, parsedDataSet.description,
 				                 parsedDataSet.name,parsedDataSet.crc,parsedDataSet.size,parsedDataSet.rVersion);
 
-		//tsLib.debugPrint(DEBUG_PARSER, "total " + parsedDataSet.toString());
+		//tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "total " + parsedDataSet.toString());
 		}catch(NullPointerException ex) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, ex.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, ex.toString());
 		}
-		tsLib.debugPrint(DEBUG_PARSER, "Parsing DownloadDescriptor is Complete");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_PARSER, "Parsing DownloadDescriptor is Complete");
 		return parsedDataSet;
 	}
 }

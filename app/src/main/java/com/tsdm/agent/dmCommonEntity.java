@@ -11,16 +11,16 @@ import java.nio.channels.FileChannel;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.tsdm.tsService;
 import com.tsdm.R;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.DmTaskMsg;
+import com.tsdm.core.data.constants.DmUiEvent;
 import com.tsdm.db.tsdmDB;
-import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsMsgEvent;
 import com.tsdm.adapt.tsLib;
 import com.tsdm.adapt.tsDmMsg;
-import com.tsdm.net.netHttpAdapter;
 
-public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefineIdle, dmDefineMsg
+public class dmCommonEntity
 {
 	
 	public static boolean checkEngineInitialized()
@@ -29,7 +29,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 
 		if (!dmTask.g_IsDMInitialized)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Engine Not Initialized");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Engine Not Initialized");
 			nStatus = false;
 		}
 		
@@ -40,31 +40,31 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 	{
 		int nStatus;
 
-		nStatus = dmInitadapter.dmInitAdpCheckNetworkReady(SYNCMLDM);
-		if (nStatus != NETWORK_STATE_NOT_USE)
+		nStatus = dmInitadapter.dmInitAdpCheckNetworkReady(DmDevInfoConst.SYNCMLDM);
+		if (nStatus != DmDevInfoConst.NETWORK_STATE_NOT_USE)
 		{
 			switch (nStatus)
 			{
-				case NETWORK_STATE_SYNCML_USE:
-					tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_IN_SYNC);
+				case DmDevInfoConst.NETWORK_STATE_SYNCML_USE:
+					tsMsgEvent.SetMsgEvent(null, DmUiEvent.DM_EVENT_UI_IN_SYNC);
 					break;
 
-				case NETWORK_STATE_ALREADY_DOWNLOAD:
-					tsMsgEvent.SetMsgEvent(null, DL_EVENT_UI_UPDATE_START);
+				case DmDevInfoConst.NETWORK_STATE_ALREADY_DOWNLOAD:
+					tsMsgEvent.SetMsgEvent(null, DmUiEvent.DL_EVENT_UI_UPDATE_START);
 					break;
 
-				case NETWORK_STATE_FDN_ENABLE:
-					tsMsgEvent.SetMsgEvent(null, DM_EVENT_UI_FDN_ENABLE);
+				case DmDevInfoConst.NETWORK_STATE_FDN_ENABLE:
+					tsMsgEvent.SetMsgEvent(null, DmUiEvent.DM_EVENT_UI_FDN_ENABLE);
 					break;
 
 				default:
 					break;
 			}
-			tsLib.debugPrint(DEBUG_DM, "return false");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "return false");
 			return false;
 		}
 
-		tsDmMsg.taskSendMessage(TASK_MSG_DM_SYNCML_CONNECT, null, null);
+		tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DM_SYNCML_CONNECT, null, null);
 		return true;
 	}
 
@@ -101,13 +101,13 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 
 			return bytedata;
 		} catch (IOException e) {
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}finally {
 			if (fis != null) {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					tsLib.debugPrintException(DEBUG_DM, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, e.toString());
 				}
 			}
 		}
@@ -127,7 +127,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 		try {
 			fos = new FileOutputStream(dirPath + "/" + fileName);
 		} catch (FileNotFoundException e) {
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		
 		if (fos != null)
@@ -135,7 +135,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				fos.write(byteData);
 			} catch (IOException e) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 		
@@ -144,7 +144,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				fos.close();
 			} catch (IOException e) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 	}
@@ -164,14 +164,14 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				outputChannel = new FileOutputStream(newFile).getChannel();
 			} catch (FileNotFoundException e) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}finally {
 				;
 			}
 			try {
 				inputChannel = new FileInputStream(file).getChannel();
 			} catch (FileNotFoundException e) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}finally {
 				;
 			}
@@ -180,25 +180,25 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			inputChannel.close();
 
 			if (!file.delete()) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "file delete fail");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "file delete fail");
 			}
 			inputChannel.close();
 			outputChannel.close();
 		} catch (IOException e) {
-      		tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+      		tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
         } finally {
 			if (inputChannel != null) {
 				try {
 					inputChannel.close();
 				} catch (IOException e) {
-					tsLib.debugPrintException(DEBUG_DM, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, e.toString());
 				}
 			}
 			if (outputChannel != null) {
 				try {
 					outputChannel.close();
 				} catch (IOException e) {
-					tsLib.debugPrintException(DEBUG_DM, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, e.toString());
 				}
 			}
 		}
@@ -221,10 +221,10 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			while (0 < (cntRead = rawData.read(buf)))
 				fout.write(buf, 0, cntRead);
 		} catch (FileNotFoundException e1) {
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "FileNotFoundException "+e1.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "FileNotFoundException "+e1.toString());
 			return null;
 		} catch (IOException e) {
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "IOException"+ e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "IOException"+ e.toString());
 			return null;
 		} finally {
 			try {
@@ -252,10 +252,10 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 
 		if(dmCommonEntity.fileExists(rootPath + "/" + "tsDmConfig.xml") == false)
 		{
-			tsLib.debugPrint(DEBUG_UM,"");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_UM,"");
 			finp = resource.openRawResource(R.raw.dm_config);
 			if(dmCommonEntity.rawToFileOnFfs(finp, "tsDmConfig.xml") == null) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "createConfigXmlFromResource Fail");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "createConfigXmlFromResource Fail");
 			}
 		}
 	}
@@ -272,7 +272,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 		try {
 			fos = new FileOutputStream(dirPath + "/" + fileName, true);
 		} catch (FileNotFoundException e) {
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		if (fos != null)
@@ -280,7 +280,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				fos.write(byteData);
 			} catch (IOException e) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 
@@ -289,7 +289,7 @@ public class dmCommonEntity implements dmDefineUIEvent, dmDefineDevInfo, tsDefin
 			try {
 				fos.close();
 			} catch (IOException e) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 	}
