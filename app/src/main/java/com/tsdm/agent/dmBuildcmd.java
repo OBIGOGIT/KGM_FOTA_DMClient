@@ -2,8 +2,8 @@ package com.tsdm.agent;
 
 import com.tsdm.auth.Auth;
 import com.tsdm.auth.base64;
+import com.tsdm.core.data.constants.DmProtocol;
 import com.tsdm.db.tsdmDB;
-import com.tsdm.adapt.tsDefIne;
 import com.tsdm.adapt.tsLinkedList;
 import com.tsdm.adapt.tsList;
 import com.tsdm.adapt.tsDmVnode;
@@ -21,7 +21,7 @@ import com.tsdm.adapt.tsDmParserResults;
 import com.tsdm.adapt.tsdmParserStatus;
 import com.tsdm.adapt.tsDmParserSyncheader;
 
-public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefIne
+public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo
 {
 	public static int dmBuildCmdGetCmdID(tsDmWorkspace ws)
 	{
@@ -340,7 +340,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 			}
 			status.sourceref = head;
 		}
-		if (((data.compareTo(STATUS_AUTHENTICATION_REQUIRED) == 0) || (data.compareTo(STATUS_UNAUTHORIZED) == 0)) && (cmdRef == 0))
+		if (((data.compareTo(DmProtocol.STATUS_AUTHENTICATION_REQUIRED) == 0) || (data.compareTo(DmProtocol.STATUS_UNAUTHORIZED) == 0)) && (cmdRef == 0))
 		{
 			chal = new tsDmParserMeta();
 			chal.format = "b64";

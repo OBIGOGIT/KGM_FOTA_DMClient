@@ -7,13 +7,13 @@ import java.util.Calendar;
 
 import com.tsdm.auth.Auth;
 import com.tsdm.auth.base64;
+import com.tsdm.core.data.constants.DmProtocol;
 import com.tsdm.db.tsDB;
 import com.tsdm.db.tsDBURLParser;
 import com.tsdm.db.tsdmDB;
 import com.tsdm.db.tsdmDBadapter;
 import com.tsdm.db.tsdmInfo;
 import com.tsdm.parser.ddfParser;
-import com.tsdm.adapt.tsDefIne;
 import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsDmAccXNode;
 import com.tsdm.adapt.tsDmHmacData;
@@ -54,7 +54,7 @@ import com.tsdm.net.netTimerConnect;
 import com.tsdm.net.netTimerReceive;
 import com.tsdm.net.netTimerSend;
 
-public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDefIne, netDefine {
+public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, netDefine {
 	private final static String 	DM_DEFAULT_NONCE = "MTIzNA==";
 	private final int				PACKAGE_SIZE_GAP		= 128;
 	public String					cmd;
@@ -693,7 +693,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					return SDM_RET_FAILED;
 				}
 
-				res = dmAgentCreatePackageGenericAlert(e, ALERT_GENERIC);
+				res = dmAgentCreatePackageGenericAlert(e, DmProtocol.ALERT_GENERIC);
 				if (res != SDM_RET_OK)
 				{
 					if (res == SDM_BUFFER_SIZE_EXCEEDED)
@@ -725,7 +725,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					return SDM_RET_FAILED;
 				}
 
-				res = dmAgentCreatePackageReportGenericAlert(e, ALERT_GENERIC);
+				res = dmAgentCreatePackageReportGenericAlert(e, DmProtocol.ALERT_GENERIC);
 				if (res != SDM_RET_OK)
 				{
 					if (res == SDM_BUFFER_SIZE_EXCEEDED)
@@ -745,11 +745,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				nNotiEvent = tsDB.dbGetNotiEvent(ws.appId);
 				if (nNotiEvent > 0)
 				{
-					res = dmAgentCreatePackageAlert(e, ALERT_SERVER_INITIATED_MGMT);
+					res = dmAgentCreatePackageAlert(e, DmProtocol.ALERT_SERVER_INITIATED_MGMT);
 				}
 				else
 				{
-					res = dmAgentCreatePackageAlert(e, ALERT_CLIENT_INITIATED_MGMT);
+					res = dmAgentCreatePackageAlert(e, DmProtocol.ALERT_CLIENT_INITIATED_MGMT);
 				}
 				if (res != SDM_RET_OK)
 				{
@@ -763,7 +763,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					}
 					return SDM_RET_FAILED;
 				}
-				res = dmAgentCreatePackageAlert(e, ALERT_SESSION_ABORT);
+				res = dmAgentCreatePackageAlert(e, DmProtocol.ALERT_SESSION_ABORT);
 
 				if (res != SDM_RET_OK)
 				{
@@ -1261,7 +1261,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		int res;
 		if (ws.dataBuffered)
 		{
-			res = dmAgentCreatePackageAlert(e, ALERT_NEXT_MESSAGE);
+			res = dmAgentCreatePackageAlert(e, DmProtocol.ALERT_NEXT_MESSAGE);
 			if (res != SDM_RET_OK)
 			{
 				if (res == SDM_BUFFER_SIZE_EXCEEDED)
@@ -2222,11 +2222,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		nNotiEvent = tsDB.dbGetNotiEvent(ws.appId); // 0512
 		if (nNotiEvent > 0)
 		{
-			res = dmAgentCreatePackageAlert(e, ALERT_SERVER_INITIATED_MGMT);
+			res = dmAgentCreatePackageAlert(e, DmProtocol.ALERT_SERVER_INITIATED_MGMT);
 		}
 		else
 		{
-			res = dmAgentCreatePackageAlert(e, ALERT_CLIENT_INITIATED_MGMT);
+			res = dmAgentCreatePackageAlert(e, DmProtocol.ALERT_CLIENT_INITIATED_MGMT);
 		}
 
 		if (res != SDM_RET_OK)
@@ -2558,12 +2558,12 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		if (isProcess)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, atomic.cmdid, "Atomic", null, null, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, atomic.cmdid, "Atomic", null, null, DmProtocol.STATUS_OK);
 			ws.atomicStep = SyncmlAtomicStep.ATOMIC_NONE;
 		}
 		else
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, atomic.cmdid, "Atomic", null, null, STATUS_ATOMIC_FAILED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, atomic.cmdid, "Atomic", null, null, DmProtocol.STATUS_ATOMIC_FAILED);
 			ws.atomicStep = SyncmlAtomicStep.ATOMIC_STEP_ROLLBACK;
 		}
 
@@ -2580,11 +2580,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					item = (tsDmParserItem) cmd.get.itemlist.item;
 					if (item.target != null)
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, cmd.get.cmdid, CMD_GET, null, item.target, STATUS_NOT_EXECUTED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, cmd.get.cmdid, DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 					}
 					else
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, cmd.get.cmdid, CMD_GET, null, null, STATUS_NOT_FOUND);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, cmd.get.cmdid, DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_FOUND);
 					}
 
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -2594,11 +2594,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					item = (tsDmParserItem) cmd.exec.itemlist.item;
 					if (item.target != null)
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.exec.cmdid), CMD_EXEC, null, item.target, STATUS_NOT_EXECUTED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.exec.cmdid), DmProtocol.CMD_EXEC, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 					}
 					else
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.exec.cmdid), CMD_GET, null, null, STATUS_NOT_FOUND);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.exec.cmdid), DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_FOUND);
 					}
 
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -2608,11 +2608,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					item = (tsDmParserItem) cmd.addCmd.itemlist.item;
 					if (item.target != null)
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.addCmd.cmdid), CMD_ADD, null, item.target, STATUS_NOT_EXECUTED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.addCmd.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 					}
 					else
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.addCmd.cmdid), CMD_GET, null, null, STATUS_NOT_FOUND);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.addCmd.cmdid), DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_FOUND);
 					}
 
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -2623,11 +2623,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 					if (item.target != null)
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.deleteCmd.cmdid), CMD_DELETE, null, item.target, STATUS_NOT_EXECUTED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.deleteCmd.cmdid), DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 					}
 					else
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.deleteCmd.cmdid), CMD_GET, null, null, STATUS_NOT_FOUND);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.deleteCmd.cmdid), DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_FOUND);
 					}
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				}
@@ -2636,11 +2636,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					item = (tsDmParserItem) cmd.replaceCmd.itemlist.item;
 					if (item.target != null)
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.replaceCmd.cmdid), CMD_REPLACE, null, item.target, STATUS_NOT_EXECUTED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.replaceCmd.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 					}
 					else
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.replaceCmd.cmdid), CMD_GET, null, null, STATUS_NOT_FOUND);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.replaceCmd.cmdid), DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_FOUND);
 					}
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				}
@@ -2649,11 +2649,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					item = (tsDmParserItem) cmd.copyCmd.itemlist.item;
 					if (item.target != null)
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.copyCmd.cmdid), CMD_COPY, null, item.target, STATUS_NOT_EXECUTED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.copyCmd.cmdid), DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 					}
 					else
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.copyCmd.cmdid), CMD_GET, null, null, STATUS_NOT_FOUND);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (cmd.copyCmd.cmdid), DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_FOUND);
 					}
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				}
@@ -2678,7 +2678,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				{
 					r = dmAgentCmdExec(cmd.exec, true, status);
 
-					if (status.data.compareTo(STATUS_ATOMIC_FAILED) == 0)
+					if (status.data.compareTo(DmProtocol.STATUS_ATOMIC_FAILED) == 0)
 					{
 						ws.atomicFlag = true; // command failed
 					}
@@ -2694,7 +2694,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				{
 					r = dmAgentCmdAdd(cmd.addCmd, true, status);
 
-					if (status.data.compareTo(STATUS_ATOMIC_FAILED) == 0)
+					if (status.data.compareTo(DmProtocol.STATUS_ATOMIC_FAILED) == 0)
 					{
 						ws.atomicFlag = true;
 					}
@@ -2710,7 +2710,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				{
 					r = dmAgentCmdDelete(cmd.deleteCmd, true, status);
 
-					if (status.data.compareTo(STATUS_ATOMIC_FAILED) == 0)
+					if (status.data.compareTo(DmProtocol.STATUS_ATOMIC_FAILED) == 0)
 					{
 						ws.atomicFlag = true; // command failed
 					}
@@ -2726,7 +2726,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				{
 					r = dmAgentCmdReplace(cmd.replaceCmd, true, status);
 
-					if (status.data.compareTo(STATUS_ATOMIC_FAILED) == 0)
+					if (status.data.compareTo(DmProtocol.STATUS_ATOMIC_FAILED) == 0)
 					{
 						ws.atomicFlag = true; // command failed
 					}
@@ -2742,7 +2742,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				{
 					r = dmAgentCmdCopy(cmd.copyCmd, true, status);
 
-					if (status.data.compareTo(STATUS_ATOMIC_FAILED) == 0)
+					if (status.data.compareTo(DmProtocol.STATUS_ATOMIC_FAILED) == 0)
 					{
 						ws.atomicFlag = true; // command failed
 					}
@@ -2801,11 +2801,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, ws.statusReturnCode);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, null, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, null, ws.statusReturnCode);
 				}
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
@@ -2815,7 +2815,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			if (item.target == null)
 			{
 
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, null, STATUS_NOT_FOUND);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_FOUND);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -2825,11 +2825,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, null, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 
 				if (status != null)
@@ -2844,11 +2844,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, item.target, null, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, item.target, null, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, null, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 
 				if (status != null)
@@ -2861,7 +2861,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (tsLib.libStrstr(item.target, "?") != null)
 			{
-				res = dmAgentCmdProp(CMD_GET, item, get);
+				res = dmAgentCmdProp(DmProtocol.CMD_GET, item, get);
 				cur = cur.next;
 				continue;
 			}
@@ -2869,7 +2869,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			node = tsOmlib.dmOmLibGetNodeProp(om, item.target);
 			if (node == null)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_NOT_FOUND);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_NOT_FOUND);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -2877,14 +2877,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (!dmAgentIsAccessibleNode(item.target))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
 			}
 			if (!tsOmlib.dmOmCheckAcl(om, node, OMACL_GET))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_PERMISSION_DENIED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -2892,7 +2892,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (node.vaddr < 0 && node.size <= 0)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 				res = tsOmlib.dmOmGetChild(om, item.target, chlist, OM_MAX_CHILD_NUM);
@@ -2928,7 +2928,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (node.size > ws.serverMaxObjSize)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_REQUEST_ENTITY_TOO_LARGE);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_REQUEST_ENTITY_TOO_LARGE);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					cur = cur.next;
 					continue;
@@ -2941,7 +2941,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				pData = new char[node.size];
 				if (pData == null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 					if (status != null)
 					{
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -2950,7 +2950,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					continue;
 				}
 
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
@@ -2992,7 +2992,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		{
 			if (ws.uicFlag == SyncmlUICFlag.UIC_TRUE || ws.uicFlag == SyncmlUICFlag.UIC_NONE)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (ws.uicAlert.cmdid), CMD_ALERT, null, null, STATUS_OK);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (ws.uicAlert.cmdid), DmProtocol.CMD_ALERT, null, null, DmProtocol.STATUS_OK);
 				if (ws.uicData != null)
 				{
 					status.itemlist = ws.uicData;
@@ -3000,7 +3000,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			}
 			else if (ws.uicFlag == SyncmlUICFlag.UIC_FALSE)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (ws.uicAlert.cmdid), CMD_ALERT, null, null, STATUS_NOT_MODIFIED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (ws.uicAlert.cmdid), DmProtocol.CMD_ALERT, null, null, DmProtocol.STATUS_NOT_MODIFIED);
 				if (ws.uicData != null)
 				{
 					status.itemlist = ws.uicData;
@@ -3008,7 +3008,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			}
 			else if (ws.uicFlag == SyncmlUICFlag.UIC_CANCELED)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (ws.uicAlert.cmdid), CMD_ALERT, null, null, STATUS_OPERATION_CANCELLED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (ws.uicAlert.cmdid), DmProtocol.CMD_ALERT, null, null, DmProtocol.STATUS_OPERATION_CANCELLED);
 				if (ws.uicData != null)
 				{
 					status.itemlist = ws.uicData;
@@ -3016,7 +3016,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			}
 			else
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (ws.uicAlert.cmdid), CMD_ALERT, null, null, STATUS_NOT_EXECUTED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (ws.uicAlert.cmdid), DmProtocol.CMD_ALERT, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 				if (ws.uicData != null)
 				{
 					status.itemlist = ws.uicData;
@@ -3059,7 +3059,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			tsLib.debugPrint(DEBUG_DM, "ptr = " + ptr);
 			if (ptr == null)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), cmd, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), cmd, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				return SDM_RET_OK;
 			}
@@ -3068,7 +3068,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			tsLib.debugPrint(DEBUG_DM, "ptr = " + ptr);
 			if (ptr == null)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), cmd, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), cmd, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				return SDM_RET_OK;
 			}
@@ -3082,7 +3082,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			ptr = tsLib.libStrsplit(ptr.toCharArray(), '?', nodename); // node path
 			if (ptr.length() == 0)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), cmd, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), cmd, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				return SDM_RET_OK;
 			}
@@ -3093,7 +3093,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (tsLib.isEmpty(ptr))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), cmd, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), cmd, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				return SDM_RET_OK;
 			}
@@ -3103,7 +3103,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		{
 			tsDmParserGet get = (tsDmParserGet) p;
 
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), cmd, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), cmd, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			return SDM_RET_OK;
 		}
@@ -3130,7 +3130,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		if (node == null)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_NOT_FOUND);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_NOT_FOUND);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			return SDM_RET_OK;
 		}
@@ -3140,14 +3140,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			/* ADD : Improve Checking inaccessible node(?list=StructData) */
 			if (!dmAgentIsAccessibleNode(item.target))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				return SDM_RET_OK;
 			}
 			// MOD : improved Get operating
 			else if (!tsOmlib.dmOmCheckAcl(om, node, OMACL_GET))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_PERMISSION_DENIED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				return SDM_RET_OK;
 			}
@@ -3168,14 +3168,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					if (!ret)
 					{
 						tsdmDB.dmdbDeleteFile(nFileId);
-						status = dmBuildcmd.dmBuildCmdStatus(dm_ws, (get.cmdid), CMD_GET, null, item.target, STATUS_NOT_FOUND);
+						status = dmBuildcmd.dmBuildCmdStatus(dm_ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_NOT_FOUND);
 						tsLinkedList.listAddObjAtLast(dm_ws.statusList, status);
 						return SDM_RET_OK;
 					}
 				}
 			}
 
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			return SDM_RET_OK;
 		}
@@ -3183,14 +3183,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		/* MOD : Improve ACL Check(Merge From KDS) */
 		if (!tsOmlib.dmOmCheckAcl(om, node, OMACL_GET))
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_PERMISSION_DENIED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			return SDM_RET_OK;
 		}
 
 		if (ptr.compareTo("ACL") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 			outbuf = dmAgentGetAclStr(node.acl, item);
@@ -3210,7 +3210,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			if (outbuf != null)
 				chreBuf = outbuf.toCharArray();
 
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 			/* IOT Issue */
@@ -3221,7 +3221,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		}
 		else if (ptr.compareTo("Type") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 			if (node.type != null && node.type.data != null)
@@ -3246,7 +3246,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		{
 			if (node.vaddr >= 0 && node.size > 0)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 				outbuf = String.valueOf(node.size - 1);
@@ -3258,13 +3258,13 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			}
 			else
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OPTIONAL_FEATURE_NOT_SUPPORTED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OPTIONAL_FEATURE_NOT_SUPPORTED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			}
 		}
 		else if (ptr.compareTo("Name") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 			outbuf = node.name;
@@ -3277,7 +3277,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		}
 		else if (ptr.compareTo("Title") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 			if (node.title != null)
@@ -3296,7 +3296,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		}
 		else
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), CMD_GET, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (get.cmdid), DmProtocol.CMD_GET, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			return SDM_RET_OK;
 		}
@@ -3426,14 +3426,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		{
 			tsLib.debugPrint(DEBUG_DM, "!node");
 
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_NOT_FOUND);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_NOT_FOUND);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			return SDM_RET_OK;
 		}
 
 		if (dmAgentIsPermanentNode(om, szNodeName))
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			return SDM_RET_OK;
 		}
@@ -3441,7 +3441,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		if (!tsOmlib.dmOmCheckAcl(om, node, OMACL_REPLACE))
 		{
 			tsLib.debugPrint(DEBUG_DM, "OMACL_REPLACE");
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_PERMISSION_DENIED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			return SDM_RET_OK;
 		}
@@ -3455,7 +3455,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (!tsOmlib.dmOmCheckAcl(om, node.ptParentNode, OMACL_REPLACE))
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_PERMISSION_DENIED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					tsLib.debugPrint(DEBUG_DM, "STATUS_COMMAND_NOT_ALLOWED=" + String.valueOf(pNodeName));
 					return SDM_RET_OK;
@@ -3471,32 +3471,32 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			tsOmList.dmOmDeleteAclList(node.acl);
 			node.acl = acllist;
 
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		else if (ptr.compareTo("Format") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		else if (ptr.compareTo("Type") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		else if (ptr.compareTo("Size") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		else if (ptr.compareTo("Name") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		else if (ptr.compareTo("Title") == 0)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_OK);
 
 			node.title = null;
 			node.title = tsDmHandlecmd.dmDataStGetString(item.data);
@@ -3510,7 +3510,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		}
 		else
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		return SDM_RET_OK;
@@ -4868,25 +4868,25 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		{
 			if (ws.serverCredType == CRED_TYPE_HMAC)
 			{
-				ws.statusReturnCode = STATUS_OK;
+				ws.statusReturnCode = DmProtocol.STATUS_OK;
 			}
 			else
 			{
-				ws.statusReturnCode = STATUS_AUTHENTICATIONACCEPTED;
+				ws.statusReturnCode = DmProtocol.STATUS_AUTHENTICATION_ACCEPTED;
 			}
 			tsdmDB.dmdbSetServerAuthType(ws.serverCredType); // DB write
 
 		}
 		else if (ws.serverAuthState == AUTH_STATE_REQUIRED)
 		{
-			ws.statusReturnCode = STATUS_AUTHENTICATION_REQUIRED;
+			ws.statusReturnCode = DmProtocol.STATUS_AUTHENTICATION_REQUIRED;
 		}
 		else
 		{
-			ws.statusReturnCode = STATUS_UNAUTHORIZED;
+			ws.statusReturnCode = DmProtocol.STATUS_UNAUTHORIZED;
 		}
 
-		status = dmBuildcmd.dmBuildCmdStatus(ws, 0, CMD_SYNCHDR, ws.hostname, ws.sourceURI, ws.statusReturnCode);
+		status = dmBuildcmd.dmBuildCmdStatus(ws, 0, DmProtocol.CMD_SYNCHDR, ws.hostname, ws.sourceURI, ws.statusReturnCode);
 		tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 		return SDM_RET_OK;
@@ -4899,22 +4899,22 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		String szAccBuf;
 		byte[] dValue = null;
 
-		if (status.data.compareTo(STATUS_UNAUTHORIZED) == 0)
+		if (status.data.compareTo(DmProtocol.STATUS_UNAUTHORIZED) == 0)
 		{
 			ws.authState = AUTH_STATE_RETRY;
 			tsLib.debugPrint(DEBUG_DM, "Client invalid credential(401)");
-			if ((status.cmd.compareTo(CMD_SYNCHDR) == 0) && status.chal == null) // auth retry mod
+			if ((status.cmd.compareTo(DmProtocol.CMD_SYNCHDR) == 0) && status.chal == null) // auth retry mod
 			{
 				tsLib.debugPrint(DEBUG_DM, "SyncHdr Status 401. and No Chal");
 				ws.authCount = SDM_MAX_AUTH_COUNT;
 			}
 		}
 		// auth accepted
-		else if (status.data.compareTo(STATUS_AUTHENTICATIONACCEPTED) == 0)
+		else if (status.data.compareTo(DmProtocol.STATUS_AUTHENTICATION_ACCEPTED) == 0)
 		{
 			ws.authState = AUTH_STATE_OK;
 		}
-		else if ((status.data.compareTo(STATUS_OK) == 0) && (status.cmd.compareTo(CMD_SYNCHDR) == 0))
+		else if ((status.data.compareTo(DmProtocol.STATUS_OK) == 0) && (status.cmd.compareTo(DmProtocol.CMD_SYNCHDR) == 0))
 		{
 			if (ws.credType == CRED_TYPE_HMAC)
 			{
@@ -4927,9 +4927,9 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				ws.authState = AUTH_STATE_OK;
 			}
-			tsLib.debugPrint(DEBUG_DM, "Client Authrization Accepted (Catch 200)");
+			tsLib.debugPrint(DEBUG_DM, "Client Authorization Accepted (Catch 200)");
 		}
-		else if (status.data.compareTo(STATUS_ACCEPTED_AND_BUFFERED) == 0)
+		else if (status.data.compareTo(DmProtocol.STATUS_ACCEPTED_AND_BUFFERED) == 0)
 		{
 			tsLib.debugPrint(DEBUG_DM, "received Status 'buffered' cmd " + status.cmdref);
 
@@ -5111,7 +5111,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			case DM_FUMO_MECHANISM_REPLACE:
 				tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE);
 				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
-				status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), CMD_EXEC, null, DmParserItem.target, STATUS_OPTIONAL_FEATURE_NOT_SUPPORTED);
+				status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), DmProtocol.CMD_EXEC, null, DmParserItem.target, DmProtocol.STATUS_OPTIONAL_FEATURE_NOT_SUPPORTED);
 				tsLinkedList.listAddObjAtLast(DmWorkspace.statusList, status);
 				break;
 
@@ -5123,7 +5123,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 				if (exec != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), CMD_EXEC, null, DmParserItem.target, STATUS_ACCEPTED_FOR_PROCESSING);
+					status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), DmProtocol.CMD_EXEC, null, DmParserItem.target, DmProtocol.STATUS_ACCEPTED_FOR_PROCESSING);
 					tsLinkedList.listAddObjAtLast(DmWorkspace.statusList, status);
 				}
 
@@ -5187,7 +5187,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				}
 
 				tsLib.debugPrint(DEBUG_DM, "Mechanism is DM_FUMO_MECHANISM_ALTERNATIVE_DOWNLOAD");
-				status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), CMD_EXEC, null, DmParserItem.target, STATUS_ACCEPTED_FOR_PROCESSING);
+				status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), DmProtocol.CMD_EXEC, null, DmParserItem.target, DmProtocol.STATUS_ACCEPTED_FOR_PROCESSING);
 				tsLinkedList.listAddObjAtLast(DmWorkspace.statusList, status);
 				szToken = tsLib.libStrstr(DmParserItem.target, FUMO_PATH);
 				szLast = tsLib.libStrstr(DmParserItem.target, DM_OMA_EXEC_ALTERNATIVE_2);
@@ -5197,7 +5197,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			case DM_FUMO_MECHANISM_NONE:
 				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 				tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE);
-				status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), CMD_EXEC, null, DmParserItem.target, STATUS_ACCEPTED_FOR_PROCESSING);
+				status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), DmProtocol.CMD_EXEC, null, DmParserItem.target, DmProtocol.STATUS_ACCEPTED_FOR_PROCESSING);
 				tsLinkedList.listAddObjAtLast(DmWorkspace.statusList, status);
 				tsLib.debugPrint(DEBUG_DM, "Mechanism is DM_FUMO_MECHANISM_NONE");
 				break;
@@ -5205,7 +5205,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			default:
 				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE);
 				tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE);
-				status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), CMD_EXEC, null, DmParserItem.target, STATUS_COMMAND_FAILED);
+				status = dmBuildcmd.dmBuildCmdStatus(DmWorkspace, (exec.cmdid), DmProtocol.CMD_EXEC, null, DmParserItem.target, DmProtocol.STATUS_COMMAND_FAILED);
 				tsLinkedList.listAddObjAtLast(DmWorkspace.statusList, status);
 				tsLib.debugPrint(DEBUG_DM, "Mechanism is");
 				break;
@@ -5233,11 +5233,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE); // DB write
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, item.target, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, item.target, ws.statusReturnCode);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, null, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, null, ws.statusReturnCode);
 				}
 
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -5249,7 +5249,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE); // DB write
 				tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE); // DB write
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, null, STATUS_NOT_FOUND);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, null, DmProtocol.STATUS_NOT_FOUND);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -5261,7 +5261,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE); // DB write
 				tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE); // DB write
 
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, item.target, STATUS_NOT_FOUND);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, item.target, DmProtocol.STATUS_NOT_FOUND);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -5269,7 +5269,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (!dmAgentIsAccessibleNode(item.target))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -5277,7 +5277,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			/* FTA Server Issue */
 			if (dmAgentIsPermanentNode(om, item.target)) // exec_permanentnode_check
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -5286,7 +5286,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			// check ACL
 			if (!tsOmlib.dmOmCheckAcl(om, node, OMACL_EXEC))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, item.target, STATUS_PERMISSION_DENIED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -5301,7 +5301,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				// MOD : For Dynamic Node
 				if (!tsOmlib.dmOmCheckAclCurrentNode(om, item.target, OMACL_EXEC))
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, item.target, STATUS_PERMISSION_DENIED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					cur = cur.next;
 					continue;
@@ -5314,7 +5314,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 					tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE); // DB write
 					tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE); // DB write
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, item.target, STATUS_OPTIONAL_FEATURE_NOT_SUPPORTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, item.target, DmProtocol.STATUS_OPTIONAL_FEATURE_NOT_SUPPORTED);
 
 					tsLinkedList.listAddObjAtLast(dm_ws.statusList, status);
 					cur = cur.next;
@@ -5339,7 +5339,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				tsdmDB.dmdbSetFUMOUpdateMechanism(DM_FUMO_MECHANISM_NONE); // DB write
 
 				tsdmDB.dmdbSetFUMOStatus(DM_FUMO_STATE_NONE); // DB write
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), CMD_EXEC, null, null, STATUS_FORBIDDEN);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (exec.cmdid), DmProtocol.CMD_EXEC, null, null, DmProtocol.STATUS_FORBIDDEN);
 				tsLinkedList.listAddObjAtLast(dm_ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -5388,25 +5388,25 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		if (ws.serverAuthState != AUTH_STATE_OK)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (alert.cmdid), CMD_ALERT, null, null, ws.statusReturnCode);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (alert.cmdid), DmProtocol.CMD_ALERT, null, null, ws.statusReturnCode);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		// atomic is not supported...
 		else if (isAtomic)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (alert.cmdid), CMD_ALERT, null, null, STATUS_NOT_EXECUTED);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (alert.cmdid), DmProtocol.CMD_ALERT, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
-		else if (alert.data.compareTo(ALERT_NEXT_MESSAGE) == 0)
+		else if (alert.data.compareTo(DmProtocol.ALERT_NEXT_MESSAGE) == 0)
 		{
 			ws.nextMsg = true;
-			status = dmBuildcmd.dmBuildCmdStatus(ws, (alert.cmdid), CMD_ALERT, null, null, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, (alert.cmdid), DmProtocol.CMD_ALERT, null, null, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		// Mod: change define name
-		else if ((alert.data.compareTo(ALERT_DISPLAY) == 0) || (alert.data.compareTo(ALERT_CONTINUE_OR_ABORT) == 0)
-				|| (alert.data.compareTo(ALERT_TEXT_INPUT) == 0) || (alert.data.compareTo(ALERT_SINGLE_CHOICE) == 0)
-				|| (alert.data.compareTo(ALERT_MULTIPLE_CHOICE) == 0))
+		else if ((alert.data.compareTo(DmProtocol.ALERT_DISPLAY) == 0) || (alert.data.compareTo(DmProtocol.ALERT_CONTINUE_OR_ABORT) == 0)
+				|| (alert.data.compareTo(DmProtocol.ALERT_TEXT_INPUT) == 0) || (alert.data.compareTo(DmProtocol.ALERT_SINGLE_CHOICE) == 0)
+				|| (alert.data.compareTo(DmProtocol.ALERT_MULTIPLE_CHOICE) == 0))
 		{
 			if (ws.uicOption != null)
 			{
@@ -5438,9 +5438,9 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (!tsLib.isEmpty(str))
 			{
-				if ((alert.data.compareTo(ALERT_DISPLAY) == 0) || (alert.data.compareTo(ALERT_CONTINUE_OR_ABORT) == 0)
-						|| (alert.data.compareTo(ALERT_TEXT_INPUT) == 0) || (alert.data.compareTo(ALERT_SINGLE_CHOICE) == 0)
-						|| (alert.data.compareTo(ALERT_MULTIPLE_CHOICE) == 0))
+				if ((alert.data.compareTo(DmProtocol.ALERT_DISPLAY) == 0) || (alert.data.compareTo(DmProtocol.ALERT_CONTINUE_OR_ABORT) == 0)
+						|| (alert.data.compareTo(DmProtocol.ALERT_TEXT_INPUT) == 0) || (alert.data.compareTo(DmProtocol.ALERT_SINGLE_CHOICE) == 0)
+						|| (alert.data.compareTo(DmProtocol.ALERT_MULTIPLE_CHOICE) == 0))
 				{
 					str = SDM_DEFAULT_DISPLAY_UIC_OPTION;
 				}
@@ -5485,7 +5485,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			}
 
 			// Mod: change define name
-			if (alert.data.compareTo(ALERT_SINGLE_CHOICE) == 0 || alert.data.compareTo(ALERT_MULTIPLE_CHOICE) == 0)
+			if (alert.data.compareTo(DmProtocol.ALERT_SINGLE_CHOICE) == 0 || alert.data.compareTo(DmProtocol.ALERT_MULTIPLE_CHOICE) == 0)
 			{
 				int iuicMenu = 0;
 				if (cur != null)
@@ -5530,12 +5530,12 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			return SDM_PAUSED_BECAUSE_UIC_COMMAND;
 		}
-		else if (alert.data.compareTo(ALERT_SESSION_ABORT) == 0)
+		else if (alert.data.compareTo(DmProtocol.ALERT_SESSION_ABORT) == 0)
 		{
 			ws.sessionAbort = 1;
 			return SDM_ALERT_SESSION_ABORT;
 		}
-		else if (alert.data.compareTo(ALERT_GENERIC) == 0)
+		else if (alert.data.compareTo(DmProtocol.ALERT_GENERIC) == 0)
 		{
 			// what to do ?
 
@@ -5605,11 +5605,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, ws.statusReturnCode);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, null, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, null, ws.statusReturnCode);
 				}
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
@@ -5624,11 +5624,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, null, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -5646,11 +5646,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ALREADY_EXISTS);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ALREADY_EXISTS);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, null, STATUS_ALREADY_EXISTS);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, null, DmProtocol.STATUS_ALREADY_EXISTS);
 						}
 
 						ws.atomicStep = SyncmlAtomicStep.ATOMIC_STEP_NOT_EXEC;
@@ -5660,11 +5660,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, null, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, null, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 					}
 				}
@@ -5674,22 +5674,22 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_NOT_EXECUTED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, null, STATUS_NOT_EXECUTED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 						}
 					}
 					else
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, null, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, null, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 					}
 				}
@@ -5700,13 +5700,13 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (item.target == null)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, null, STATUS_FORBIDDEN);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, null, DmProtocol.STATUS_FORBIDDEN);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 
 				if (isAtomic)
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 				continue;
 			}
@@ -5723,14 +5723,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					pInbox = ddfParser.dmDDFGetMOPath(ddfParser.DM_MO_ID_INBOX);
 					if (pInbox == null)
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ALREADY_EXISTS);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ALREADY_EXISTS);
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
 						cur = cur.next;
 
-						// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+						// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 						if (isAtomic)
 						{
-							atomic_status.data = STATUS_ATOMIC_FAILED;
+							atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 						}
 						continue;
 					}
@@ -5739,28 +5739,28 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					if (tmp.compareTo(pInbox) != 0)
 					{
 						// already exists(418)
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ALREADY_EXISTS);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ALREADY_EXISTS);
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
 						cur = cur.next;
 
-						// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+						// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 						if (isAtomic)
 						{
-							atomic_status.data = STATUS_ATOMIC_FAILED;
+							atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 						}
 						continue;
 					}
 
 					// already exists(418)
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ALREADY_EXISTS);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ALREADY_EXISTS);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					cur = cur.next;
 					tsLib.debugPrint(DEBUG_DM, "node already Existed[418]");
 
-					// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+					// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 					if (isAtomic)
 					{
-						atomic_status.data = STATUS_ATOMIC_FAILED;
+						atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 					}
 					continue;
 				}
@@ -5802,7 +5802,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 						ws.dataBuffered = true;
 					}
 
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_COMMAND_FAILED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					cur = cur.next;
 
@@ -5810,7 +5810,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 					if (isAtomic)
 					{
-						atomic_status.data = STATUS_ATOMIC_FAILED;
+						atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 					}
 				}
 				continue;
@@ -5823,14 +5823,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				if (item.moredata > 0)
 					ws.dataBuffered = true;
 
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_PERMISSION_DENIED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 
-				// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+				// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 				if (isAtomic)
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 
 				continue;
@@ -5953,18 +5953,18 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 								if (res > 0)
 								{
-									status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_OK);
+									status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_OK);
 									tsLinkedList.listAddObjAtLast(ws.statusList, status);
 									cur = cur.next;
 									continue;
 								}
-								status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_COMMAND_FAILED);
+								status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 								tsLinkedList.listAddObjAtLast(ws.statusList, status);
 								cur = cur.next;
 								continue;
 							}
 
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 							continue;
@@ -6001,17 +6001,17 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 								if (res > 0)
 								{
-									status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_OK);
+									status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_OK);
 									tsLinkedList.listAddObjAtLast(ws.statusList, status);
 									cur = cur.next;
 									continue;
 								}
-								status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_COMMAND_FAILED);
+								status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 								tsLinkedList.listAddObjAtLast(ws.statusList, status);
 								cur = cur.next;
 								continue;
 							}
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 							continue;
@@ -6038,7 +6038,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 							tsdmDB.dmAppendFile(nFileId, bufsize, buf.getBytes());
 							// create status for data buffered...
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 							continue;
@@ -6046,7 +6046,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 						res = ddfParser.dmDDFCreateTNDSNode(buf, bufsize, om);
 						if (res > 0)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_OK);
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 
@@ -6059,7 +6059,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 						buf = null;
 						type = null;
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_COMMAND_FAILED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
 						cur = cur.next; // ADD. 2006.03.22
 						tsLib.debugPrintException(DEBUG_EXCEPTION, " Fail.\n");
@@ -6080,7 +6080,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 							}
 
 							tsdmDB.dmAppendFile(nFileId, bufsize, buf.getBytes());
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 							continue;
@@ -6097,7 +6097,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 						if (res > 0)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_OK);
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 
@@ -6111,7 +6111,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 						buf = null;
 						type = null;
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_COMMAND_FAILED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
 						cur = cur.next;
 						tsLib.debugPrintException(DEBUG_EXCEPTION, "sdmProcessCmdAdd : Warning!!!. Fail.\n");
@@ -6155,9 +6155,9 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					if (addr < 0)
 					{
 						// device full
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_DEVICE_FULL);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_DEVICE_FULL);
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
-						tsLib.debugPrint(DEBUG_DM, "ADD STATUS_DEVICE_FULL");
+						tsLib.debugPrint(DEBUG_DM, "ADD DmProtocol.STATUS_DEVICE_FULL");
 
 						cur = cur.next;
 
@@ -6166,10 +6166,10 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 							ws.dataBuffered = true;
 						}
 
-						// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+						// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 						if (isAtomic)
 						{
-							atomic_status.data = STATUS_ATOMIC_FAILED;
+							atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 						}
 						continue;
 					}
@@ -6189,7 +6189,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				}
 
 				// command failed(500)
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_COMMAND_FAILED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 				buf = null;
@@ -6198,7 +6198,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 				if (isAtomic)
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 				continue;
 			}
@@ -6229,7 +6229,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				ws.dataTotalSize = 0;
 
 				// create status ok
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_OK);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_OK);
 			}
 			else
 			{
@@ -6237,7 +6237,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				ws.dataBuffered = true;
 
 				// create status for data buffered...
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), CMD_ADD, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (add.cmdid), DmProtocol.CMD_ADD, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 			}
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 			cur = cur.next;
@@ -6685,11 +6685,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, ws.statusReturnCode);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, null, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, null, ws.statusReturnCode);
 				}
 
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -6712,11 +6712,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_NOT_FOUND);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_NOT_FOUND);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, null, STATUS_NOT_FOUND);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, null, DmProtocol.STATUS_NOT_FOUND);
 						}
 						ws.atomicStep = SyncmlAtomicStep.ATOMIC_STEP_NOT_EXEC;
 						ws.tmpItem = null;
@@ -6725,11 +6725,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, null, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, null, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 					}
 				}
@@ -6739,22 +6739,22 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_NOT_EXECUTED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, null, STATUS_NOT_EXECUTED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 						}
 					}
 					else
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, null, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, null, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 					}
 				}
@@ -6769,7 +6769,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (item.target == null)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, null, STATUS_NOT_FOUND);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, null, DmProtocol.STATUS_NOT_FOUND);
 				cur = cur.next;
 				continue;
 			}
@@ -6777,7 +6777,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			// if request node property...
 			if (item.target.contains("?"))
 			{
-				res = dmAgentCmdProp(CMD_REPLACE, item, replace);
+				res = dmAgentCmdProp(DmProtocol.CMD_REPLACE, item, replace);
 				cur = cur.next;
 				continue;
 			}
@@ -6785,12 +6785,12 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			node = tsOmlib.dmOmLibGetNodeProp(om, item.target);
 			if (!process)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_NOT_EXECUTED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 
-				// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+				// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 				// MOD : For improved Replace cmd
 				if (status != null)
@@ -6810,10 +6810,10 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_NOT_FOUND);
-					// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_NOT_FOUND);
+					// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 					if ((isAtomic) && (atomic_status != null))
-						atomic_status.data = STATUS_ATOMIC_FAILED;
+						atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 
 					// MOD : For improved Replace cmd
 					if (status != null)
@@ -6826,12 +6826,12 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			else if (dmAgentIsPermanentNode(om, item.target))
 			{
 				tsLib.debugPrint(DEBUG_DM, " Fail");
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 
-				// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+				// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 				// MOD : For improved Replace cmd
 				if (status != null)
@@ -6844,12 +6844,12 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			else if (!tsOmlib.dmOmCheckAcl(om, node, OMACL_REPLACE))
 			{
 				tsLib.debugPrint(DEBUG_DM, " Fail");
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_PERMISSION_DENIED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 
-				// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+				// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 				// MOD : For improved Replace cmd
 				if (status != null)
@@ -6954,18 +6954,18 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 						if (res > 0)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_OK);
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 							continue;
 						}
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_FAILED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
 						cur = cur.next;
 						continue;
 					}
 
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					cur = cur.next;
 					continue;
@@ -6992,7 +6992,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 							}
 							tsdmDB.dmAppendFile(nFileId, (int) bufsize, buf.getBytes());
 							// create status for data buffered...
-							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 							tsLinkedList.listAddObjAtLast(ws.statusList, status);
 							cur = cur.next;
 							continue;
@@ -7004,14 +7004,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 							if (res > 0)
 							{
-								status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_OK);
+								status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_OK);
 								tsLinkedList.listAddObjAtLast(ws.statusList, status);
 								cur = cur.next;
 								continue;
 							}
 						}
 
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_FAILED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
 						cur = cur.next; // ADD. 2006.03.22
 						tsLib.debugPrintException(DEBUG_EXCEPTION, "Delete Fail.\n");
@@ -7019,7 +7019,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					}
 					else if (type.compareTo(SYNCML_MIME_TYPE_TNDS_WBXML) == 0)
 					{
-						status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_OPTIONAL_FEATURE_NOT_SUPPORTED);
+						status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_OPTIONAL_FEATURE_NOT_SUPPORTED);
 						tsLinkedList.listAddObjAtLast(ws.statusList, status);
 						cur = cur.next; // ADD. 2006.03.22
 						tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support TNDS with WBXML Type.\n");
@@ -7056,12 +7056,12 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			if (res < 0)
 			{
 				// writing failed - command failed(500)
-				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_COMMAND_FAILED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 
-				// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+				// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 			}
 			else
@@ -7097,7 +7097,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					}
 
 					// writing success
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_OK);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_OK);
 				}
 				else
 				{
@@ -7111,7 +7111,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					}
 
 					// create status for data buffered...
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), CMD_REPLACE, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (replace.cmdid), DmProtocol.CMD_REPLACE, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 				}
 			}
 
@@ -7212,11 +7212,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, (copy.cmdid), CMD_COPY, null, item.target, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, (copy.cmdid), DmProtocol.CMD_COPY, null, item.target, ws.statusReturnCode);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, null, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, null, ws.statusReturnCode);
 				}
 
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -7233,11 +7233,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, null, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
@@ -7255,11 +7255,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_ALREADY_EXISTS);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_ALREADY_EXISTS);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, null, STATUS_ALREADY_EXISTS);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, null, DmProtocol.STATUS_ALREADY_EXISTS);
 						}
 
 						ws.atomicStep = SyncmlAtomicStep.ATOMIC_STEP_NOT_EXEC;
@@ -7270,11 +7270,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 						// roll back...
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, null, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, null, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 					}
 				}
@@ -7284,22 +7284,22 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_NOT_EXECUTED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, null, STATUS_NOT_EXECUTED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 						}
 					}
 					else
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, null, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, null, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 					}
 				}
@@ -7310,7 +7310,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (item.target == null)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, null, STATUS_NOT_FOUND);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, null, DmProtocol.STATUS_NOT_FOUND);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -7318,7 +7318,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (item.target == null)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, null, STATUS_NOT_FOUND);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, null, DmProtocol.STATUS_NOT_FOUND);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 				continue;
@@ -7328,14 +7328,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 			if (node == null)
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.source, STATUS_NOT_EXECUTED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.source, DmProtocol.STATUS_NOT_EXECUTED);
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
 
-				// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+				// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 				continue;
 			}
@@ -7382,13 +7382,13 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 				if (node.format == FORMAT_NODE)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.source, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.source, DmProtocol.STATUS_NOT_EXECUTED);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					cur = cur.next;
 
 					if ((isAtomic) && (atomic_status != null))
 					{
-						atomic_status.data = STATUS_ATOMIC_FAILED;
+						atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 					}
 					continue;
 				}
@@ -7407,7 +7407,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					ws.dataTotalSize = 0;
 
 					// create status ok
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_OK);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_OK);
 				}
 				else
 				{
@@ -7415,7 +7415,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					ws.dataBuffered = true;
 
 					// create status for data buffered...
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 				}
 			}
 			else
@@ -7432,14 +7432,14 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 						ws.dataBuffered = true;
 					}
 					// command failed(500)
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_COMMAND_FAILED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					cur = cur.next;
 
-					// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+					// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 					if ((isAtomic) && (atomic_status != null))
 					{
-						atomic_status.data = STATUS_ATOMIC_FAILED;
+						atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 					}
 					continue;
 				}
@@ -7451,7 +7451,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						ws.dataBuffered = true;
 					}
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_PERMISSION_DENIED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 					cur = cur.next;
 					continue;
@@ -7472,16 +7472,16 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					}
 
 					// command failed(500)
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_COMMAND_FAILED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_COMMAND_FAILED);
 					tsLinkedList.listAddObjAtLast(ws.statusList, status);
 
 					ws.dataBuffered = false;
 					cur = cur.next;
 
-					// command in Atomic -> atomic status change to STATUS_ATOMIC_FAILED
+					// command in Atomic -> atomic status change to DmProtocol.STATUS_ATOMIC_FAILED
 					if ((isAtomic) && (atomic_status != null))
 					{
-						atomic_status.data = STATUS_ATOMIC_FAILED;
+						atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 					}
 					continue;
 				}
@@ -7507,7 +7507,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					ws.dataTotalSize = 0;
 
 					// create status ok
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_OK);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_OK);
 				}
 				else
 				{
@@ -7515,7 +7515,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					ws.dataBuffered = true;
 
 					// create status for data buffered...
-					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, CMD_COPY, null, item.target, STATUS_ACCEPTED_AND_BUFFERED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, copy.cmdid, DmProtocol.CMD_COPY, null, item.target, DmProtocol.STATUS_ACCEPTED_AND_BUFFERED);
 				}
 			}
 
@@ -7547,11 +7547,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, ws.statusReturnCode);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, null, ws.statusReturnCode);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, null, ws.statusReturnCode);
 				}
 				tsLinkedList.listAddObjAtLast(ws.statusList, status);
 				cur = cur.next;
@@ -7567,16 +7567,16 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, null, STATUS_NOT_EXECUTED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 				}
 
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 			}
 			// if failed atomic block...
@@ -7589,11 +7589,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_NOT_FOUND);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_NOT_FOUND);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, null, STATUS_NOT_FOUND);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, null, DmProtocol.STATUS_NOT_FOUND);
 						}
 						ws.atomicStep = SyncmlAtomicStep.ATOMIC_STEP_NOT_EXEC;
 						ws.tmpItem = null;
@@ -7602,11 +7602,11 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, null, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, null, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 					}
 				}
@@ -7616,22 +7616,22 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_NOT_EXECUTED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_NOT_EXECUTED);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, null, STATUS_NOT_EXECUTED);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, null, DmProtocol.STATUS_NOT_EXECUTED);
 						}
 					}
 					else
 					{
 						if (item.target != null)
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 						else
 						{
-							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, null, STATUS_ATOMIC_ROLL_BACK_OK);
+							status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, null, DmProtocol.STATUS_ATOMIC_ROLL_BACK_OK);
 						}
 					}
 				}
@@ -7640,44 +7640,44 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			{
 				if (item.target != null)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_NOT_FOUND);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_NOT_FOUND);
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, null, STATUS_NOT_FOUND);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, null, DmProtocol.STATUS_NOT_FOUND);
 				}
 
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 
 			}
 			else if (dmAgentIsPermanentNode(om, item.target))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 			}
 			else if (!tsOmlib.dmOmCheckAcl(om, node, OMACL_DELETE))
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_PERMISSION_DENIED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_PERMISSION_DENIED);
 
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 			}
 			else if (node == om.vfs.root) // need check
 			{
-				status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+				status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 
 				if ((isAtomic) && (atomic_status != null))
 				{
-					atomic_status.data = STATUS_ATOMIC_FAILED;
+					atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 				}
 			}
 			else
@@ -7686,15 +7686,15 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				res = tsOmlib.dmOmlibDelete(om, item.target, true);
 				if (res < 0)
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_COMMAND_NOT_ALLOWED);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_COMMAND_NOT_ALLOWED);
 					if ((isAtomic) && (atomic_status != null))
 					{
-						atomic_status.data = STATUS_ATOMIC_FAILED;
+						atomic_status.data = DmProtocol.STATUS_ATOMIC_FAILED;
 					}
 				}
 				else
 				{
-					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, CMD_DELETE, null, item.target, STATUS_OK);
+					status = dmBuildcmd.dmBuildCmdStatus(ws, delcmd.cmdid, DmProtocol.CMD_DELETE, null, item.target, DmProtocol.STATUS_OK);
 				}
 			}
 
@@ -7735,7 +7735,7 @@ public class dmAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		if (!ws.IsSequenceProcessing)
 		{
-			status = dmBuildcmd.dmBuildCmdStatus(ws, sequence.cmdid, "Sequence", null, null, STATUS_OK);
+			status = dmBuildcmd.dmBuildCmdStatus(ws, sequence.cmdid, "Sequence", null, null, DmProtocol.STATUS_OK);
 			tsLinkedList.listAddObjAtLast(ws.statusList, status);
 		}
 		if (sequence.itemlist != null)

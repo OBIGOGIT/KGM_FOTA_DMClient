@@ -1,11 +1,12 @@
 package com.tsdm.adapt;
 
 import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmProtocol;
 import com.tsdm.db.tsDefineDB;
 import com.tsdm.db.tsDBUICResultKeep;
 import com.tsdm.db.tsdmDB;
 
-public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefineDB
+public class tsDmUic implements dmDefineDevInfo, tsDefineUic, tsDefineDB
 {
 	public static tsDmUicOption dmUicCreateUicOption()
 	{
@@ -45,23 +46,23 @@ public class tsDmUic implements dmDefineDevInfo, tsDefIne, tsDefineUic, tsDefine
 	{
 		tsLib.debugPrint(DEBUG_DM, "pType " + pType);
 		int type = UIC_TYPE_NONE;
-		if (pType.compareTo(ALERT_DISPLAY) == 0)
+		if (pType.compareTo(DmProtocol.ALERT_DISPLAY) == 0)
 		{
 			type = UIC_TYPE_DISP;
 		}
-		else if (pType.compareTo(ALERT_CONTINUE_OR_ABORT) == 0)
+		else if (pType.compareTo(DmProtocol.ALERT_CONTINUE_OR_ABORT) == 0)
 		{
 			type = UIC_TYPE_CONFIRM;
 		}
-		else if (pType.compareTo(ALERT_TEXT_INPUT) == 0)
+		else if (pType.compareTo(DmProtocol.ALERT_TEXT_INPUT) == 0)
 		{
 			type = UIC_TYPE_INPUT;
 		}
-		else if (pType.compareTo(ALERT_SINGLE_CHOICE) == 0)
+		else if (pType.compareTo(DmProtocol.ALERT_SINGLE_CHOICE) == 0)
 		{
 			type = UIC_TYPE_SINGLE_CHOICE;
 		}
-		else if (pType.compareTo(ALERT_MULTIPLE_CHOICE) == 0)
+		else if (pType.compareTo(DmProtocol.ALERT_MULTIPLE_CHOICE) == 0)
 		{
 			type = UIC_TYPE_MULTI_CHOICE;
 		}

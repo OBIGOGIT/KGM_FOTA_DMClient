@@ -6,7 +6,6 @@ import com.tsdm.db.tsDB;
 import com.tsdm.db.tsDBFumoInfo;
 import com.tsdm.db.tsDBURLParser;
 import com.tsdm.db.tsdmDB;
-import com.tsdm.adapt.tsDefIne;
 import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsLib;
 import com.tsdm.adapt.tsDmMsg;
@@ -19,7 +18,7 @@ import com.tsdm.net.netTimerReceive;
 import com.tsdm.net.netTimerSend;
 import com.tsdm.tsService;
 
-public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDefIne, netDefine
+public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, netDefine
 {
 	public static final int			HTTP_HEADER_MAX_SIZE		= 768;
 	public static final int 		DM_DL_MAX_DOWNLOAD_SIZE = HTTP_HEADER_MAX_SIZE + WBXML_DM_MAX_MESSAGE_SIZE;
@@ -384,8 +383,9 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_USER_CANCEL);
 		try
 		{
-			if(pDownloadStatus.getBytes() !=null)
-			nRc = gHttpDLAdapter.tpSendData(pDownloadStatus.getBytes(), pDownloadStatus.length(), SYNCMLDL);
+			if(pDownloadStatus.getBytes() !=null) {
+				nRc = gHttpDLAdapter.tpSendData(pDownloadStatus.getBytes(), pDownloadStatus.length(), SYNCMLDL);
+			}
 		}
 		catch (SocketTimeoutException e)
 		{
