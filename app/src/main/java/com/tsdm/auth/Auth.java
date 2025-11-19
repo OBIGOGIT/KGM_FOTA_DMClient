@@ -3,10 +3,10 @@ package com.tsdm.auth;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class Auth implements dmDefineDevInfo
+public class Auth
 {
 	public static com.tsdm.auth.md5 md5;
 
@@ -17,85 +17,85 @@ public class Auth implements dmDefineDevInfo
 	{
 		switch (type)
 		{
-			case CRED_TYPE_BASIC:
-				return CRED_TYPE_STRING_BASIC;
-			case CRED_TYPE_MD5:
-				return CRED_TYPE_STRING_MD5;
-			case CRED_TYPE_HMAC:
-				return CRED_TYPE_STRING_HMAC;
-			case CRED_TYPE_X509:
-				return CRED_TYPE_STRING_X509;
-			case CRED_TYPE_SECUREID:
-				return CRED_TYPE_STRING_SECUREID;
-			case CRED_TYPE_SAFEWORD:
-				return CRED_TYPE_STRING_SAFEWORD;
-			case CRED_TYPE_DIGIPASS:
-				return CRED_TYPE_STRING_DIGIPASS;
+			case DmDevInfoConst.CRED_TYPE_BASIC:
+				return DmDevInfoConst.CRED_TYPE_STRING_BASIC;
+			case DmDevInfoConst.CRED_TYPE_MD5:
+				return DmDevInfoConst.CRED_TYPE_STRING_MD5;
+			case DmDevInfoConst.CRED_TYPE_HMAC:
+				return DmDevInfoConst.CRED_TYPE_STRING_HMAC;
+			case DmDevInfoConst.CRED_TYPE_X509:
+				return DmDevInfoConst.CRED_TYPE_STRING_X509;
+			case DmDevInfoConst.CRED_TYPE_SECUREID:
+				return DmDevInfoConst.CRED_TYPE_STRING_SECUREID;
+			case DmDevInfoConst.CRED_TYPE_SAFEWORD:
+				return DmDevInfoConst.CRED_TYPE_STRING_SAFEWORD;
+			case DmDevInfoConst.CRED_TYPE_DIGIPASS:
+				return DmDevInfoConst.CRED_TYPE_STRING_DIGIPASS;
 			default:
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support Auth Type");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Support Auth Type");
 				return null;
 		}
 	}
 
 	public static int authCredString2Type(String type)
 	{
-		if (type.compareTo(CRED_TYPE_STRING_BASIC) == 0)
-			return CRED_TYPE_BASIC;
-		else if (type.compareTo(CRED_TYPE_STRING_MD5) == 0)
-			return CRED_TYPE_MD5;
-		else if (type.compareTo(CRED_TYPE_STRING_HMAC) == 0)
-			return CRED_TYPE_HMAC;
-		else if (type.compareTo(CRED_TYPE_STRING_X509) == 0)
-			return CRED_TYPE_X509;
-		else if (type.compareTo(CRED_TYPE_STRING_SECUREID) == 0)
-			return CRED_TYPE_SECUREID;
-		else if (type.compareTo(CRED_TYPE_STRING_SAFEWORD) == 0)
-			return CRED_TYPE_SAFEWORD;
-		else if (type.compareTo(CRED_TYPE_STRING_DIGIPASS) == 0)
-			return CRED_TYPE_DIGIPASS;
+		if (type.compareTo(DmDevInfoConst.CRED_TYPE_STRING_BASIC) == 0)
+			return DmDevInfoConst.CRED_TYPE_BASIC;
+		else if (type.compareTo(DmDevInfoConst.CRED_TYPE_STRING_MD5) == 0)
+			return DmDevInfoConst.CRED_TYPE_MD5;
+		else if (type.compareTo(DmDevInfoConst.CRED_TYPE_STRING_HMAC) == 0)
+			return DmDevInfoConst.CRED_TYPE_HMAC;
+		else if (type.compareTo(DmDevInfoConst.CRED_TYPE_STRING_X509) == 0)
+			return DmDevInfoConst.CRED_TYPE_X509;
+		else if (type.compareTo(DmDevInfoConst.CRED_TYPE_STRING_SECUREID) == 0)
+			return DmDevInfoConst.CRED_TYPE_SECUREID;
+		else if (type.compareTo(DmDevInfoConst.CRED_TYPE_STRING_SAFEWORD) == 0)
+			return DmDevInfoConst.CRED_TYPE_SAFEWORD;
+		else if (type.compareTo(DmDevInfoConst.CRED_TYPE_STRING_DIGIPASS) == 0)
+			return DmDevInfoConst.CRED_TYPE_DIGIPASS;
 		else
-			return CRED_TYPE_NONE;
+			return DmDevInfoConst.CRED_TYPE_NONE;
 	}
 
 	public static String authAAuthType2String(int type)
 	{
 		switch (type)
 		{
-			case CRED_TYPE_BASIC:
-				return AUTH_TYPE_BASIC;
-			case CRED_TYPE_MD5:
-				return AUTH_TYPE_DIGEST;
-			case CRED_TYPE_HMAC:
-				return AUTH_TYPE_HMAC;
-			case CRED_TYPE_X509:
-				return AUTH_TYPE_X509;
-			case CRED_TYPE_SECUREID:
-				return AUTH_TYPE_SECUREID;
-			case CRED_TYPE_SAFEWORD:
-				return AUTH_TYPE_SAFEWORD;
-			case CRED_TYPE_DIGIPASS:
-				return AUTH_TYPE_DIGIPASS;
+			case DmDevInfoConst.CRED_TYPE_BASIC:
+				return DmDevInfoConst.AUTH_TYPE_BASIC;
+			case DmDevInfoConst.CRED_TYPE_MD5:
+				return DmDevInfoConst.AUTH_TYPE_DIGEST;
+			case DmDevInfoConst.CRED_TYPE_HMAC:
+				return DmDevInfoConst.AUTH_TYPE_HMAC;
+			case DmDevInfoConst.CRED_TYPE_X509:
+				return DmDevInfoConst.AUTH_TYPE_X509;
+			case DmDevInfoConst.CRED_TYPE_SECUREID:
+				return DmDevInfoConst.AUTH_TYPE_SECUREID;
+			case DmDevInfoConst.CRED_TYPE_SAFEWORD:
+				return DmDevInfoConst.AUTH_TYPE_SAFEWORD;
+			case DmDevInfoConst.CRED_TYPE_DIGIPASS:
+				return DmDevInfoConst.AUTH_TYPE_DIGIPASS;
 			default:
-				return AUTH_TYPE_NONE;
+				return DmDevInfoConst.AUTH_TYPE_NONE;
 		}
 	}
 
 	public static int authAAuthtring2Type(String type)
 	{
-		if (type.compareTo(AUTH_TYPE_BASIC) == 0)
-			return CRED_TYPE_BASIC;
-		else if (type.compareTo(AUTH_TYPE_DIGEST) == 0)
-			return CRED_TYPE_MD5;
-		else if (type.compareTo(AUTH_TYPE_HMAC) == 0)
-			return CRED_TYPE_HMAC;
-		else if (type.compareTo(AUTH_TYPE_X509) == 0)
-			return CRED_TYPE_X509;
-		else if (type.compareTo(AUTH_TYPE_SECUREID) == 0)
-			return CRED_TYPE_SECUREID;
-		else if (type.compareTo(AUTH_TYPE_DIGIPASS) == 0)
-			return CRED_TYPE_DIGIPASS;
+		if (type.compareTo(DmDevInfoConst.AUTH_TYPE_BASIC) == 0)
+			return DmDevInfoConst.CRED_TYPE_BASIC;
+		else if (type.compareTo(DmDevInfoConst.AUTH_TYPE_DIGEST) == 0)
+			return DmDevInfoConst.CRED_TYPE_MD5;
+		else if (type.compareTo(DmDevInfoConst.AUTH_TYPE_HMAC) == 0)
+			return DmDevInfoConst.CRED_TYPE_HMAC;
+		else if (type.compareTo(DmDevInfoConst.AUTH_TYPE_X509) == 0)
+			return DmDevInfoConst.CRED_TYPE_X509;
+		else if (type.compareTo(DmDevInfoConst.AUTH_TYPE_SECUREID) == 0)
+			return DmDevInfoConst.CRED_TYPE_SECUREID;
+		else if (type.compareTo(DmDevInfoConst.AUTH_TYPE_DIGIPASS) == 0)
+			return DmDevInfoConst.CRED_TYPE_DIGIPASS;
 		else
-			return CRED_TYPE_NONE;
+			return DmDevInfoConst.CRED_TYPE_NONE;
 	}
 
 	public static String authMakeDigest(int authType, String userName, String passWord, byte[] nonce, int nonceLength, byte[] packetBody, int bodyLength, String serverID)
@@ -107,44 +107,44 @@ public class Auth implements dmDefineDevInfo
 
 		switch (authType)
 		{
-			case CRED_TYPE_BASIC:
+			case DmDevInfoConst.CRED_TYPE_BASIC:
 			{
 				if ((userName == null) || (passWord == null))
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "userName or passWord is NULL");
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "userName or passWord is NULL");
 					return null;
 				}
 				break;
 			}
-			case CRED_TYPE_MD5:
+			case DmDevInfoConst.CRED_TYPE_MD5:
 			{
 				if ((userName == null) || (passWord == null) || (nonce == null) || (nonceLength <= 0))
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "userName or passWord or nonce or nonceLength is NULL");
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "userName or passWord or nonce or nonceLength is NULL");
 					return null;
 				}
 				break;
 			}
-			case CRED_TYPE_HMAC:
-			case CRED_TYPE_MD5_NOT_BASE64:
+			case DmDevInfoConst.CRED_TYPE_HMAC:
+			case DmDevInfoConst.CRED_TYPE_MD5_NOT_BASE64:
 			{
 				if ((userName == null) || (passWord == null) || (nonce == null) || (nonceLength <= 0) || (packetBody == null) || (bodyLength <= 0))
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "userName or passWord or nonce or nonceLength or packetBody or bodyLength is NULL");
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "userName or passWord or nonce or nonceLength or packetBody or bodyLength is NULL");
 					return null;
 				}
 				break;
 			}
 			default:
 			{
-				tsLib.debugPrint(DEBUG_AUTH, "Not Support Auth Type");
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_AUTH, "Not Support Auth Type");
 				return null;
 			}
 		}
 
 		switch (authType)
 		{
-			case CRED_TYPE_BASIC:
+			case DmDevInfoConst.CRED_TYPE_BASIC:
 			{
 				creddata = userName;
 				creddata = creddata.concat(":");
@@ -152,11 +152,11 @@ public class Auth implements dmDefineDevInfo
 				digest = base64.encode(creddata.getBytes());
 				ret = new String(digest);
 
-				tsLib.debugPrint(DEBUG_AUTH, "CRED_TYPE_BASIC name:" + userName + " pwd:" + passWord + " cred:" + creddata + " ret:" + ret);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_AUTH, "DmDevInfoConst.CRED_TYPE_BASIC name:" + userName + " pwd:" + passWord + " cred:" + creddata + " ret:" + ret);
 				creddata = null;
 				break;
 			}
-			case CRED_TYPE_MD5:
+			case DmDevInfoConst.CRED_TYPE_MD5:
 			{
 
 				com.tsdm.auth.md5 md5 = new md5();
@@ -164,13 +164,13 @@ public class Auth implements dmDefineDevInfo
 				ret = new String(md5digest);
 
 				String non = new String(nonce);
-				tsLib.debugPrint(DEBUG_AUTH, "CRED_TYPE_MD5 name= " + userName + " pwd= " + passWord + " nonce= " + non + " ret= " + ret);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_AUTH, "DmDevInfoConst.CRED_TYPE_MD5 name= " + userName + " pwd= " + passWord + " nonce= " + non + " ret= " + ret);
 
 				creddata = null;
 				break;
 			}
-			case CRED_TYPE_HMAC:
-			case CRED_TYPE_MD5_NOT_BASE64: // for Dm noti.
+			case DmDevInfoConst.CRED_TYPE_HMAC:
+			case DmDevInfoConst.CRED_TYPE_MD5_NOT_BASE64: // for Dm noti.
 			{
 				MessageDigest md5 = null;
 				try
@@ -179,7 +179,7 @@ public class Auth implements dmDefineDevInfo
 				}
 				catch (NoSuchAlgorithmException e)
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 				}
 
 				// Defects
@@ -204,7 +204,7 @@ public class Auth implements dmDefineDevInfo
 				creddata = creddata.concat(":");
 				creddata = creddata.concat(databody);
 				digest = md5.digest(creddata.getBytes());
-				if (authType == CRED_TYPE_HMAC)
+				if (authType == DmDevInfoConst.CRED_TYPE_HMAC)
 				{
 					byte[] encoder3 = base64.encode(digest);
 					ret = null;
@@ -232,14 +232,14 @@ public class Auth implements dmDefineDevInfo
 
 		switch (nAuthType)
 		{
-			case CRED_TYPE_SHA1:
+			case DmDevInfoConst.CRED_TYPE_SHA1:
 				if ((pszSecretKey == null) || (pszPacketBody == null))
 				{
 					return null;
 				}
 				break;
 			default:
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support Auth Type.");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Support Auth Type.");
 				return null;
 		}
 
@@ -273,7 +273,7 @@ public class Auth implements dmDefineDevInfo
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		// Defects
@@ -303,7 +303,7 @@ public class Auth implements dmDefineDevInfo
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		// Defects
@@ -328,7 +328,7 @@ public class Auth implements dmDefineDevInfo
 
 		if ((userName == null) || (passWord == null) || (nonce == null) || (nonceLength <= 0) || (packetBody == null) || (bodyLength <= 0))
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "userName or passWord or nonce or nonceLength or packetBody or bodyLength is NULL");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "userName or passWord or nonce or nonceLength or packetBody or bodyLength is NULL");
 			return null;
 		}
 
@@ -340,7 +340,7 @@ public class Auth implements dmDefineDevInfo
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 
 		if (md5 != null)
@@ -390,7 +390,7 @@ public class Auth implements dmDefineDevInfo
 			digest = md5.digest();
 		}
 
-		if (authType == CRED_TYPE_HMAC)
+		if (authType == DmDevInfoConst.CRED_TYPE_HMAC)
 		{
 			byte[] encoder3 = base64.encode(digest);
 			ret = null;

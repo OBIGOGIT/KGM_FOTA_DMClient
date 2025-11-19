@@ -7,10 +7,11 @@ import android.os.StatFs;
 import java.io.File;
 
 import com.tsdm.adapt.tsLib;
-import com.tsdm.net.netDefine;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.net.NetConsts;
 import com.tsdm.tsService;
 
-public class dmDevInfoAdapter implements dmDefineDevInfo
+public class dmDevInfoAdapter
 {
 	static String DEVICEID = "";
 	public static void devAdpSetDeviceId(String DeviceId)
@@ -57,7 +58,7 @@ public class dmDevInfoAdapter implements dmDefineDevInfo
 		final String language = configuration.locale.getLanguage();
 		final String country = configuration.locale.getCountry();
 		String loc = String.format("%s-%s", language, country);
-		tsLib.debugPrint(DEBUG_DM, "language = " + loc);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "language = " + loc);
 		return loc;
 	}
 	public static String devAdpGetLanguageSetting()
@@ -106,7 +107,7 @@ public class dmDevInfoAdapter implements dmDefineDevInfo
 			pModelName = "";
 		}
 
-		pUserAgent = pManufacturer + " " + pModelName + " " + netDefine.HTTP_DM_USER_AGENT;
+		pUserAgent = pManufacturer + " " + pModelName + " " + NetConsts.HTTP_DM_USER_AGENT;
 		return pUserAgent;
 	}
 
@@ -134,12 +135,12 @@ public class dmDevInfoAdapter implements dmDefineDevInfo
 		boolean bret = false;
 		try
 		{
-			tsLib.debugPrint(DEBUG_DM, "checkExternalSdMemoryAvailable() = " + String.valueOf(Environment.getExternalStorageState()));
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "checkExternalSdMemoryAvailable() = " + String.valueOf(Environment.getExternalStorageState()));
 			bret = Environment. getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrint(DEBUG_EXCEPTION, "checkExternalSdMemoryAvailable() = " + e.toString());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_EXCEPTION, "checkExternalSdMemoryAvailable() = " + e.toString());
 		}
 		return bret;
 	}
@@ -149,12 +150,12 @@ public class dmDevInfoAdapter implements dmDefineDevInfo
 		boolean bret = false;
 		try
 		{
-			tsLib.debugPrint(DEBUG_DM, "checkExternalMemoryAvailable() = " + String.valueOf(Environment.getExternalStorageState()));
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "checkExternalMemoryAvailable() = " + String.valueOf(Environment.getExternalStorageState()));
 			bret = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrint(DEBUG_EXCEPTION, "checkExternalMemoryAvailable() = " + e.toString());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_EXCEPTION, "checkExternalMemoryAvailable() = " + e.toString());
 		}
 		return bret;
 	}
@@ -210,7 +211,7 @@ public class dmDevInfoAdapter implements dmDefineDevInfo
 		availableBlocks = stat.getAvailableBlocks();
 		freeSpace = blockSize * ((long) availableBlocks - 4);
 
-		tsLib.debugPrint(DEBUG_DM, "freeSpace = " + freeSpace + ", nPkgSize = " + nPkgSize);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "freeSpace = " + freeSpace + ", nPkgSize = " + nPkgSize);
 
 		if (freeSpace >= nPkgSize)
 		{

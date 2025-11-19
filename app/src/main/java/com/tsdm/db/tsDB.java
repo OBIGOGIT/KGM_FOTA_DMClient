@@ -3,22 +3,22 @@ package com.tsdm.db;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.net.NetConsts;
 import com.tsdm.net.netHttpUtil;
-import com.tsdm.net.netDefine;
 
-public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
+public class tsDB extends tsdmDB implements Serializable
 {
 	private static final long	serialVersionUID	= 1L;
 
 	public static int dbGetConnectType(int nAppId)
 	{
-		int type = netDefine.TP_TYPE_NONE;
+		int type = NetConsts.TP_TYPE_NONE;
 
 		switch (nAppId)
 		{
-			case SYNCMLDM:
+			case DmDevInfoConst.SYNCMLDM:
 			{
 				String szProtocol = "";
 				szProtocol = tsdmDB.dmdbGetProtocol();
@@ -28,29 +28,29 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 				}
 				else
 				{
-					type = netDefine.TP_TYPE_HTTP;
+					type = NetConsts.TP_TYPE_HTTP;
 				}
 				break;
 			}
-			case SYNCMLDL:
+			case DmDevInfoConst.SYNCMLDL:
 			{
 				String szProtocol = "";
-				int nAgentType = SYNCML_DM_AGENT_DM;
+				int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
 				szProtocol = tsdmDB.dmdbGetFUMOProtocol();
 				if (!tsLib.isEmpty(szProtocol))
 				{
-					tsLib.debugPrint(DEBUG_DB, String.format("Protool [%s]", szProtocol)); // defect_110921
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, String.format("Protool [%s]", szProtocol)); // defect_110921
 					type = netHttpUtil.exchangeProtocolType(szProtocol);
 				}
 				else
 				{
-					type = netDefine.TP_TYPE_HTTP;
+					type = NetConsts.TP_TYPE_HTTP;
 				}
 				break;
 			}
 			default:
-				type = netDefine.TP_TYPE_HTTP;
+				type = NetConsts.TP_TYPE_HTTP;
 				break;
 		}
 		return type;
@@ -62,7 +62,7 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 
 		switch (nAppId)
 		{
-			case SYNCMLDM:
+			case DmDevInfoConst.SYNCMLDM:
 				SessionId = tsdmDB.dmdbGetNotiSessionID(nAppId);
 				break;
 
@@ -79,16 +79,16 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 
 		switch (nAppId)
 		{
-			case SYNCMLDM:
-			case SYNCMLDL:
+			case DmDevInfoConst.SYNCMLDM:
+			case DmDevInfoConst.SYNCMLDL:
 				nEvent = dmdbGetNotiEvent();
 				break;
 
 			default:
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Support Application: " + nAppId);
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Support Application: " + nAppId);
 				break;
 		}
-		tsLib.debugPrint(DEBUG_DB, "nEvent :" + nEvent);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "nEvent :" + nEvent);
 		return nEvent;
 	}
 
@@ -100,7 +100,7 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 		String pCurrentPointer;
 		String[] pNextPointer;
 		String pTempAddress;
-		int nProtocol = netDefine.TP_TYPE_HTTP;
+		int nProtocol = NetConsts.TP_TYPE_HTTP;
 		int index = 0;
 
 		String pAddress, pPath, pProtocol;
@@ -110,12 +110,12 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 
 		if (pURL.startsWith(HTTPS))
 		{
-			pProtocol = NETWORK_TYPE_HTTPS;
+			pProtocol = DmDevInfoConst.NETWORK_TYPE_HTTPS;
 			pCurrentPointer = pURL.substring(HTTPS.length(), pURL.length());
 		}
 		else if (pURL.startsWith(HTTP))
 		{
-			pProtocol = NETWORK_TYPE_HTTP;
+			pProtocol = DmDevInfoConst.NETWORK_TYPE_HTTP;
 			pCurrentPointer = pURL.substring(HTTP.length(), pURL.length());
 		}
 		else
@@ -156,13 +156,13 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 
 			switch (nProtocol)
 			{
-				case netDefine.TP_TYPE_HTTPS:
+				case NetConsts.TP_TYPE_HTTPS:
 					nPort = 443; // https
 					break;
-				case netDefine.TP_TYPE_HTTP:
+				case NetConsts.TP_TYPE_HTTP:
 					nPort = 80; // http
 					break;
-				case netDefine.TP_TYPE_NONE:
+				case NetConsts.TP_TYPE_NONE:
 				default:
 					nPort = 80; // http
 					break;
@@ -189,7 +189,7 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 		}
 
 		retStr = pURL.replaceAll("&amp;", "&");
-		tsLib.debugPrint(DEBUG_DB, "URL = " + retStr);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, "URL = " + retStr);
 
 		return retStr;
 	}
@@ -197,7 +197,7 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 	public static char[] dbDoDMBootStrapURI(char[] ResultURI, char[] BootURI, char[] BootPort)
 	{
 		int UriLen = 0;
-		char[] temp = new char[DEFAULT_BUFFER_SIZE_2];
+		char[] temp = new char[DmDevInfoConst.DEFAULT_BUFFER_SIZE_2];
 		int i = 0;
 		int t = 0;
 		int nCount = 0;
@@ -238,7 +238,7 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
 					/*ResultURI = tArg.toCharArray();*/
-					tsLib.debugPrint(DEBUG_DB,  tArg); //ResultURI.toString());
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DB,  tArg); //ResultURI.toString());
 					return tArg.toCharArray();
 				}
 				else
@@ -250,7 +250,7 @@ public class tsDB extends tsdmDB implements Serializable, dmDefineDevInfo
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
 					/*ResultURI = tArg.toCharArray();*/
-					tsLib.debugPrint(DEBUG_DB,  tArg);
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DB,  tArg);
 					t = 0;
 					return tArg.toCharArray();
 				}

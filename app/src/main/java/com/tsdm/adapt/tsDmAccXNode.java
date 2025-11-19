@@ -1,11 +1,11 @@
 package com.tsdm.adapt;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.db.tsDBAccXNode;
 import com.tsdm.db.tsdmDB;
 import com.tsdm.agent.dmPreConfigEntity;
 
-public class tsDmAccXNode implements dmDefineDevInfo
+public class tsDmAccXNode
 {
 	public String	Account;
 	public String	AppAddr;
@@ -16,7 +16,7 @@ public class tsDmAccXNode implements dmDefineDevInfo
 
 	public tsDmAccXNode()
 	{
-		if(_SYNCML_TS_DM_REGISTRY_PROFILE_)
+		if(DmDevInfoConst._SYNCML_TS_DM_REGISTRY_PROFILE_)
 		{
 			tsDBAccXNode pAccXnodeInfo = new tsDBAccXNode();
 			int nIdx = tsdmDB.dmdbGetProfileIndex();

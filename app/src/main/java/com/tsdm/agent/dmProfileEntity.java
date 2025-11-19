@@ -1,9 +1,10 @@
 package com.tsdm.agent;
 
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.db.tsDefineDB;
 import com.tsdm.adapt.tsLib;
 
-public class dmProfileEntity implements dmDefineDevInfo, tsDefineDB
+public class dmProfileEntity implements tsDefineDB
 {
 	private static int			row;
 	private static boolean		rowState							= false;
@@ -21,7 +22,7 @@ public class dmProfileEntity implements dmDefineDevInfo, tsDefineDB
 	public static String dmDoServerURI(String ResultURI, char[] BootURI, char[] BootPort)
 	{
 		int UriLen = 0;
-		char[] temp = new char[DEFAULT_BUFFER_SIZE_2];
+		char[] temp = new char[DmDevInfoConst.DEFAULT_BUFFER_SIZE_2];
 		int i = 0;
 		int t = 0;
 		int nCount = 0;
@@ -61,7 +62,7 @@ public class dmProfileEntity implements dmDefineDevInfo, tsDefineDB
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
 					/*ResultURI = tArg;*/
-					tsLib.debugPrint(DEBUG_DM, tArg);
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, tArg);
 					return tArg;
 				}
 				else
@@ -73,7 +74,7 @@ public class dmProfileEntity implements dmDefineDevInfo, tsDefineDB
 					Path = Path.substring(i);
 					tArg = tArg.concat(Path);
 				    /*	ResultURI = tArg;*/
-					tsLib.debugPrint(DEBUG_DM, tArg);
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, tArg);
 					t = 0;
 					return tArg;
 				}

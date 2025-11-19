@@ -2,9 +2,10 @@ package com.tsdm.adapt;
 
 import java.io.IOException;
 
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.WbxmlProtocolConst;
 
-public class tsDmParserMem implements tsDefineWbxml
+public class tsDmParserMem
 {
 	public String	shared;
 	public int		free;
@@ -13,26 +14,26 @@ public class tsDmParserMem implements tsDefineWbxml
 	public int dmParseMem(tsDmParser p)
 	{
 		int id = -1;
-		int res = DM_ERR_OK;
+		int res = WbxmlProtocolConst.DM_ERR_OK;
 
-		res = p.dmParseCheckElement(WBXML_METINF_Mem);
-		if (res != DM_ERR_OK)
+		res = p.dmParseCheckElement(WbxmlProtocolConst.WBXML_METINF_Mem);
+		if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
 			return res;
 		}
 
 		res = p.dmParseZeroBitTagCheck();
-		if (res == DM_ERR_ZEROBIT_TAG)
+		if (res == WbxmlProtocolConst.DM_ERR_ZEROBIT_TAG)
 		{
-			return DM_ERR_OK;
+			return WbxmlProtocolConst.DM_ERR_OK;
 		}
-		else if (res != DM_ERR_OK)
+		else if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
 			return res;
 		}
 
 		res = p.dmParseSkipLiteralElement();
-		if (res != DM_ERR_OK)
+		if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
 			return res;
 		}
@@ -45,10 +46,10 @@ public class tsDmParserMem implements tsDefineWbxml
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(dmDefineDevInfo.DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 
-			if (id == WBXML_END)
+			if (id == WbxmlProtocolConst.WBXML_END)
 			{
 				id = p.dmParseReadElement();
 				break;
@@ -56,31 +57,31 @@ public class tsDmParserMem implements tsDefineWbxml
 
 			switch (id)
 			{
-				case WBXML_METINF_SharedMem:
+				case WbxmlProtocolConst.WBXML_METINF_SharedMem:
 					res = p.dmParseElement(id);
 					shared = p._pParserElement;
 					break;
 
-				case WBXML_METINF_FreeMem:
+				case WbxmlProtocolConst.WBXML_METINF_FreeMem:
 					res = p.dmParseElement(id);
 					free = Integer.parseInt(p._pParserElement);
 					break;
 
-				case WBXML_METINF_FreeID:
+				case WbxmlProtocolConst.WBXML_METINF_FreeID:
 					res = p.dmParseElement(id);
 					freeid = Integer.parseInt(p._pParserElement);
 					break;
 
 				default:
-					res = DM_ERR_UNKNOWN_ELEMENT;
+					res = WbxmlProtocolConst.DM_ERR_UNKNOWN_ELEMENT;
 			}
 
-			if (res != DM_ERR_OK)
+			if (res != WbxmlProtocolConst.DM_ERR_OK)
 			{
 				return res;
 			}
 		}
 
-		return DM_ERR_OK;
+		return WbxmlProtocolConst.DM_ERR_OK;
 	}
 }

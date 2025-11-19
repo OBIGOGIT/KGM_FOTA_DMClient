@@ -6,13 +6,11 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.tsService;
-import com.tsdm.agent.dmDefineDevInfo;
-import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsLib;
-import com.tsdm.agent.dmDefineMsg;
 
-public class netTimerSend implements netDefine, dmDefineMsg, tsDefineIdle, dmDefineDevInfo
+public class netTimerSend
 {
 	private static Timer				sendTimer		= null;
 	private static httpSendTimerTask tpsendtimer		= null;
@@ -31,7 +29,7 @@ public class netTimerSend implements netDefine, dmDefineMsg, tsDefineIdle, dmDef
 
 	public static void startTimer()
 	{
-		sendTimer.scheduleAtFixedRate(tpsendtimer, new Date(), NET_TIMER_INTERVAL);
+		sendTimer.scheduleAtFixedRate(tpsendtimer, new Date(), NetConsts.NET_TIMER_INTERVAL);
 	}
 
 	public static void endTimer()
@@ -55,14 +53,14 @@ public class netTimerSend implements netDefine, dmDefineMsg, tsDefineIdle, dmDef
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_NET, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_NET, e.toString());
 		}
 	}
 
-	public class httpSendTimerTask extends TimerTask implements dmDefineDevInfo
+	public class httpSendTimerTask extends TimerTask
 	{
 		private boolean	isCloseTimer	= false;
-		private int		timerAppId		= SYNCMLAPPNONE;
+		private int		timerAppId		= DmDevInfoConst.SYNCMLAPPNONE;
 
 		@SuppressLint("SuspiciousIndentation")
 		public void run()
@@ -71,8 +69,8 @@ public class netTimerSend implements netDefine, dmDefineMsg, tsDefineIdle, dmDef
 			{
 				sendcount = 0;
 				endTimer();
-				tsLib.debugPrint(DEBUG_NET, "===Send Fail===");
-				if (AppId == SYNCMLDM)
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_NET, "===Send Fail===");
+				if (AppId == DmDevInfoConst.SYNCMLDM)
 					tsService.Task.dmTaskdmXXXFail();
 				else
 					tsService.Task.dmTaskdlXXXFail();
@@ -80,7 +78,7 @@ public class netTimerSend implements netDefine, dmDefineMsg, tsDefineIdle, dmDef
 				return;
 			}
 			if(sendcount>0)
-			tsLib.debugPrint(DEBUG_NET, "== send Timer[" + sendcount + "]");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_NET, "== send Timer[" + sendcount + "]");
 			sendcount++;
 		}
 

@@ -1,8 +1,6 @@
 package com.tsdm.adapt;
 
-import com.tsdm.agent.dmDefineDevInfo;
-
-public class tsLinkedList implements dmDefineDevInfo
+public class tsLinkedList
 {
 	public tsDmNode top;
 	public tsDmNode cur;

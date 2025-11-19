@@ -92,7 +92,7 @@ public class netHttpObj
 		pProxyIP = "";
 
 		nHttpOpenMode = "";
-		nHttpConnection = netDefine.TP_HTTP_CONNECTION_NONE;
+		nHttpConnection = NetConsts.TP_HTTP_CONNECTION_NONE;
 		pHttpConnection = "";
 		pHttpMimeType = "";
 		pHttpVersion = "";

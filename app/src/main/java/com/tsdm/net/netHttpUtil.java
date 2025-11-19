@@ -1,11 +1,9 @@
 package com.tsdm.net;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.db.tsDB;
 import com.tsdm.db.tsDBURLParser;
-import com.tsdm.adapt.tsDefineIdle;
 
-public class netHttpUtil implements netDefine, tsDefineIdle, dmDefineDevInfo
+public class netHttpUtil
 {
 	public static String tpParsePath(String request)
 	{
@@ -20,14 +18,14 @@ public class netHttpUtil implements netDefine, tsDefineIdle, dmDefineDevInfo
 	public static int httpGetConnectType(String pURL)
 	{
 		String prtString = pURL.substring(0, 5);
-		int type = TP_TYPE_NONE;
+		int type = NetConsts.TP_TYPE_NONE;
 
 		if (prtString.equals("http:"))
-			type = TP_TYPE_HTTP;
+			type = NetConsts.TP_TYPE_HTTP;
 		else if (prtString.equals("https"))
-			type = TP_TYPE_HTTPS;
+			type = NetConsts.TP_TYPE_HTTPS;
 		else if (prtString.equals("obex:"))
-			type = TP_TYPE_OBEX;
+			type = NetConsts.TP_TYPE_OBEX;
 
 		return type;
 	}
@@ -36,19 +34,19 @@ public class netHttpUtil implements netDefine, tsDefineIdle, dmDefineDevInfo
 	{
 		if (protocol.equals("https"))
 		{
-			return TP_TYPE_HTTPS;
+			return NetConsts.TP_TYPE_HTTPS;
 		}
 		else if (protocol.equals("http"))
 		{
-			return TP_TYPE_HTTP;
+			return NetConsts.TP_TYPE_HTTP;
 		}
 		else if (protocol.equals("obex"))
 		{
-			return TP_TYPE_OBEX;
+			return NetConsts.TP_TYPE_OBEX;
 		}
 		else
 		{
-			return TP_TYPE_NONE;
+			return NetConsts.TP_TYPE_NONE;
 		}
 	}
 

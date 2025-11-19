@@ -2,10 +2,10 @@ package com.tsdm.db;
 
 import java.io.Serializable;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.agent.dmAgentInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsdmNvm implements Serializable, dmDefineDevInfo
+public class tsdmNvm implements Serializable
 {
 	private static final long		serialVersionUID	= 1L;
 
@@ -28,7 +28,7 @@ public class tsdmNvm implements Serializable, dmDefineDevInfo
 		NVMSyncMLDMFUMOInfo = new tsDBFumoInfo();
 		NVMSyncMLPostPone = new tsDBPostPone();
 		NVMSYNCMLSimInfo = new tsDBSimInfo();
-		if (_SYNCML_TS_DM_VERSION_V12_)
+		if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 		{
 			NVMSyncMLAccXNode = new tsDBAccXListNode();
 			NVMSyncMLResyncMode = new tsDBResyncMode();

@@ -1,9 +1,9 @@
 package com.tsdm.db;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.adapt.tsLib;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsDBCrypt implements dmDefineDevInfo
+public class tsDBCrypt
 {
 	private static byte[] IP = 
 	{
@@ -434,7 +434,7 @@ public class tsDBCrypt implements dmDefineDevInfo
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_DM, " Fail");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_DM, " Fail");
 		}
 		return cryptCryptResult;
 	}

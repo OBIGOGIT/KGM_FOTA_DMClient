@@ -1,6 +1,6 @@
 package com.tsdm.adapt;
 
-public class tsDmUicResult implements tsDefIne, tsDefineUic
+public class tsDmUicResult
 {
 	int					UIC_MAX_CHOICE_MENU	= 32;
 

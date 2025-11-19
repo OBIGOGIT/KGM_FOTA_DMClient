@@ -2,27 +2,28 @@ package com.tsdm.agent;
 
 import java.net.SocketTimeoutException;
 
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.DmTaskMsg;
+import com.tsdm.core.data.constants.FumoConst;
 import com.tsdm.db.tsDB;
 import com.tsdm.db.tsDBFumoInfo;
 import com.tsdm.db.tsDBURLParser;
 import com.tsdm.db.tsdmDB;
-import com.tsdm.adapt.tsDefIne;
-import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsLib;
 import com.tsdm.adapt.tsDmMsg;
+import com.tsdm.net.NetConsts;
 import com.tsdm.parser.ddXMLDataSet;
 import com.tsdm.parser.ddXMLParser;
 import com.tsdm.net.netHttpAdapter;
-import com.tsdm.net.netDefine;
 import com.tsdm.net.netTimerConnect;
 import com.tsdm.net.netTimerReceive;
 import com.tsdm.net.netTimerSend;
 import com.tsdm.tsService;
 
-public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDefIne, netDefine
+public class dlAgent
 {
 	public static final int			HTTP_HEADER_MAX_SIZE		= 768;
-	public static final int 		DM_DL_MAX_DOWNLOAD_SIZE = HTTP_HEADER_MAX_SIZE + WBXML_DM_MAX_MESSAGE_SIZE;
+	public static final int 		DM_DL_MAX_DOWNLOAD_SIZE = HTTP_HEADER_MAX_SIZE + DmDevInfoConst.WBXML_DM_MAX_MESSAGE_SIZE;
 
 	public static String[]			pReportStatus;
 	public static boolean			nFFSWriteStatus;
@@ -39,7 +40,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 	public dlAgent()
 	{
 		nFFSWriteStatus = false;
-		nUserInitStatus = DM_NONE_INIT;
+		nUserInitStatus = DmDevInfoConst.DM_NONE_INIT;
 		pReportStatus = new String[11];
 
 		if (gHttpDLAdapter == null)
@@ -47,17 +48,17 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			gHttpDLAdapter = new netHttpAdapter();
 		}
 
-		pReportStatus[OMA_DL_STAUS_SUCCESS] = "900 Success";
-		pReportStatus[OMA_DL_STATUS_MEMORY_ERROR] = "901 Insufficient memory";
-		pReportStatus[OMA_DL_STATUS_USER_CANCEL] = "902 User Cancelled";
-		pReportStatus[OMA_DL_STATUS_LOSS_SERVICE] = "903 Loss of Service";
-		pReportStatus[OMA_DL_STATUS_ATTRIBUTE_MISMATCH] = "905 Attribute mismatch";
-		pReportStatus[OMA_DL_STATUS_INVALID_DESCRIPTOR] = "906 Invalid descriptor";
-		pReportStatus[OMA_DL_STATUS_INVALID_DDVERSIONV] = "951 Invalid DDVersion";
-		pReportStatus[OMA_DL_STATUS_DEVICE_ABORTED] = "952 Device Aborted";
-		pReportStatus[OMA_DL_STATUS_NON_ACCEPTABLE_CONTENT] = "953 Non-Acceptable Content";
-		pReportStatus[OMA_DL_STATUS_LOADER_ERROR] = "954 Loader Error";
-		pReportStatus[OMA_DL_STATUS_NONE] = "";
+		pReportStatus[FumoConst.OMA_DL_STAUS_SUCCESS] = "900 Success";
+		pReportStatus[FumoConst.OMA_DL_STATUS_MEMORY_ERROR] = "901 Insufficient memory";
+		pReportStatus[FumoConst.OMA_DL_STATUS_USER_CANCEL] = "902 User Cancelled";
+		pReportStatus[FumoConst.OMA_DL_STATUS_LOSS_SERVICE] = "903 Loss of Service";
+		pReportStatus[FumoConst.OMA_DL_STATUS_ATTRIBUTE_MISMATCH] = "905 Attribute mismatch";
+		pReportStatus[FumoConst.OMA_DL_STATUS_INVALID_DESCRIPTOR] = "906 Invalid descriptor";
+		pReportStatus[FumoConst.OMA_DL_STATUS_INVALID_DDVERSIONV] = "951 Invalid DDVersion";
+		pReportStatus[FumoConst.OMA_DL_STATUS_DEVICE_ABORTED] = "952 Device Aborted";
+		pReportStatus[FumoConst.OMA_DL_STATUS_NON_ACCEPTABLE_CONTENT] = "953 Non-Acceptable Content";
+		pReportStatus[FumoConst.OMA_DL_STATUS_LOADER_ERROR] = "954 Loader Error";
+		pReportStatus[FumoConst.OMA_DL_STATUS_NONE] = "";
 	}
 
 	public static boolean dlAgentGetWriteStatus()
@@ -83,10 +84,10 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 	public static void dlAgentSetClientInitFlag(int SetValue)
 	{
-		tsLib.debugPrint(DEBUG_DL, "Client Init Set:" + SetValue);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "Client Init Set:" + SetValue);
 		nUserInitStatus = SetValue;
 
-		if(SetValue == DM_NONE_INIT && tsdmDB.dmdbGetFUMOStatus()==DM_FUMO_STATE_NONE)
+		if(SetValue == DmDevInfoConst.DM_NONE_INIT && tsdmDB.dmdbGetFUMOStatus()==FumoConst.DM_FUMO_STATE_NONE)
 			tsService.logUpload();
 	}
 
@@ -98,14 +99,14 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 	public static String dlAgentGetReportStatus(int nStatus)
 	{
 		String ret = null;
-		if (nStatus >= OMA_DL_STAUS_SUCCESS && nStatus < OMA_DL_STATUS_NONE)
+		if (nStatus >= FumoConst.OMA_DL_STAUS_SUCCESS && nStatus < FumoConst.OMA_DL_STATUS_NONE)
 		{
-			if(nStatus==OMA_DL_STAUS_SUCCESS) {
+			if(nStatus==FumoConst.OMA_DL_STAUS_SUCCESS) {
                 ret = "900"+" "+ tsService.downloadSpeed;
             } else {
 				ret = pReportStatus[nStatus];
 			}
-			tsLib.debugPrint(DEBUG_DL, "pReportStatusValue "+ret);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "pReportStatusValue "+ret);
 		}
 		return ret;
 	}
@@ -115,26 +116,26 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		int nAgentStatus;
 		nAgentStatus = tsdmDB.dmdbGetFUMOStatus();
 
-		tsLib.debugPrint(DEBUG_DL, "nAgentStatus = [" + nAgentStatus + "]");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "nAgentStatus = [" + nAgentStatus + "]");
 
 		switch (nAgentStatus)
 		{
-			case DM_FUMO_STATE_NONE:
-			case DM_FUMO_STATE_UPDATE_SUCCESSFUL_NODATA:
-			case DM_FUMO_STATE_UPDATE_SUCCESSFUL_HAVEDATA:
-			case DM_FUMO_STATE_UPDATE_FAILED_NODATA:
-			case DM_FUMO_STATE_UPDATE_FAILED_HAVEDATA:
-			case DM_FUMO_STATE_UPDATE_IN_PROGRESS:
-			case DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING:
-			case DM_FUMO_STATE_USER_CANCEL_REPORTING:
+			case FumoConst.DM_FUMO_STATE_NONE:
+			case FumoConst.DM_FUMO_STATE_UPDATE_SUCCESSFUL_NODATA:
+			case FumoConst.DM_FUMO_STATE_UPDATE_SUCCESSFUL_HAVEDATA:
+			case FumoConst.DM_FUMO_STATE_UPDATE_FAILED_NODATA:
+			case FumoConst.DM_FUMO_STATE_UPDATE_FAILED_HAVEDATA:
+			case FumoConst.DM_FUMO_STATE_UPDATE_IN_PROGRESS:
+			case FumoConst.DM_FUMO_STATE_DOWNLOAD_FAILED_REPORTING:
+			case FumoConst.DM_FUMO_STATE_USER_CANCEL_REPORTING:
 				return true;
 
-			case DM_FUMO_STATE_DOWNLOAD_IN_CANCEL:
-			case DM_FUMO_STATE_DOWNLOAD_FAILED:
-			case DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR:
-			case DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS:
-			case DM_FUMO_STATE_DOWNLOAD_COMPLETE:
-			case DM_FUMO_STATE_IDLE_START:
+			case FumoConst.DM_FUMO_STATE_DOWNLOAD_IN_CANCEL:
+			case FumoConst.DM_FUMO_STATE_DOWNLOAD_FAILED:
+			case FumoConst.DM_FUMO_STATE_DOWNLOAD_DESCRIPTOR:
+			case FumoConst.DM_FUMO_STATE_DOWNLOAD_IN_PROGRESS:
+			case FumoConst.DM_FUMO_STATE_DOWNLOAD_COMPLETE:
+			case FumoConst.DM_FUMO_STATE_IDLE_START:
 				break;
 
 			default:
@@ -148,9 +149,9 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		int nOffset;
 		int nTotalObjectSize;
 		int nFileId = 0;
-		int nAgentType = SYNCML_DM_AGENT_DM;
+		int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
-		tsLib.debugPrint(DEBUG_DL, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "");
 
 		nFileId = tsdmDB.dmdbGetFileIdFirmwareData();
 		nOffset = tsdmDB.dmdbGetFileSize(nFileId);
@@ -158,18 +159,18 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		if (nOffset == nTotalObjectSize)
 		{
-			tsLib.debugPrint(DEBUG_DL, "offset = " + nOffset + "  TotalSize = " + nTotalObjectSize);
-			return SDL_RET_OK;
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "offset = " + nOffset + "  TotalSize = " + nTotalObjectSize);
+			return FumoConst.SDL_RET_OK;
 		}
 		else if (nOffset > nTotalObjectSize)
 		{
 			tsdmDB.dmdbDeleteFile(nFileId);
 
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "offset =" + nOffset + "  TotalSize = " + nTotalObjectSize);
-			return SDL_RET_FAILED;
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "offset =" + nOffset + "  TotalSize = " + nTotalObjectSize);
+			return FumoConst.SDL_RET_FAILED;
 		}
 
-		return SDL_RET_CONTINUE;
+		return FumoConst.SDL_RET_CONTINUE;
 	}
 
 	public static String dlAgentGetHttpContentRange(boolean nDownloadMode)
@@ -179,7 +180,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		int nTotalObjectSize = 0;
 		int nFileId = 0;
 		String strConLength = "";
-		int nAgentType = SYNCML_DM_AGENT_DM;
+		int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
 		if(nFFSWriteStatus)
 		{
@@ -190,7 +191,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		nOffset = tsdmDB.dmdbGetFileSize(nFileId);
 		nTotalObjectSize = tsdmDB.dmdbGetObjectSizeFUMO();
 
-		tsLib.debugPrint(DEBUG_DL, "nOffset = " + nOffset + " nTotalObjectSize = " + nTotalObjectSize);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "nOffset = " + nOffset + " nTotalObjectSize = " + nTotalObjectSize);
 
 		if (!nDownloadMode)
 		{
@@ -200,12 +201,12 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 				nDownloadSize = nTotalObjectSize - 1;
 
 			strConLength = String.valueOf(nOffset);
-			tsLib.debugPrint(DEBUG_DL, "offset = " + nOffset + " , downloadsize = " + nDownloadSize + ", TotalSize = " + nTotalObjectSize);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "offset = " + nOffset + " , downloadsize = " + nDownloadSize + ", TotalSize = " + nTotalObjectSize);
 		}
 		else
 		{
 			strConLength = String.valueOf(nOffset);
-			tsLib.debugPrint(DEBUG_DL, "offset = " + nOffset + ", TotalSize = " + nTotalObjectSize);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "offset = " + nOffset + ", TotalSize = " + nTotalObjectSize);
 		}
 
 		return strConLength;
@@ -215,7 +216,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 	{
 		Object objectInfo;
 		ddXMLDataSet objectDD = null;
-		int nRet = SDL_RET_FAILED;
+		int nRet = FumoConst.SDL_RET_FAILED;
 
 		// for FUMO
 		objectInfo = new tsDBFumoInfo();
@@ -227,7 +228,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		}
 		catch (Exception ex)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, ex.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, ex.toString());
 		}
 
 		if (objectDD != null)
@@ -236,7 +237,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 			if (objectInfo != null)
 			{
 				tsdmDB.dmdbSetObjectFUMO(objectInfo);
-				nRet = SDL_RET_OK;
+				nRet = FumoConst.SDL_RET_OK;
 			}
 		}
 
@@ -260,17 +261,17 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		nLen = ddInfo.type.length();
 		aType = ddInfo.type;
-		tsLib.debugPrint(DEBUG_DL, "Mime Media Type = [" + String.valueOf(nLen) + aType + "]");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "Mime Media Type = [" + String.valueOf(nLen) + aType + "]");
 
 		fumoInfo.szContentType = aType;
 		fumoInfo.szAcceptType = aType;
-		tsLib.debugPrint(DEBUG_DL, "szAcceptType = " + String.valueOf(fumoInfo.szAcceptType));
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "szAcceptType = " + String.valueOf(fumoInfo.szAcceptType));
 
 		nLen = ddInfo.objectURI.length();
 
 		String szURL = ddInfo.objectURI;
 		aTempURL = tsDB.dbCheckOMADDURL(szURL);
-		tsLib.debugPrint(DEBUG_DL, "Install Len = [" + String.valueOf(nLen) + "] [" + aTempURL + "]");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "Install Len = [" + String.valueOf(nLen) + "] [" + aTempURL + "]");
 		
 		parser = tsDB.dbURLParser(aTempURL);
 
@@ -281,7 +282,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		sztemp = tsDB.dbDoDMBootStrapURI(aTempServerAddr.toCharArray(), aTempURL.toCharArray(), aTempPort.toCharArray());
 		if (sztemp == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Install URI Parsing Error");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Install URI Parsing Error");
 			return null;
 		}
 
@@ -289,14 +290,14 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		parser = tsDB.dbURLParser(String.valueOf(sztemp));
 		if (parser == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, " Parsing Error");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, " Parsing Error");
 			return fumoInfo;
 		}
 
 		fumoInfo.ObjectDownloadUrl = parser.pURL;
 		fumoInfo.ObjectDownloadIP = parser.pAddress;
 
-		tsLib.debugPrint(DEBUG_DL, "Install URI = " + fumoInfo.ObjectDownloadUrl);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "Install URI = " + fumoInfo.ObjectDownloadUrl);
 
 		if (nPort == 0 || nPort > 65535)
 		{
@@ -313,7 +314,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		szURL = ddInfo.installNotifyURI;
 		aTempURL = tsDB.dbCheckOMADDURL(szURL);
 
-		tsLib.debugPrint(DEBUG_DL, "Notify URI Len = [" + nLen + "][" + aTempURL + "]");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "Notify URI Len = [" + nLen + "][" + aTempURL + "]");
 		parser = tsDB.dbURLParser(aTempURL);
 
 		aTempServerAddr = parser.pURL;
@@ -322,7 +323,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		sztemp = tsDB.dbDoDMBootStrapURI(aTempServerAddr.toCharArray(), aTempURL.toCharArray(), aTempPort.toCharArray());
 		if (sztemp == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Notify URI Parsing Error");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Notify URI Parsing Error");
 			return null;
 		}
 		
@@ -330,7 +331,7 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		parser = tsDB.dbURLParser(aTempServerAddr);
 		if (parser == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, " Parsing Error");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, " Parsing Error");
 			return fumoInfo;
 		}
 
@@ -339,14 +340,14 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 		fumoInfo.StatusNotifyProtocol = parser.pProtocol;
 		nPort = parser.nPort;
 
-		tsLib.debugPrint(DEBUG_DL, "Notify URI = " + fumoInfo.StatusNotifyUrl);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "Notify URI = " + fumoInfo.StatusNotifyUrl);
 		if (nPort == 0 || nPort > 65535)
 		{
 			nPort = fumoInfo.ServerPort;
 		}
 		fumoInfo.nStatusNotifyPort = nPort;
 		aInstallSize = ddInfo.size;
-		tsLib.debugPrint(DEBUG_DL, "Object Size Len = [" + aInstallSize + "]");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "Object Size Len = [" + aInstallSize + "]");
 		fumoInfo.nObjectSize = Integer.parseInt(aInstallSize);
 		fumoInfo.nFFSWriteSize = 0;
 		
@@ -360,51 +361,52 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 	public static int dlAgentUserCancel()
 	{
-		int nRc = SDL_RET_OK;
+		int nRc = FumoConst.SDL_RET_OK;
 		String szResURL = "";
 		String pDownloadStatus = "";
-		int nAgentType = SYNCML_DM_AGENT_DM;
+		int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
-		tsLib.debugPrint(DEBUG_DL, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "");
 
 		szResURL = tsdmDB.dmdbGetStatusAddrFUMO(szResURL);
 
 		try
 		{
-			gHttpDLAdapter.tpSetHttpObj(szResURL, null, null, HTTP_METHOD_POST, SYNCMLDL, false);
+			gHttpDLAdapter.tpSetHttpObj(szResURL, null, null, NetConsts.HTTP_METHOD_POST, DmDevInfoConst.SYNCMLDL, false);
 		}
 		catch (NullPointerException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			netTimerSend.endTimer();
-			nRc = TP_RET_SEND_FAIL;
-			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
+			nRc = NetConsts.TP_RET_SEND_FAIL;
+			tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
 			return nRc;
 		}
-		pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_USER_CANCEL);
+		pDownloadStatus = dlAgentGetReportStatus(FumoConst.OMA_DL_STATUS_USER_CANCEL);
 		try
 		{
-			if(pDownloadStatus.getBytes() !=null)
-			nRc = gHttpDLAdapter.tpSendData(pDownloadStatus.getBytes(), pDownloadStatus.length(), SYNCMLDL);
+			if(pDownloadStatus.getBytes() !=null) {
+				nRc = gHttpDLAdapter.tpSendData(pDownloadStatus.getBytes(), pDownloadStatus.length(), DmDevInfoConst.SYNCMLDL);
+			}
 		}
 		catch (SocketTimeoutException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			netTimerSend.endTimer();
-			nRc = TP_RET_SEND_FAIL;
+			nRc = NetConsts.TP_RET_SEND_FAIL;
 		}
 
-		if (nRc == TP_RET_OK)
+		if (nRc == NetConsts.TP_RET_OK)
 		{
-			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONTINUE, null, null);
+			tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DL_SYNCML_CONTINUE, null, null);
 		}
-		else if (nRc == TP_RET_CONNECTION_FAIL)
+		else if (nRc == NetConsts.TP_RET_CONNECTION_FAIL)
 		{
-			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONNECTFAIL, null, null);
+			tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DL_SYNCML_CONNECTFAIL, null, null);
 		}
 		else
 		{
-			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
+			tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
 		}
 
 		return nRc;
@@ -412,26 +414,26 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 	public static int dlAgentDownloadFailed()
 	{
-		int nRc = SDL_RET_OK;
+		int nRc = FumoConst.SDL_RET_OK;
 		String szResURL = "";
 		String pDownloadStatus = "";
 		String pszResultCode = "";
-		int nAgentType = SYNCML_DM_AGENT_DM;
+		int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
-		tsLib.debugPrint(DEBUG_DL, "");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "");
 
 		szResURL = tsdmDB.dmdbGetStatusAddrFUMO(szResURL);
 
 		try
 		{
-			gHttpDLAdapter.tpSetHttpObj(szResURL, null, null, HTTP_METHOD_POST, SYNCMLDL, false);
+			gHttpDLAdapter.tpSetHttpObj(szResURL, null, null, NetConsts.HTTP_METHOD_POST, DmDevInfoConst.SYNCMLDL, false);
 		}
 		catch (NullPointerException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			netTimerSend.endTimer();
-			nRc = TP_RET_SEND_FAIL;
-			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
+			nRc = NetConsts.TP_RET_SEND_FAIL;
+			tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
 			return nRc;
 		}
 
@@ -439,62 +441,62 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 		if (pszResultCode != null)
 		{
-			if (pszResultCode.compareTo(DL_GENERIC_DOWNLOAD_FAILED_OUT_MEMORY) == 0)
+			if (pszResultCode.compareTo(FumoConst.DL_GENERIC_DOWNLOAD_FAILED_OUT_MEMORY) == 0)
 			{
 				/* Out of Memory */
-				pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_MEMORY_ERROR);
+				pDownloadStatus = dlAgentGetReportStatus(FumoConst.OMA_DL_STATUS_MEMORY_ERROR);
 			}
-			else if (pszResultCode.compareTo(DL_GENERIC_SERVER_ERROR) == 0)
+			else if (pszResultCode.compareTo(FumoConst.DL_GENERIC_SERVER_ERROR) == 0)
 			{
 				/* Http Status Error */
-				pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_LOSS_SERVICE);
+				pDownloadStatus = dlAgentGetReportStatus(FumoConst.OMA_DL_STATUS_LOSS_SERVICE);
 			}
-			else if (pszResultCode.compareTo(DL_GENERIC_SERVER_UNAVAILABLE) == 0)
+			else if (pszResultCode.compareTo(FumoConst.DL_GENERIC_SERVER_UNAVAILABLE) == 0)
 			{
 				/* Connect, Send, Receive Fail */
-				pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_LOSS_SERVICE);
+				pDownloadStatus = dlAgentGetReportStatus(FumoConst.OMA_DL_STATUS_LOSS_SERVICE);
 			}
-			else if (pszResultCode.compareTo(DL_GENERIC_BAD_URL) == 0)
+			else if (pszResultCode.compareTo(FumoConst.DL_GENERIC_BAD_URL) == 0)
 			{
 				/* Download Descriptor Parsing Error */
-				pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_INVALID_DESCRIPTOR);
+				pDownloadStatus = dlAgentGetReportStatus(FumoConst.OMA_DL_STATUS_INVALID_DESCRIPTOR);
 			}
 			else
 			{
 				/* Other Case */
-				pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_MEMORY_ERROR);
+				pDownloadStatus = dlAgentGetReportStatus(FumoConst.OMA_DL_STATUS_MEMORY_ERROR);
 			}
 		}
 		else
 		{
-			pDownloadStatus = dlAgentGetReportStatus(OMA_DL_STATUS_MEMORY_ERROR);
+			pDownloadStatus = dlAgentGetReportStatus(FumoConst.OMA_DL_STATUS_MEMORY_ERROR);
 		}
 		/* End of For report status(in case of download fail) */
 
 		try
 		{
 			if(pDownloadStatus.getBytes() !=null)
-			nRc = gHttpDLAdapter.tpSendData(pDownloadStatus.getBytes(), pDownloadStatus.length(), SYNCMLDL);
+			nRc = gHttpDLAdapter.tpSendData(pDownloadStatus.getBytes(), pDownloadStatus.length(), DmDevInfoConst.SYNCMLDL);
 		}
 		catch (SocketTimeoutException e)
 		{
-			tsLib.debugPrint(DEBUG_DL, "tpSendData Time out");
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DL, "tpSendData Time out");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			netTimerSend.endTimer();
-			nRc = TP_RET_SEND_FAIL;
+			nRc = NetConsts.TP_RET_SEND_FAIL;
 		}
 
-		if (nRc == TP_RET_OK)
+		if (nRc == NetConsts.TP_RET_OK)
 		{
-			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONTINUE, null, null);
+			tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DL_SYNCML_CONTINUE, null, null);
 		}
-		else if (nRc == TP_RET_CONNECTION_FAIL)
+		else if (nRc == NetConsts.TP_RET_CONNECTION_FAIL)
 		{
-			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_CONNECTFAIL, null, null);
+			tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DL_SYNCML_CONNECTFAIL, null, null);
 		}
 		else
 		{
-			tsDmMsg.taskSendMessage(TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
+			tsDmMsg.taskSendMessage(DmTaskMsg.TASK_MSG_DL_SYNCML_SENDFAIL, null, null);
 		}
 		return nRc;
 	}
@@ -521,8 +523,8 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 
 	public boolean dltpCheckRetry()
 	{
-		tsLib.debugPrint(DEBUG_DM, "ConntectRetryCount " + DLConnectRetryCount);
-		if (DLConnectRetryCount >= TP_DL_RETRY_COUNT_MAX)
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "ConntectRetryCount " + DLConnectRetryCount);
+		if (DLConnectRetryCount >= NetConsts.TP_DL_RETRY_COUNT_MAX)
 		{
 			netTimerConnect.endTimer();
 			netTimerReceive.endTimer();
@@ -546,13 +548,13 @@ public class dlAgent implements dmDefineDevInfo, dmDefineMsg, tsDefineIdle, tsDe
 	
 	public static int dltpGetRetryFailCount()
 	{
-		tsLib.debugPrint(DEBUG_DM, "DLConnectRetryFailCount " + DLConnectRetryFailCount);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "DLConnectRetryFailCount " + DLConnectRetryFailCount);
 		return DLConnectRetryFailCount;
 	}
 	
 	public static void dltpSetRetryFailCount(int nCnt)
 	{
-		tsLib.debugPrint(DEBUG_DM, "nCnt " + nCnt);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "nCnt " + nCnt);
 		DLConnectRetryFailCount = nCnt;
 	}
 }

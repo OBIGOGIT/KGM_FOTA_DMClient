@@ -1,10 +1,10 @@
 package com.tsdm.adapt;
 
+import com.tsdm.core.data.constants.DmDevInfoConst;
+
 import java.io.ByteArrayOutputStream;
 
-import com.tsdm.agent.dmDefineDevInfo;
-
-public class tsDmWorkspace implements dmDefineDevInfo, tsDefineIdle
+public class tsDmWorkspace
 {
 	public tsDmWorkspace ws;
 	public int						appId;
@@ -35,15 +35,15 @@ public class tsDmWorkspace implements dmDefineDevInfo, tsDefineIdle
 	public boolean					dataBuffered;
 	public boolean					sendRemain;
 
-	public SyncmlUICFlag uicFlag;
+	public DmDevInfoConst.SyncmlUICFlag uicFlag;
 	public tsList uicData;
-	public SyncmlAtomicStep atomicStep;
-	public SyncmlState state;
+	public DmDevInfoConst.SyncmlAtomicStep atomicStep;
+	public DmDevInfoConst.SyncmlState state;
 	public tsOmTree om;
 	public tsDmEncoder e;
 	public tsDmParser p;
-	public SyncmlState dmState;
-	public SyncmlProcessingState procState;
+	public DmDevInfoConst.SyncmlState dmState;
+	public DmDevInfoConst.SyncmlProcessingState procState;
 
 	public boolean					nTNDSFlag;
 	public char						nUpdateMechanism;
@@ -108,10 +108,10 @@ public class tsDmWorkspace implements dmDefineDevInfo, tsDefineIdle
 		msgRef = "";
 		uicData = null;
 
-		authState = AUTH_STATE_NONE;
-		serverAuthState = AUTH_STATE_NONE;
-		credType = CRED_TYPE_NONE;
-		serverCredType = CRED_TYPE_NONE;
+		authState = DmDevInfoConst.AUTH_STATE_NONE;
+		serverAuthState = DmDevInfoConst.AUTH_STATE_NONE;
+		credType = DmDevInfoConst.CRED_TYPE_NONE;
+		serverCredType = DmDevInfoConst.CRED_TYPE_NONE;
 		sendChal = false;
 		inAtomicCmd = false;
 		atomicList = tsLinkedList.listCreateLinkedList();
@@ -129,19 +129,19 @@ public class tsDmWorkspace implements dmDefineDevInfo, tsDefineIdle
 
 		buf = new ByteArrayOutputStream();
 
-		bufsize = WBXML_DM_ENCODING_BUF_SIZE;
-		maxMsgSize = WBXML_DM_MAX_MESSAGE_SIZE;
-		maxObjSize = WBXML_DM_MAX_OBJECT_SIZE;
+		bufsize = DmDevInfoConst.WBXML_DM_ENCODING_BUF_SIZE;
+		maxMsgSize = DmDevInfoConst.WBXML_DM_MAX_MESSAGE_SIZE;
+		maxObjSize = DmDevInfoConst.WBXML_DM_MAX_OBJECT_SIZE;
 
-		serverMaxMsgSize = WBXML_DM_MAX_MESSAGE_SIZE;
-		serverMaxObjSize = WBXML_DM_MAX_OBJECT_SIZE;
+		serverMaxMsgSize = DmDevInfoConst.WBXML_DM_MAX_MESSAGE_SIZE;
+		serverMaxObjSize = DmDevInfoConst.WBXML_DM_MAX_OBJECT_SIZE;
 
 		endOfMsg = false;
 		syncHeader = null;
 		sessionAbort = 0;
-		dmState = SyncmlState.DM_STATE_INIT;
+		dmState = DmDevInfoConst.SyncmlState.DM_STATE_INIT;
 		cmdID = 1;
-		appId = SYNCMLDM;
+		appId = DmDevInfoConst.SYNCMLDM;
 		msgID = 1;
 		authCount = 0;
 
@@ -150,7 +150,7 @@ public class tsDmWorkspace implements dmDefineDevInfo, tsDefineIdle
 		nUpdateMechanism = 0;
 		recvHmacData = new tsDmHmacData();
 
-		uicFlag = SyncmlUICFlag.UIC_NONE;
+		uicFlag = DmDevInfoConst.SyncmlUICFlag.UIC_NONE;
 		uicData = null;
 	}
 

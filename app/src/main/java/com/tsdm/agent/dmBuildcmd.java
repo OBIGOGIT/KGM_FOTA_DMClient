@@ -2,8 +2,9 @@ package com.tsdm.agent;
 
 import com.tsdm.auth.Auth;
 import com.tsdm.auth.base64;
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.DmProtocolConst;
 import com.tsdm.db.tsdmDB;
-import com.tsdm.adapt.tsDefIne;
 import com.tsdm.adapt.tsLinkedList;
 import com.tsdm.adapt.tsList;
 import com.tsdm.adapt.tsDmVnode;
@@ -21,7 +22,7 @@ import com.tsdm.adapt.tsDmParserResults;
 import com.tsdm.adapt.tsdmParserStatus;
 import com.tsdm.adapt.tsDmParserSyncheader;
 
-public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefIne
+public class dmBuildcmd extends tsDmHandlecmd
 {
 	public static int dmBuildCmdGetCmdID(tsDmWorkspace ws)
 	{
@@ -42,15 +43,15 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 
 			ws.targetURI = ws.hostname;
 
-			if (_SYNCML_TS_DM_VERSION_V12_)
+			if (DmDevInfoConst._SYNCML_TS_DM_VERSION_V12_)
 			{
-				sh.verdtd = DM_VERDTD_1_2;
-				sh.verproto = DM_VERPROTO_1_2;
+				sh.verdtd = DmDevInfoConst.DM_VERDTD_1_2;
+				sh.verproto = DmDevInfoConst.DM_VERPROTO_1_2;
 			}
 			else
 			{
-				sh.verdtd = DM_VERDTD_1_1;
-				sh.verproto = DM_VERPROTO_1_1;
+				sh.verdtd = DmDevInfoConst.DM_VERDTD_1_1;
+				sh.verproto = DmDevInfoConst.DM_VERPROTO_1_1;
 			}
 			sh.sessionid = ws.sessionID;
 			sh.msgid = (int) ws.msgID;
@@ -82,7 +83,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 			sh.cred = null;
 		}
 
-		if ((ws.authState != AUTH_STATE_OK && ws.authState != AUTH_STATE_OK_PENDING) || ws.serverAuthState != AUTH_STATE_OK)
+		if ((ws.authState != DmDevInfoConst.AUTH_STATE_OK && ws.authState != DmDevInfoConst.AUTH_STATE_OK_PENDING) || ws.serverAuthState != DmDevInfoConst.AUTH_STATE_OK)
 		{
 			tsDmParserCred cred;
 			tsDmParserMeta meta;
@@ -95,7 +96,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 				{
 					cred = null;
 				}
-				else if (ws.credType != CRED_TYPE_HMAC)
+				else if (ws.credType != DmDevInfoConst.CRED_TYPE_HMAC)
 				{
 					meta = new tsDmParserMeta();
 
@@ -108,7 +109,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 					cred.data = Auth.authMakeDigest(ws.credType, ws.userName, ws.clientPW, ws.nextNonce, ws.nextNonce.length, null, 0, ws.serverID);
 					if (cred.data != null)
 					{
-						tsLib.debugPrint(DEBUG_DM, "cred data = " + cred.data + "credType = " + ws.credType);
+						tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "cred data = " + cred.data + "credType = " + ws.credType);
 					}
 				}
 				else
@@ -150,26 +151,26 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 		item.meta = new tsDmParserMeta();
 		item.data = new tsDmParserPcdata();
 
-		tsLib.debugPrint(DEBUG_DM, "Client init alert");
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "Client init alert");
 		item.source = tsdmDB.dmdbGetFUMOUpdateReportURI();
 
-		if (dlAgent.dlAgentGetClientInitFlag() == DM_USER_INIT)
+		if (dlAgent.dlAgentGetClientInitFlag() == DmDevInfoConst.DM_USER_INIT)
 		{
 			item.meta.format = "chr";
-			item.meta.type = DM_USER_INIT_ALERT_TYPE;
+			item.meta.type = DmDevInfoConst.DM_USER_INIT_ALERT_TYPE;
 		}
-		else if(dlAgent.dlAgentGetClientInitFlag() == DM_DEVICE_INIT)
+		else if(dlAgent.dlAgentGetClientInitFlag() == DmDevInfoConst.DM_DEVICE_INIT)
 		{
 			item.meta.format = "chr";
-			item.meta.type = DM_DEV_INIT_ALERT_TYPE;
+			item.meta.type = DmDevInfoConst.DM_DEV_INIT_ALERT_TYPE;
 		}
 		else
 		{
-			tsLib.debugPrint(DEBUG_DM, "Init no flag");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "Init no flag");
 		}
 		pData = "0";
 		item.data.data = pData.toCharArray();
-		item.data.type = TYPE_STRING;
+		item.data.type = DmDevInfoConst.TYPE_STRING;
 
 		head = tsList.listAppend(head, tail, item);
 		alertCmd.itemlist = head;
@@ -184,7 +185,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 		tsList head = null, tail = null;
 		String szResult = null;
 		String szCorrelator = null;
-		int nAgentType = SYNCML_DM_AGENT_DM;
+		int nAgentType = DmDevInfoConst.SYNCML_DM_AGENT_DM;
 
 		Alert = new tsDmParserAlert();
 		Alert.cmdid = dmBuildCmdGetCmdID(ws);
@@ -201,11 +202,11 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 
 		Item = new tsDmParserItem();
 		Item.data = new tsDmParserPcdata();
-		Item.data.type = TYPE_STRING;
+		Item.data.type = DmDevInfoConst.TYPE_STRING;
 
 		nAgentType = tsdmDB.dmdbGetDmAgentType();
 
-		if (nAgentType == SYNCML_DM_AGENT_FUMO)
+		if (nAgentType == DmDevInfoConst.SYNCML_DM_AGENT_FUMO)
 		{
 			Item.source = tsdmDB.dmdbGetFUMOUpdateReportURI();
 			Item.meta = new tsDmParserMeta();
@@ -213,19 +214,19 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 			// Defects
 			if (Item.source == null)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Item.source is null");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Item.source is null");
 			}
-			else if (Item.source.contains(DM_OMA_EXEC_REPLACE))
+			else if (Item.source.contains(DmDevInfoConst.DM_OMA_EXEC_REPLACE))
 			{
-				Item.meta.type = DM_UPDATE_REPORT_ALERT_TYPE_UPDATE;
+				Item.meta.type = DmDevInfoConst.DM_UPDATE_REPORT_ALERT_TYPE_UPDATE;
 			}
-			else if (Item.source.contains(DM_OMA_EXEC_ALTERNATIVE))
+			else if (Item.source.contains(DmDevInfoConst.DM_OMA_EXEC_ALTERNATIVE))
 			{
-				Item.meta.type = DM_UPDATE_REPORT_ALERT_TYPE_DOWNLOAD_AND_UPDATE;
+				Item.meta.type = DmDevInfoConst.DM_UPDATE_REPORT_ALERT_TYPE_DOWNLOAD_AND_UPDATE;
 			}
-			else if (Item.source.contains(DM_OMA_EXEC_ALTERNATIVE_2))
+			else if (Item.source.contains(DmDevInfoConst.DM_OMA_EXEC_ALTERNATIVE_2))
 			{
-				Item.meta.type = DM_UPDATE_REPORT_ALERT_TYPE_DOWNLOAD;
+				Item.meta.type = DmDevInfoConst.DM_UPDATE_REPORT_ALERT_TYPE_DOWNLOAD;
 			}
 
 			szResult = tsdmDB.dmdbGetFUMOResultCode();
@@ -241,7 +242,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 		}
 		else
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "nAgentType : " + nAgentType);
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "nAgentType : " + nAgentType);
 		}
 
 		head = tsList.listAppend(head, tail, Item);
@@ -340,28 +341,28 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 			}
 			status.sourceref = head;
 		}
-		if (((data.compareTo(STATUS_AUTHENTICATION_REQUIRED) == 0) || (data.compareTo(STATUS_UNAUTHORIZED) == 0)) && (cmdRef == 0))
+		if (((data.compareTo(DmProtocolConst.STATUS_AUTHENTICATION_REQUIRED) == 0) || (data.compareTo(DmProtocolConst.STATUS_UNAUTHORIZED) == 0)) && (cmdRef == 0))
 		{
 			chal = new tsDmParserMeta();
 			chal.format = "b64";
-			if (ws.serverCredType == CRED_TYPE_BASIC)
+			if (ws.serverCredType == DmDevInfoConst.CRED_TYPE_BASIC)
 			{
-				chal.type = CRED_TYPE_STRING_BASIC;
-				tsLib.debugPrint(DEBUG_DM, "CRED_TYPE_BASIC");
+				chal.type = DmDevInfoConst.CRED_TYPE_STRING_BASIC;
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "CRED_TYPE_BASIC");
 			}
-			else if (ws.serverCredType == CRED_TYPE_MD5)
+			else if (ws.serverCredType == DmDevInfoConst.CRED_TYPE_MD5)
 			{
-				chal.type = CRED_TYPE_STRING_MD5;
+				chal.type = DmDevInfoConst.CRED_TYPE_STRING_MD5;
 				byte[] encoder = base64.encode(ws.serverNextNonce);
 				chal.nextnonce = null;
 				chal.nextnonce = new String(encoder);
 				ret = new String(encoder);
-				tsLib.debugPrint(DEBUG_DM, "CRED_TYPE_STRING_MD5 " + "WS.serverNextNonce: " + new String(ws.serverNextNonce) + "Encoded server nonce " + chal.nextnonce);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "CRED_TYPE_STRING_MD5 " + "WS.serverNextNonce: " + new String(ws.serverNextNonce) + "Encoded server nonce " + chal.nextnonce);
 
 			}
-			else if (ws.serverCredType == CRED_TYPE_HMAC)
+			else if (ws.serverCredType == DmDevInfoConst.CRED_TYPE_HMAC)
 			{
-				chal.type = CRED_TYPE_STRING_HMAC;
+				chal.type = DmDevInfoConst.CRED_TYPE_STRING_HMAC;
 				byte[] encoder = base64.encode(ws.serverNextNonce);
 				chal.nextnonce = null;
 				chal.nextnonce = new String(encoder);
@@ -374,7 +375,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 		{
 			if ((data.compareTo("212") == 0) && (cmdRef == 0))
 			{
-				if (ws.serverCredType == CRED_TYPE_MD5)
+				if (ws.serverCredType == DmDevInfoConst.CRED_TYPE_MD5)
 				{
 					if (status.chal != null)
 					{
@@ -384,25 +385,25 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 
 					chal = new tsDmParserMeta();
 					chal.format = "b64";
-					chal.type = CRED_TYPE_STRING_MD5;
+					chal.type = DmDevInfoConst.CRED_TYPE_STRING_MD5;
 					byte[] encoder = base64.encode(ws.serverNextNonce);
 					chal.nextnonce = null;
 					chal.nextnonce = new String(encoder);
 					ret = new String(encoder);
 
 					tsdmDB.dmdbSetServerNonce(ret);
-					tsLib.debugPrint(DEBUG_DM, "CRED_TYPE_STRING_MD5 " + "WS.serverNextNonce: " + new String(ws.serverNextNonce) + "Encoded server nonce " + chal.nextnonce);
+					tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "CRED_TYPE_STRING_MD5 " + "WS.serverNextNonce: " + new String(ws.serverNextNonce) + "Encoded server nonce " + chal.nextnonce);
 					ws.sendChal = true;
 					status.chal = chal;
 				}
 			}
 		}
 
-		if ((ws.serverCredType == CRED_TYPE_HMAC) && (data.compareTo("200") == 0) && (cmdRef == 0))
+		if ((ws.serverCredType == DmDevInfoConst.CRED_TYPE_HMAC) && (data.compareTo("200") == 0) && (cmdRef == 0))
 		{
 			chal = new tsDmParserMeta();
 			chal.format = "b64";
-			chal.type = CRED_TYPE_STRING_HMAC;
+			chal.type = DmDevInfoConst.CRED_TYPE_STRING_HMAC;
 
 			byte[] encoder = base64.encode(ws.serverNextNonce);
 			chal.nextnonce = null;
@@ -426,7 +427,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 		// Defects
 		if (ws == null || source == null)
 		{
-			tsLib.debugPrint(DEBUG_DM, "ws or source is null");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "ws or source is null");
 			return null;
 		}
 
@@ -435,7 +436,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 		node = tsOmlib.dmOmLibGetNodeProp(ws.om, nodename1);
 		if (node == null)
 		{
-			tsLib.debugPrint(DEBUG_DM, "Result node is null");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "Result node is null");
 			return null; // Defects
 		}
 		/* End 1.2 ISSUE */
@@ -468,10 +469,10 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 		// set item->data
 		if (data != null)
 		{
-			if (node.format == FORMAT_BIN)
+			if (node.format == DmDevInfoConst.FORMAT_BIN)
 			{
 				item.data = new tsDmParserPcdata();
-				item.data.type = TYPE_OPAQUE;
+				item.data.type = DmDevInfoConst.TYPE_OPAQUE;
 				item.data.data = new char[size];
 				for (int i = 0; i < size; i++)
 					item.data.data[i] = data[i];
@@ -514,14 +515,14 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 		if (target.substring(0, 5).compareTo("https") == 0)
 		{
 			String subStr = target.substring(8);
-			tsLib.debugPrint(DEBUG_DM, "target.substring " + subStr);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "target.substring " + subStr);
 			int firstComma = subStr.indexOf(':');
 			int firstQuestion = subStr.indexOf('?');
 			if (firstQuestion > 0)
 				ws.hostname = "https" + "://" + subStr.substring(0, firstQuestion);
 			else
 				ws.hostname = "https" + "://" + subStr;
-			tsLib.debugPrint(DEBUG_DM, "ws.hostname => " + ws.hostname);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "ws.hostname => " + ws.hostname);
 			int firstSlash = subStr.indexOf('/');
 			String portStr = subStr.substring(firstComma + 1, firstSlash);
 			// MSC : port not exist , default port is 80
@@ -533,17 +534,17 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 			{
 				ws.port = 80;
 			}
-			tsLib.debugPrint(DEBUG_DM, "ws.port =>" + ws.port);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "ws.port =>" + ws.port);
 		}
 		else
 		{
 			String subStr = target.substring(7);
-			tsLib.debugPrint(DEBUG_DM, "target.substring " + subStr);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "target.substring " + subStr);
 			int firstComma = subStr.indexOf(':');
 			int firstQuestion = subStr.indexOf('?');
 			String hostname = subStr.substring(0, firstQuestion);
 			ws.hostname = "http" + "://" + hostname;
-			tsLib.debugPrint(DEBUG_DM, "ws.hostname => " + ws.hostname);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "ws.hostname => " + ws.hostname);
 			int firstSlash = subStr.indexOf('/');
 			String portStr = subStr.substring(firstComma + 1, firstSlash);
 
@@ -557,7 +558,7 @@ public class dmBuildcmd extends tsDmHandlecmd implements dmDefineDevInfo, tsDefI
 				ws.port = 80;
 			}
 
-			tsLib.debugPrint(DEBUG_DM, "ws.port => " + ws.port);
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "ws.port => " + ws.port);
 		}
 	}
 

@@ -2,9 +2,7 @@ package com.tsdm.db;
 
 import java.io.Serializable;
 
-import com.tsdm.agent.dmDefineDevInfo;
-
-public class tsDBfile implements Serializable, dmDefineDevInfo
+public class tsDBfile implements Serializable
 {
 	private static final long		serialVersionUID			= 1L;
 	private static final int 		DM_PROFILE_LIST = 0;

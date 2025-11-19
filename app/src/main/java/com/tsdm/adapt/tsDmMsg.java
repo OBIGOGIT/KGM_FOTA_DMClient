@@ -4,9 +4,9 @@ import android.os.Message;
 
 import com.tsdm.agent.dmTask;
 import com.tsdm.agent.dmUITask;
-import com.tsdm.agent.dmDefineDevInfo;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsDmMsg implements dmDefineDevInfo
+public class tsDmMsg
 {
 	public MsgItem msgItem;
 
@@ -100,13 +100,13 @@ public class tsDmMsg implements dmDefineDevInfo
 				{
 					try
 					{
-						tsLib.debugPrint(DEBUG_DM, "Waiting for DM_TaskHandler");
+						tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "Waiting for DM_TaskHandler");
 						//Thread.sleep(500);
 						syncMsgQueueObj.wait(500); // Compliant, the current monitor is released.
 					}
 					catch (InterruptedException e)
 					{
-						tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+						tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 						Thread.currentThread().interrupt();
 					}
 					
@@ -130,12 +130,12 @@ public class tsDmMsg implements dmDefineDevInfo
 				}
 				else
 				{
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "Can't send message");
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Can't send message");
 				}
 			}
 			catch (Exception e) 
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "Can't send message");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Can't send message");
 			}
 		}
 	}
@@ -169,7 +169,7 @@ public class tsDmMsg implements dmDefineDevInfo
 		}
 		else
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Can't send message");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Can't send message");
 		}
 	}
 

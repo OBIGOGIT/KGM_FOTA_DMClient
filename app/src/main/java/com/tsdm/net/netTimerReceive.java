@@ -6,13 +6,11 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.tsdm.core.data.constants.DmDevInfoConst;
 import com.tsdm.tsService;
-import com.tsdm.agent.dmDefineDevInfo;
-import com.tsdm.adapt.tsDefineIdle;
 import com.tsdm.adapt.tsLib;
-import com.tsdm.agent.dmDefineMsg;
 
-public class netTimerReceive implements netDefine, dmDefineMsg, tsDefineIdle, dmDefineDevInfo
+public class netTimerReceive
 {
 	private static Timer				recvTimer		= null;
 	private static httpRecvTimerTask tprecvtimer		= null;
@@ -31,7 +29,7 @@ public class netTimerReceive implements netDefine, dmDefineMsg, tsDefineIdle, dm
 
 	public static void startTimer()
 	{
-		recvTimer.scheduleAtFixedRate(tprecvtimer, new Date(), NET_TIMER_INTERVAL);
+		recvTimer.scheduleAtFixedRate(tprecvtimer, new Date(), NetConsts.NET_TIMER_INTERVAL);
 	}
 
 	public static void endTimer()
@@ -57,14 +55,14 @@ public class netTimerReceive implements netDefine, dmDefineMsg, tsDefineIdle, dm
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_NET, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_NET, e.toString());
 		}
 	}
 
-	public class httpRecvTimerTask extends TimerTask implements dmDefineDevInfo
+	public class httpRecvTimerTask extends TimerTask
 	{
 		private boolean	isCloseTimer	= false;
-		private int		timerAppId		= SYNCMLAPPNONE;
+		private int		timerAppId		= DmDevInfoConst.SYNCMLAPPNONE;
 
 		@SuppressLint("SuspiciousIndentation")
 		public void run()
@@ -73,8 +71,8 @@ public class netTimerReceive implements netDefine, dmDefineMsg, tsDefineIdle, dm
 			{
 				recvcount = 0;
 				endTimer();
-				tsLib.debugPrint(DEBUG_NET, "===Receive Fail===");
-				if (AppId == SYNCMLDM)
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_NET, "===Receive Fail===");
+				if (AppId == DmDevInfoConst.SYNCMLDM)
 					tsService.Task.dmTaskdmXXXFail();
 				else
 					tsService.Task.dmTaskdlXXXFail();
@@ -82,7 +80,7 @@ public class netTimerReceive implements netDefine, dmDefineMsg, tsDefineIdle, dm
 				return;
 			}
 			if(recvcount>0)
-			tsLib.debugPrint(DEBUG_NET, "== recv Timer[" + recvcount + "]");
+			tsLib.debugPrint(DmDevInfoConst.DEBUG_NET, "== recv Timer[" + recvcount + "]");
 			recvcount++;
 		}
 

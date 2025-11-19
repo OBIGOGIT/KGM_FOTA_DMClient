@@ -1,8 +1,11 @@
 package com.tsdm.adapt;
 
+import com.tsdm.core.data.constants.DmDevInfoConst;
+import com.tsdm.core.data.constants.WbxmlProtocolConst;
+
 import java.io.IOException;
 
-public class tsDmParserExec extends tsDmHandlecmd implements tsDefineWbxml
+public class tsDmParserExec extends tsDmHandlecmd
 {
 	public int				cmdid;
 	public int				is_noresp;
@@ -13,22 +16,22 @@ public class tsDmParserExec extends tsDmHandlecmd implements tsDefineWbxml
 	public int dmParseExec(tsDmParser p)
 	{
 		int id = -1;
-		int res = DM_ERR_OK;
+		int res = WbxmlProtocolConst.DM_ERR_OK;
 
-		res = p.dmParseCheckElement(WBXML_TAG_Exec);
-		if (res != DM_ERR_OK)
+		res = p.dmParseCheckElement(WbxmlProtocolConst.WBXML_TAG_Exec);
+		if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
 			return res;
 		}
 
 		res = p.dmParseZeroBitTagCheck();
-		if (res == DM_ERR_ZEROBIT_TAG)
+		if (res == WbxmlProtocolConst.DM_ERR_ZEROBIT_TAG)
 		{
-			return DM_ERR_OK;
+			return WbxmlProtocolConst.DM_ERR_OK;
 		}
-		else if (res != DM_ERR_OK)
+		else if (res != WbxmlProtocolConst.DM_ERR_OK)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, " not DM_ERR_OK");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, " not DM_ERR_OK");
 			return res;
 		}
 
@@ -40,10 +43,10 @@ public class tsDmParserExec extends tsDmHandlecmd implements tsDefineWbxml
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 
-			if (id == WBXML_END)
+			if (id == WbxmlProtocolConst.WBXML_END)
 			{
 				p.dmParseReadElement();
 				break;
@@ -51,31 +54,31 @@ public class tsDmParserExec extends tsDmHandlecmd implements tsDefineWbxml
 
 			switch (id)
 			{
-				case WBXML_TAG_CmdID:
+				case WbxmlProtocolConst.WBXML_TAG_CmdID:
 					res = p.dmParseElement(id);
 					cmdid = Integer.parseInt(p._pParserElement);
 					break;
 
-				case WBXML_TAG_NoResp:
+				case WbxmlProtocolConst.WBXML_TAG_NoResp:
 					is_noresp = p.dmParseBlankElement(id);
 					break;
 
-				case WBXML_TAG_Meta:
+				case WbxmlProtocolConst.WBXML_TAG_Meta:
 					meta = new tsDmParserMeta();
 					res = meta.dmParseMeta(p);
 					meta = p.Meta;
 					break;
 
-				case WBXML_TAG_Item:
+				case WbxmlProtocolConst.WBXML_TAG_Item:
 					itemlist = p.dmParseItemlist(itemlist);
 					break;
 
-				case WBXML_TAG_Correlator:
+				case WbxmlProtocolConst.WBXML_TAG_Correlator:
 					res = p.dmParseElement(id);
 					correlator = p._pParserElement;
 					break;
 
-				case WBXML_SWITCH_PAGE:
+				case WbxmlProtocolConst.WBXML_SWITCH_PAGE:
 					id = p.dmParseReadElement();
 					id = p.dmParseReadElement();
 
@@ -83,16 +86,16 @@ public class tsDmParserExec extends tsDmHandlecmd implements tsDefineWbxml
 					break;
 
 				default:
-					res = DM_ERR_UNKNOWN_ELEMENT;
+					res = WbxmlProtocolConst.DM_ERR_UNKNOWN_ELEMENT;
 			}
 
-			if (res != DM_ERR_OK)
+			if (res != WbxmlProtocolConst.DM_ERR_OK)
 			{
 				return res;
 			}
 		}
 
 		dmHdlCmdExec(p.userdata, this);
-		return DM_ERR_OK;
+		return WbxmlProtocolConst.DM_ERR_OK;
 	}
 }

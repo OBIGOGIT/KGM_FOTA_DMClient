@@ -1,5 +1,7 @@
 package com.tsdm.adapt;
 
+import com.tsdm.core.data.constants.DmDevInfoConst;
+
 import java.io.IOException;
 
 public class tsOmlib extends tsOmVfs
@@ -28,7 +30,7 @@ public class tsOmlib extends tsOmVfs
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		return 0;
 	}
@@ -104,7 +106,7 @@ public class tsOmlib extends tsOmVfs
 		ptNode = dmOmvfsPath2Node(pVfs, pPath);
 		if (ptNode == null)
 		{
-			return OMVFS_ERR_FAILED;
+			return DmDevInfoConst.OMVFS_ERR_FAILED;
 		}
 		if (ptNode.size > 0 && ptNode.vaddr >= 0)
 		{
@@ -114,14 +116,14 @@ public class tsOmlib extends tsOmVfs
 				nBuffSize -= (blocksize - ptNode.size);
 			}
 			ret = dmOmvfsLoadFsData(pVfs, ptNode, (int) (ptNode.vaddr + nOffset), pBuff, nBuffSize);
-			if (ret != OMVFS_ERR_OK)
+			if (ret != DmDevInfoConst.OMVFS_ERR_OK)
 			{
-				return OMVFS_ERR_FAILED;
+				return DmDevInfoConst.OMVFS_ERR_FAILED;
 			}
 		}
 		else
 		{
-			return OMVFS_ERR_FAILED;
+			return DmDevInfoConst.OMVFS_ERR_FAILED;
 		}
 
 		return nBuffSize;
@@ -138,13 +140,13 @@ public class tsOmlib extends tsOmVfs
 			return -3;
 		}
 
-		if (!dmOmCheckAcl(ptOmt, node, OMACL_DELETE))
+		if (!dmOmCheckAcl(ptOmt, node, DmDevInfoConst.OMACL_DELETE))
 		{
 			return -5;
 		}
 
 		ret = dmOmvfsRemoveNode(ptOmt.vfs, node, deletechild);
-		if (ret != OMVFS_ERR_OK)
+		if (ret != DmDevInfoConst.OMVFS_ERR_OK)
 		{
 			return -3;
 		}
@@ -259,7 +261,7 @@ public class tsOmlib extends tsOmVfs
 			ptr = pPath.substring(searchSlash + 1);
 		}
 
-		tsLib.debugPrint(DEBUG_DM, "strnodename :" + nodename + ", ptr :" + ptr);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "strnodename :" + nodename + ", ptr :" + ptr);
 
 		while (!tsLib.isEmpty(ptr))
 		{
@@ -277,13 +279,13 @@ public class tsOmlib extends tsOmVfs
 					{
 						nodename = ptr.substring(0, searchSlash);
 						ptr = ptr.substring(searchSlash + 1);
-						tsLib.debugPrint(DEBUG_DM, "strnodename :" + nodename + ", ptr :" + ptr);
+						tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "strnodename :" + nodename + ", ptr :" + ptr);
 					}
 					continue;
 				}
 			}
 
-			if (tsLib.isEmpty(ptr) && action == OMACL_ADD)
+			if (tsLib.isEmpty(ptr) && action == DmDevInfoConst.OMACL_ADD)
 			{
 				return true;
 			}
@@ -315,7 +317,7 @@ public class tsOmlib extends tsOmVfs
 			{
 				nodename = ptr.substring(0, searchSlash);
 				ptr = ptr.substring(searchSlash + 1);
-				tsLib.debugPrint(DEBUG_DM, "strnodename :" + nodename + ", ptr :" + ptr);
+				tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, "strnodename :" + nodename + ", ptr :" + ptr);
 			}
 			else
 			{
@@ -364,7 +366,7 @@ public class tsOmlib extends tsOmVfs
 
 		if (pNodeName.contains(".") == false)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "ROOT NODE not found");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "ROOT NODE not found");
 			return false;
 		}
 
@@ -388,7 +390,7 @@ public class tsOmlib extends tsOmVfs
 		}
 
 		dmOmWrite(om, pNodeName, 0, 0, "", 0);
-		dmOmDefaultACL(om, pNodeName, aclValue, SCOPE_DYNAMIC);
+		dmOmDefaultACL(om, pNodeName, aclValue, DmDevInfoConst.SCOPE_DYNAMIC);
 
 		return true;
 	}
@@ -432,7 +434,7 @@ public class tsOmlib extends tsOmVfs
 		}
 		else
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "Not Exist");
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "Not Exist");
 		}
 	}
 
@@ -448,7 +450,7 @@ public class tsOmlib extends tsOmVfs
 		}
 
 		ret = dmOmvfsRemoveNode(ptOmt.vfs, node, deletechild);
-		if (ret != OMVFS_ERR_OK)
+		if (ret != DmDevInfoConst.OMVFS_ERR_OK)
 		{
 			return -3;
 		}

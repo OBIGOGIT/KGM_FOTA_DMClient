@@ -2,12 +2,11 @@ package com.tsdm.db;
 
 import java.io.*;
 
-import com.tsdm.agent.dmDefineDevInfo;
 import com.tsdm.agent.dmDevInfoAdapter;
 import com.tsdm.adapt.tsLib;
-import com.tsdm.net.netDefine;
+import com.tsdm.core.data.constants.DmDevInfoConst;
 
-public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefine, tsDefineDB
+public class tsdmDBadapter extends tsDBfile implements tsDefineDB
 {
 	private static final long	serialVersionUID				= 1L;
 
@@ -57,10 +56,10 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		long RemainSize = 0;
 		long TotalSize = 0;
 
-		if(_SYNCML_TS_DM_DELTA_INTERIOR_MEMORY_STORAGE_)
+		if(DmDevInfoConst._SYNCML_TS_DM_DELTA_INTERIOR_MEMORY_STORAGE_)
 		{
 			int nDeltaFileIndex = tsdmDB.dmdbGetDeltaFileSaveIndex();
-			if(nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
+			if(nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_MEMORY)
 			{
 				if(dmDevInfoAdapter.checkExternalMemoryAvailable())
 				{
@@ -74,10 +73,10 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 				TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 			}
 		}
-		else if(_SYNCML_TS_DM_DELTA_MULTI_MEMORY_STORAGE_)
+		else if(DmDevInfoConst._SYNCML_TS_DM_DELTA_MULTI_MEMORY_STORAGE_)
 		{
 			int nDeltaFileIndex = tsdmDB.dmdbGetDeltaFileSaveIndex();
-			if(nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
+			if(nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_MEMORY)
 			{
 				if(dmDevInfoAdapter.checkExternalMemoryAvailable())
 				{
@@ -85,7 +84,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 					TotalSize = dmDevInfoAdapter.getTotalExternalMemorySize();
 				}
 			}
-			else if(nDeltaFileIndex == DELTA_EXTERNAL_SD_MEMORY)
+			else if(nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_SD_MEMORY)
 			{
 				if(dmDevInfoAdapter.checkExternalSdMemoryAvailable())
 				{
@@ -99,7 +98,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 				TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 			}
 		}
-		else if (_SYNCML_TS_DM_DELTA_EXTERNAL_STORAGE_)
+		else if (DmDevInfoConst._SYNCML_TS_DM_DELTA_EXTERNAL_STORAGE_)
 		{
 			if(dmDevInfoAdapter.checkExternalMemoryAvailable())
 			{
@@ -112,7 +111,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			RemainSize = dmDevInfoAdapter.getAvailableInternalMemorySize();
 			TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 		}
-		tsLib.debugPrint(DEBUG_DM, String.format("External Memory Size is %d %d and Delta Size is %d bytes", RemainSize, TotalSize, nDataSize));
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, String.format("External Memory Size is %d %d and Delta Size is %d bytes", RemainSize, TotalSize, nDataSize));
 		
 		if (RemainSize <= (long)nDataSize)
 		{
@@ -128,9 +127,9 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		long RemainSize = 0;
 		long TotalSize = 0;
 		
-		if (_SYNCML_TS_DM_DELTA_INTERIOR_MEMORY_STORAGE_)
+		if (DmDevInfoConst._SYNCML_TS_DM_DELTA_INTERIOR_MEMORY_STORAGE_)
 		{
-			if (nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
+			if (nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_MEMORY)
 			{
 				if (dmDevInfoAdapter.checkExternalMemoryAvailable())
 				{
@@ -144,9 +143,9 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 				TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 			}
 		}
-		else if (_SYNCML_TS_DM_DELTA_MULTI_MEMORY_STORAGE_)
+		else if (DmDevInfoConst._SYNCML_TS_DM_DELTA_MULTI_MEMORY_STORAGE_)
 		{
-			if (nDeltaFileIndex == DELTA_EXTERNAL_MEMORY)
+			if (nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_MEMORY)
 			{
 				if (dmDevInfoAdapter.checkExternalMemoryAvailable())
 				{
@@ -154,7 +153,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 					TotalSize = dmDevInfoAdapter.getTotalExternalMemorySize();
 				}
 			}
-			else if (nDeltaFileIndex == DELTA_EXTERNAL_SD_MEMORY)
+			else if (nDeltaFileIndex == DmDevInfoConst.DELTA_EXTERNAL_SD_MEMORY)
 			{
 				if (dmDevInfoAdapter.checkExternalSdMemoryAvailable())
 				{
@@ -168,8 +167,8 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 				TotalSize = dmDevInfoAdapter.getTotalInternalMemorySize();
 			}
 		}
-		tsLib.debugPrint(DEBUG_DB, " Index : " + nDeltaFileIndex);
-		tsLib.debugPrint(DEBUG_DM, String.format("Free Memory Size is %d/%d and Delta Size is %d bytes", RemainSize, TotalSize, nDataSize));
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DB, " Index : " + nDeltaFileIndex);
+		tsLib.debugPrint(DmDevInfoConst.DEBUG_DM, String.format("Free Memory Size is %d/%d and Delta Size is %d bytes", RemainSize, TotalSize, nDataSize));
 		
 		if (RemainSize <= (long)nDataSize)
 		{
@@ -188,16 +187,16 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 
 			if (file.canRead())
 			{
-				return SDM_RET_OK;
+				return DmDevInfoConst.SDM_RET_OK;
 			}
 			else
 			{
-				return SDM_RET_FAILED;
+				return DmDevInfoConst.SDM_RET_FAILED;
 			}
 		}
 		else
 		{
-			return SDM_RET_FAILED;
+			return DmDevInfoConst.SDM_RET_FAILED;
 		}
 	}
 
@@ -213,15 +212,15 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		}
 		catch (StreamCorruptedException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		finally
 		{
@@ -234,7 +233,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 		return len;
@@ -254,15 +253,15 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		}
 		catch (StreamCorruptedException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 		}
 		finally
 		{
@@ -275,11 +274,11 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 
-		if (ret != SDM_RET_FAILED)
+		if (ret != DmDevInfoConst.SDM_RET_FAILED)
 			return true;
 		else
 			return false;
@@ -301,17 +300,17 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		}
 		catch (StreamCorruptedException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		finally
@@ -325,7 +324,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 
 			try
@@ -337,7 +336,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 		tmp = null;
@@ -359,22 +358,22 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		}
 		catch (StreamCorruptedException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		catch (Exception e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		finally
@@ -388,7 +387,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 
 			try
@@ -400,7 +399,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 
@@ -421,17 +420,17 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		}
 		catch (StreamCorruptedException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		catch (FileNotFoundException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		catch (IOException e)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			return false;
 		}
 		finally
@@ -445,7 +444,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 
 			try
@@ -457,7 +456,7 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			}
 			catch (IOException e)
 			{
-				tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
 			}
 		}
 
@@ -471,13 +470,13 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 			File file = new File(path);
 			if (file.exists()) {
 				if (!file.delete()) {
-					tsLib.debugPrintException(DEBUG_EXCEPTION, "file delete fail");
+					tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "file delete fail");
 				}
 			}
 		}
 		catch (Exception ex)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, ex.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, ex.toString());
 
 			return false;
 		}
@@ -492,25 +491,25 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 		{
 			File file = new File(path);
 			if (!file.delete()) {
-				tsLib.debugPrintException(DEBUG_EXCEPTION, "file delete fail");
+				tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "file delete fail");
 			}
 		}
 		catch (Exception ex)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, ex.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, ex.toString());
 
-			return SDM_RET_FAILED;
+			return DmDevInfoConst.SDM_RET_FAILED;
 		}
 
-		return SDM_RET_OK;
+		return DmDevInfoConst.SDM_RET_OK;
 	}
 
 	public static int FileRename(String srcPath, String destPath)
 	{
 		if (srcPath == null || destPath == null)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, "file path file");
-			return SDM_RET_FAILED;
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "file path file");
+			return DmDevInfoConst.SDM_RET_FAILED;
 		}
 
 		try
@@ -525,24 +524,24 @@ public class tsdmDBadapter extends tsDBfile implements dmDefineDevInfo, netDefin
 					{
 						File destFile = new File(destPath);
 						if(!srcFile.renameTo(destFile)) {
-							tsLib.debugPrintException(DEBUG_EXCEPTION, "renameTo fail");
+							tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, "renameTo fail");
 						}
 					}
 					catch (Exception e)
 					{
-						tsLib.debugPrintException(DEBUG_EXCEPTION, e.toString());
-						return SDM_RET_FAILED;
+						tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, e.toString());
+						return DmDevInfoConst.SDM_RET_FAILED;
 					}
 				}
 			}
 		}
 		catch (Exception ex)
 		{
-			tsLib.debugPrintException(DEBUG_EXCEPTION, ex.toString());
+			tsLib.debugPrintException(DmDevInfoConst.DEBUG_EXCEPTION, ex.toString());
 
-			return SDM_RET_FAILED;
+			return DmDevInfoConst.SDM_RET_FAILED;
 		}
 
-		return SDM_RET_OK;
+		return DmDevInfoConst.SDM_RET_OK;
 	}
 }
